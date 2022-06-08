@@ -10,5 +10,7 @@
     "dev": "vuepress dev docs",
     "build": "vuepress build docs",
     "deploy": "bash deploy.sh"
-  }
+  },
+  "repository": "git@github.com:thinker365/vuepress-demo.git",
+  "author": "liulinyuan <18380430509@163.com>"
 }

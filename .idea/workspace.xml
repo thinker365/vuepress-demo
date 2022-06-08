@@ -2,9 +2,63 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b4787287-523d-4d5e-b903-2cee3e186771" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/backend/celery/celery.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/backend/django/Django.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/backend/drf/Django REST framework.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/backend/python/7个高质量学习Python的开源库.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/backend/python/90条Python编程建议.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/backend/python/Python优化技巧.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/backend/python/Python实用技巧.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/backend/python/Python并发编程.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/backend/python/Python标准库.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/backend/python/Python正则表达式.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/backend/python/Snipaste_2022-05-11_13-36-15.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/backend/python/Snipaste_2022-05-20_16-13-08.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/backend/python/Snipaste_2022-05-20_16-14-10.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/backend/python/很nice的三方库.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/backend/python/深入理解python特性.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/backend/python/超全内置函数.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/backend/python/闭包替换递归.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/basic/linux/640.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/basic/linux/Linux三剑客.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/basic/linux/Linux快捷键.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/basic/linux/Linux环境变量配置.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/basic/linux/Snipaste_2022-05-02_15-45-34.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/basic/linux/Snipaste_2022-05-02_15-49-30.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/basic/linux/Snipaste_2022-05-02_15-52-43.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/basic/linux/交换机流量镜像.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/basic/linux/虚拟机网络连接介绍.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/basic/network/Cookie、Session、Token、JWT.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/basic/network/HTTP、HTTPS协议.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/basic/network/Snipaste_2022-05-09_11-09-54.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/basic/network/Snipaste_2022-05-09_11-21-50.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/basic/network/Snipaste_2022-05-09_13-29-48.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/basic/network/Snipaste_2022-05-09_13-39-21.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/basic/network/Snipaste_2022-05-09_13-42-11.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/basic/network/计算机网络核心概念.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/database/elasticsearch/Elasticsearch.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/database/mysql/Mysql.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/database/redis/Redis.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/frontend/css/CSS布局技巧.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/frontend/css/flex布局之美.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/frontend/vue/Vue基础知识点.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/frontend/vue/Vue组件通信.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/qa/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/qa/basic/测试体系概览.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/qa/basic/测试的生命周期.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/qa/view/不同视角看测试.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/tool/burpsuite/BurpSuite.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/tool/charles/Charles.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/tool/cypress/Cypress.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/tool/selenium/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/tool/selenium/Selenium.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/tool/wireshark/Wireshark.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/docs/.vuepress/config.js" beforeDir="false" afterPath="$PROJECT_DIR$/docs/.vuepress/config.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/guide/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/deploy/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/basic/linux/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/basic/linux/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/basic/network/test1/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -14,6 +68,7 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="JupyterTrust" id="7951ae08-936c-4857-afaa-23a3af46800c" />
   <component name="ProjectId" id="2AHhaUWrNseOPXe7crXFoVLTjlp" />
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
@@ -24,15 +79,32 @@
     <option name="showMembers" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="ASKED_MARK_IGNORED_FILES_AS_EXCLUDED" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/docs/tool/selenium" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="vue.rearranger.settings.migration" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Administrator\Desktop\vuepress-demo\docs\backend\drf" />
+      <recent name="C:\Users\Administrator\Desktop\vuepress-demo\docs\frontend\vue" />
+      <recent name="C:\Users\Administrator\Desktop\vuepress-demo\docs\qa\view" />
+      <recent name="C:\Users\Administrator\Desktop\vuepress-demo\docs\qa\basic" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Administrator\Desktop\vuepress-demo\docs\tool\selenium" />
+      <recent name="C:\Users\Administrator\Desktop\vuepress-demo\docs\database\redis" />
+      <recent name="C:\Users\Administrator\Desktop\vuepress-demo\docs\database\elasticsearch" />
+      <recent name="C:\Users\Administrator\Desktop\vuepress-demo\docs\database\mysql" />
+      <recent name="C:\Users\Administrator\Desktop\vuepress-demo\docs\backend\python" />
+    </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -43,6 +115,7 @@
       <option name="presentableId" value="Default" />
       <updated>1654672482586</updated>
       <workItem from="1654672483762" duration="4161000" />
+      <workItem from="1654692938813" duration="7713000" />
     </task>
     <servers />
   </component>
@@ -59,5 +132,27 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state width="1322" height="99" key="GridCell.Tab.0.bottom" timestamp="1654700231103">
+      <screen x="0" y="0" width="1366" height="738" />
+    </state>
+    <state width="1322" height="99" key="GridCell.Tab.0.bottom/0.0.1366.738@0.0.1366.738" timestamp="1654700231103" />
+    <state width="1322" height="99" key="GridCell.Tab.0.center" timestamp="1654700231102">
+      <screen x="0" y="0" width="1366" height="738" />
+    </state>
+    <state width="1322" height="99" key="GridCell.Tab.0.center/0.0.1366.738@0.0.1366.738" timestamp="1654700231102" />
+    <state width="1322" height="99" key="GridCell.Tab.0.left" timestamp="1654700231102">
+      <screen x="0" y="0" width="1366" height="738" />
+    </state>
+    <state width="1322" height="99" key="GridCell.Tab.0.left/0.0.1366.738@0.0.1366.738" timestamp="1654700231102" />
+    <state width="1322" height="99" key="GridCell.Tab.0.right" timestamp="1654700231102">
+      <screen x="0" y="0" width="1366" height="738" />
+    </state>
+    <state width="1322" height="99" key="GridCell.Tab.0.right/0.0.1366.738@0.0.1366.738" timestamp="1654700231102" />
   </component>
 </project>
