@@ -1,5 +1,5 @@
 module.exports = {
-    title: '怪正经的公民',//网站名
+    title: '怪正经的公民',
     description: 'Just playing around',
     themeConfig: {
         logo: '/assets/img/logo.jpg',

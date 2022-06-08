@@ -1,1 +1,1 @@
-2022
+详情查阅：https://thinker365.github.io
