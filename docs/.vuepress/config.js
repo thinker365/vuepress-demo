@@ -1,8 +1,8 @@
 module.exports = {
-    title: '怪正经的公民',
-    description: 'Just playing around',
+    title: 'DayDayUp',
+    // description: 'Just playing around',
     themeConfig: {
-        logo: '/assets/img/logo.jpg',
+        logo: '/assets/img/2.png',
         sidebar: {
             '/qa/basic/': [
                 {
@@ -128,7 +128,7 @@ module.exports = {
                 {
                     title: '基础知识',
                     children: [
-                        ['celery', 'celery'],
+                        ['celery', 'Celery'],
                     ]
                 },
             ],
@@ -183,38 +183,41 @@ module.exports = {
             },
             {
                 text: '软件测试体系',
-                ariaLabel: 'Language Menu',
                 items: [
-                    {text: '基础知识', link: '/qa/basic/'},
-                    {text: '测试视角', link: '/qa/view/'}
+                    {text: '测试基础知识', link: '/qa/basics/'},
+                    {text: '自动化测试', link: '/qa/automatic/'},
+                    {text: '性能测试', link: '/qa/performance/'},
+                    {text: '安全测试', link: '/qa/security/'},
+                    {text: '测试工具', link: '/qa/tool/'},
+                    {text: '测试框架', link: '/qa/framework/'},
                 ]
             },
             {
                 text: '计算机基础',
-                ariaLabel: 'Language Menu',
                 items: [
                     {text: '计算机网络', link: '/basic/network/'},
-                    {text: '操作系统', link: '/basic/os/'},
+                    {text: '操作系统', link: '/basics/os/'},
                     {text: 'Linux', link: '/basic/linux/'},
+                    {text: '数据结构与算法', link: '/basic/algorithms/'},
                 ]
             },
-            {
-                text: '自动化工具',
-                ariaLabel: 'Language Menu',
-                items: [
-                    {text: 'Selenium', link: '/tool/selenium/'},
-                    {text: 'Cypress', link: '/tool/cypress/'},
-                    {text: 'Charles', link: '/tool/charles/'},
-                    {text: 'BurpSuite', link: '/tool/burpsuite/'},
-                    {text: 'Wireshark', link: '/tool/wireshark/'},
-                ]
-            },
+            // {
+            //     text: '自动化工具',
+            //     ariaLabel: 'Language Menu',
+            //     items: [
+            //         {text: 'Selenium', link: '/tool/selenium/'},
+            //         {text: 'Cypress', link: '/tool/cypress/'},
+            //         {text: 'Charles', link: '/tool/charles/'},
+            //         {text: 'BurpSuite', link: '/tool/burpsuite/'},
+            //         {text: 'Wireshark', link: '/tool/wireshark/'},
+            //     ]
+            // },
             {
                 text: '前端游乐场',
                 ariaLabel: 'Language Menu',
                 items: [
                     {text: 'Vue', link: '/frontend/vue/'},
-                    {text: 'CSS', link: '/frontend/css/'}
+                    {text: 'Css', link: '/frontend/css/'}
                 ]
             },
             {
@@ -224,7 +227,7 @@ module.exports = {
                     {text: 'Python', link: '/backend/python/'},
                     {text: 'Django', link: '/backend/django/'},
                     {text: 'Django REST Framework', link: '/backend/drf/'},
-                    {text: 'celery', link: '/backend/celery/'},
+                    {text: 'Celery', link: '/backend/celery/'},
                 ]
             },
             {
@@ -233,13 +236,28 @@ module.exports = {
                 items: [
                     {text: 'Mysql', link: '/db/mysql/'},
                     {text: 'Redis', link: '/db/redis/'},
-                    {text: 'mongodb', link: '/db/mongodb/'},
-                    {text: 'elasticsearch', link: '/db/elasticsearch/'},
+                    {text: 'Mongodb', link: '/db/mongodb/'},
+                    {text: 'Elasticsearch', link: '/db/elasticsearch/'},
                 ]
             },
             {
                 text: '开源前哨',
-                link: '/'
+                items: [
+                    {text: '思考模型', link: '/softskills/mysql/'},
+                ]
+            },
+            {
+                text: '软能力',
+                items: [
+                    {text: '思考模型', link: '/softskills/mind/'},
+                    {text: '不咋会沟通', link: '/softskills/communication/'},
+                ]
+            },
+            {
+                text: '备忘录',
+                items: [
+                    {text: '思考模型', link: '/softskills/mind/'},
+                ]
             },
 
         ],

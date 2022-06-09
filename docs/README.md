@@ -1,10 +1,10 @@
 ---
 home: true
-heroImage: /assets/img/logo.jpg
-heroText: L圈圈的后宫
-tagline: 找不着北的时候，就多看看东西！
-actionText: Let's go →
-actionLink: /zh/guide/
+heroImage: /assets/img/1.png
+heroText: L圈圈De圈圈
+tagline: 找不着北的时候，就多看看东西叭！
+actionText: Let's play  ->
+actionLink: /qa/basics/
 features:
 - title: 简洁至上
   details: 以 Markdown 为中心的项目结构，以最少的配置帮助你专注于写作。
