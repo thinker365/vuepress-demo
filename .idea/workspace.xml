@@ -2,152 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b4787287-523d-4d5e-b903-2cee3e186771" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/docs/.vuepress/public/assets/img/1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/backend/java/Java笔记/Java核心知识点.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/backend/java/Java笔记/index.rst" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/basic/algorithms/Snipaste_2022-05-17_11-30-27.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/basic/algorithms/Snipaste_2022-05-17_11-30-48.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/basic/algorithms/Snipaste_2022-05-17_12-50-56.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/basic/algorithms/Snipaste_2022-05-17_12-53-30.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/basic/algorithms/Snipaste_2022-05-17_12-55-33.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/basic/algorithms/Snipaste_2022-05-17_12-56-31.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/basic/algorithms/Snipaste_2022-05-17_12-57-01.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/basic/algorithms/Snipaste_2022-05-17_12-57-39.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/basic/algorithms/Snipaste_2022-05-17_12-58-08.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/basic/algorithms/Snipaste_2022-05-17_13-06-56.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/basic/algorithms/Snipaste_2022-05-17_13-11-00.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/basic/algorithms/index.rst" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/basic/algorithms/二叉树.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/memo/令人惊艳的链接备忘录.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/opensource/项目列表.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/qa/framework/Pytest/Pytest.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/qa/framework/Pytest/index.rst" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/qa/performance/Jmeter/Jmeter.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/qa/performance/Jmeter/index.rst" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/qa/performance/Locust/Locust.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/qa/performance/Locust/index.rst" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/qa/performance/性能测试重要的概念/1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/qa/performance/性能测试重要的概念/2.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/qa/performance/性能测试重要的概念/TPS、并发数、线程数.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/qa/performance/性能测试重要的概念/index.rst" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/qa/performance/性能测试重要的概念/构建性能测试体系.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/qa/security/Awvs/Awvs破解.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/qa/security/Awvs/index.rst" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/qa/security/Nessus/Nessus功能特性.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/qa/security/Nessus/Nessus破解.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/qa/security/Nessus/index.rst" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/qa/security/常见漏洞攻防/index.rst" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/qa/security/常见漏洞攻防/业务逻辑安全/index.rst" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/qa/security/常见漏洞攻防/客户端脚本安全/index.rst" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/qa/security/常见漏洞攻防/客户端脚本安全/浏览器安全/SQL注入原理.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/qa/security/常见漏洞攻防/客户端脚本安全/浏览器安全/SQL注入类型.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/qa/security/常见漏洞攻防/客户端脚本安全/浏览器安全/index.rst" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/qa/security/常见漏洞攻防/客户端脚本安全/点击劫持/SQL注入原理.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/qa/security/常见漏洞攻防/客户端脚本安全/点击劫持/SQL注入类型.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/qa/security/常见漏洞攻防/客户端脚本安全/点击劫持/index.rst" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/qa/security/常见漏洞攻防/客户端脚本安全/网页钓鱼/SQL注入原理.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/qa/security/常见漏洞攻防/客户端脚本安全/网页钓鱼/SQL注入类型.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/qa/security/常见漏洞攻防/客户端脚本安全/网页钓鱼/index.rst" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/qa/security/常见漏洞攻防/客户端脚本安全/跨站脚本XSS/index.rst" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/qa/security/常见漏洞攻防/客户端脚本安全/跨站脚本XSS/跨站脚本XSS.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/qa/security/常见漏洞攻防/客户端脚本安全/跨站请求伪造CSRF/index.rst" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/qa/security/常见漏洞攻防/客户端脚本安全/跨站请求伪造CSRF/跨站请求伪造CSRF.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/qa/security/常见漏洞攻防/服务端应用安全/SQL注入/SQL注入.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/qa/security/常见漏洞攻防/服务端应用安全/SQL注入/index.rst" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/qa/security/常见漏洞攻防/服务端应用安全/WEB SERVER配置安全/SQL注入原理.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/qa/security/常见漏洞攻防/服务端应用安全/WEB SERVER配置安全/SQL注入类型.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/qa/security/常见漏洞攻防/服务端应用安全/WEB SERVER配置安全/index.rst" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/qa/security/常见漏洞攻防/服务端应用安全/WEB框架漏洞/SQL注入原理.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/qa/security/常见漏洞攻防/服务端应用安全/WEB框架漏洞/SQL注入类型.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/qa/security/常见漏洞攻防/服务端应用安全/WEB框架漏洞/index.rst" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/qa/security/常见漏洞攻防/服务端应用安全/index.rst" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/qa/security/常见漏洞攻防/服务端应用安全/加密算法安全/SQL注入原理.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/qa/security/常见漏洞攻防/服务端应用安全/加密算法安全/SQL注入类型.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/qa/security/常见漏洞攻防/服务端应用安全/加密算法安全/index.rst" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/qa/security/常见漏洞攻防/服务端应用安全/反序列化漏洞/index.rst" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/qa/security/常见漏洞攻防/服务端应用安全/反序列化漏洞/反序列化漏洞.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/qa/security/常见漏洞攻防/服务端应用安全/开发语言安全/SQL注入原理.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/qa/security/常见漏洞攻防/服务端应用安全/开发语言安全/SQL注入类型.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/qa/security/常见漏洞攻防/服务端应用安全/开发语言安全/index.rst" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/qa/security/常见漏洞攻防/服务端应用安全/拒绝服务攻击/SQL注入原理.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/qa/security/常见漏洞攻防/服务端应用安全/拒绝服务攻击/SQL注入类型.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/qa/security/常见漏洞攻防/服务端应用安全/拒绝服务攻击/index.rst" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/qa/security/常见漏洞攻防/服务端应用安全/文件上传/index.rst" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/qa/security/常见漏洞攻防/服务端应用安全/文件上传/文件上传.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/qa/security/常见漏洞攻防/服务端应用安全/服务端请求伪造SSRF/index.rst" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/qa/security/常见漏洞攻防/服务端应用安全/服务端请求伪造SSRF/服务端请求伪造SSRF.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/qa/security/常见漏洞攻防/服务端应用安全/认证与会话管理/SQL注入原理.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/qa/security/常见漏洞攻防/服务端应用安全/认证与会话管理/SQL注入类型.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/qa/security/常见漏洞攻防/服务端应用安全/认证与会话管理/index.rst" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/qa/security/常见漏洞攻防/服务端应用安全/访问控制/SQL注入原理.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/qa/security/常见漏洞攻防/服务端应用安全/访问控制/SQL注入类型.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/qa/security/常见漏洞攻防/服务端应用安全/访问控制/index.rst" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/qa/tool/burpsuite/BurpSuite.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/qa/tool/burpsuite/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/qa/tool/charles/Charles.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/qa/tool/charles/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/qa/tool/cypress/Cypress.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/qa/tool/cypress/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/qa/tool/devops/代码检查点.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/qa/tool/devops/代码预检查.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/qa/tool/docker/Docker.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/qa/tool/git/Git.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/qa/tool/selenium/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/qa/tool/selenium/Selenium.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/qa/tool/wireshark/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/qa/tool/wireshark/Wireshark.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/softskills/1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/softskills/10.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/softskills/11.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/softskills/12.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/softskills/13.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/softskills/14.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/softskills/15.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/softskills/16.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/softskills/17.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/softskills/18.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/softskills/19.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/softskills/2.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/softskills/20.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/softskills/21.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/softskills/22.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/softskills/23.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/softskills/24.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/softskills/25.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/softskills/26.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/softskills/27.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/softskills/28.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/softskills/29.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/softskills/3.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/softskills/30.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/softskills/4.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/softskills/5.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/softskills/6.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/softskills/7.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/softskills/8.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/softskills/9.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/softskills/index.rst" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/softskills/沟通训练营.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/softskills/阿里工程师的自我修养.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/odd.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/.vuepress/config.js" beforeDir="false" afterPath="$PROJECT_DIR$/docs/.vuepress/config.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/.vuepress/public/logo.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/qa/basic/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/qa/basics/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/qa/basic/测试体系概览.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/qa/basics/测试体系概览.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/qa/basic/测试的生命周期.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/qa/basics/测试的生命周期.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/tool/burpsuite/BurpSuite.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/tool/burpsuite/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/tool/charles/Charles.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/tool/charles/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/tool/cypress/Cypress.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/tool/cypress/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/tool/selenium/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/tool/selenium/Selenium.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/tool/wireshark/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/tool/wireshark/Wireshark.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/qa/security/Nessus/Nessus破解.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/qa/security/Nessus/Nessus破解.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -158,6 +13,9 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="JupyterTrust" id="7951ae08-936c-4857-afaa-23a3af46800c" />
+  <component name="PackageJsonUpdateNotifier">
+    <dismissed value="$PROJECT_DIR$/package.json" />
+  </component>
   <component name="ProjectId" id="2AHhaUWrNseOPXe7crXFoVLTjlp" />
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
@@ -173,7 +31,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/docs/.vuepress/public/assets/img" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/docs/qa/security/Nessus" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
@@ -181,19 +39,19 @@
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Admin\Desktop\vuepress\vuepress-demo\docs\qa\security\Nessus" />
+      <recent name="C:\Users\Administrator\Desktop\vuepress-demo\docs\.vuepress\public\assets\img" />
+      <recent name="C:\Users\Administrator\Desktop\vuepress-demo\docs\memo" />
+      <recent name="C:\Users\Administrator\Desktop\vuepress-demo\docs\softskills" />
+      <recent name="C:\Users\Administrator\Desktop\vuepress-demo\docs\mind" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\Administrator\Desktop\vuepress-demo\docs\qa" />
       <recent name="C:\Users\Administrator\Desktop\vuepress-demo\docs\backend\drf" />
       <recent name="C:\Users\Administrator\Desktop\vuepress-demo\docs\frontend\vue" />
       <recent name="C:\Users\Administrator\Desktop\vuepress-demo\docs\qa\view" />
       <recent name="C:\Users\Administrator\Desktop\vuepress-demo\docs\qa\basic" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\Administrator\Desktop\vuepress-demo\docs\.vuepress\public\assets\img" />
-      <recent name="C:\Users\Administrator\Desktop\vuepress-demo\docs\memo" />
-      <recent name="C:\Users\Administrator\Desktop\vuepress-demo\docs\softskills" />
-      <recent name="C:\Users\Administrator\Desktop\vuepress-demo\docs\mind" />
-      <recent name="C:\Users\Administrator\Desktop\vuepress-demo\docs\qa\tool\devops" />
     </key>
   </component>
   <component name="RunManager">
@@ -235,6 +93,7 @@
       <updated>1654672482586</updated>
       <workItem from="1654672483762" duration="4161000" />
       <workItem from="1654692938813" duration="16050000" />
+      <workItem from="1654850011187" duration="695000" />
     </task>
     <servers />
   </component>
