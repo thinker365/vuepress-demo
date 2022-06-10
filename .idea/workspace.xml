@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b4787287-523d-4d5e-b903-2cee3e186771" name="Default Changelist" comment="">
+<<<<<<< HEAD
       <change afterPath="$PROJECT_DIR$/docs/.vuepress/public/assets/img/向上箭头粗小.png" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/docs/qa/automatic/Cypress.md" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/docs/qa/automatic/Playwright.md" afterDir="false" />
@@ -35,6 +36,9 @@
       <change beforePath="$PROJECT_DIR$/docs/qa/tool/selenium/Selenium.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/qa/automatic/Selenium.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/docs/qa/view/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/qa/view/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/odd.py" beforeDir="false" afterPath="$PROJECT_DIR$/odd.py" afterDir="false" />
+=======
+      <change beforePath="$PROJECT_DIR$/docs/qa/security/Nessus/Nessus破解.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/qa/security/Nessus/Nessus破解.md" afterDir="false" />
+>>>>>>> ddfcec0a142ef988b6f17a1d9bd24a4a1e3895dd
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,6 +49,9 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="JupyterTrust" id="7951ae08-936c-4857-afaa-23a3af46800c" />
+  <component name="PackageJsonUpdateNotifier">
+    <dismissed value="$PROJECT_DIR$/package.json" />
+  </component>
   <component name="ProjectId" id="2AHhaUWrNseOPXe7crXFoVLTjlp" />
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
@@ -60,7 +67,11 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+<<<<<<< HEAD
     <property name="last_opened_file_path" value="$PROJECT_DIR$/docs/qa/framework" />
+=======
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/docs/qa/security/Nessus" />
+>>>>>>> ddfcec0a142ef988b6f17a1d9bd24a4a1e3895dd
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
@@ -68,6 +79,13 @@
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Admin\Desktop\vuepress\vuepress-demo\docs\qa\security\Nessus" />
+      <recent name="C:\Users\Administrator\Desktop\vuepress-demo\docs\.vuepress\public\assets\img" />
+      <recent name="C:\Users\Administrator\Desktop\vuepress-demo\docs\memo" />
+      <recent name="C:\Users\Administrator\Desktop\vuepress-demo\docs\softskills" />
+      <recent name="C:\Users\Administrator\Desktop\vuepress-demo\docs\mind" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\Administrator\Desktop\vuepress-demo\docs\qa\performance" />
       <recent name="C:\Users\Administrator\Desktop\vuepress-demo\docs\qa\automatic" />
@@ -75,6 +93,7 @@
       <recent name="C:\Users\Administrator\Desktop\vuepress-demo\docs\backend\drf" />
       <recent name="C:\Users\Administrator\Desktop\vuepress-demo\docs\frontend\vue" />
     </key>
+<<<<<<< HEAD
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Administrator\Desktop\vuepress-demo\docs\qa\framework" />
       <recent name="C:\Users\Administrator\Desktop\vuepress-demo\docs\qa\security" />
@@ -82,6 +101,8 @@
       <recent name="C:\Users\Administrator\Desktop\vuepress-demo\docs\qa\automatic" />
       <recent name="C:\Users\Administrator\Desktop\vuepress-demo\docs\qa\view" />
     </key>
+=======
+>>>>>>> ddfcec0a142ef988b6f17a1d9bd24a4a1e3895dd
   </component>
   <component name="RunManager">
     <configuration name="odd" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
@@ -121,7 +142,12 @@
       <option name="presentableId" value="Default" />
       <updated>1654672482586</updated>
       <workItem from="1654672483762" duration="4161000" />
+<<<<<<< HEAD
       <workItem from="1654692938813" duration="21554000" />
+=======
+      <workItem from="1654692938813" duration="16050000" />
+      <workItem from="1654850011187" duration="695000" />
+>>>>>>> ddfcec0a142ef988b6f17a1d9bd24a4a1e3895dd
     </task>
     <servers />
   </component>

@@ -1,6 +1,6 @@
 Nessus破解
 =========================================
-
+//ssh knownsec@10.8.250.77 “cat >> ~/.ssh/authorized_keys” < C:\Users\Admin\.ssh\id_rsa.pub
 1. 下载安装
 	```
 	下载：https://www.tenable.com/downloads/nessus
@@ -16,52 +16,86 @@ Nessus破解
 
 1. 安装linsence和插件更新包
 
-	- 查询challenge值：/opt/nessus/sbin/nessuscli fetch --challenge
+	- 在安装服务器查询challenge值：/opt/nessus/sbin/nessuscli fetch --challenge
 	- 访问：https://zh-cn.tenable.com/products/nessus/nessus-essentials?tns_redirect=true
-	- 系统注册，配置电子邮件
-	- 查询activation code，如下：
-	- Activating Your Nessus Essentials License
-	- Your activation code for Nessus Essentials is:
-	- xxxx-xxxx-xxxx-xxxx-xxxx
-	- 点击offline registration instructions链接
-	- 页面访问：https://plugins.nessus.org/v2/offline.php
-	- 输入challenge值和activation code，提交
-	- 页面点击链接下载更新包（如all-2.0.tar.gz），点击nessus.license下载Linsence
+		- 系统注册，配置电子邮件
+		- 查询activation code，如下：
+			```
+			Activating Your Nessus Essentials License
+			Your activation code for Nessus Essentials is:
+			xxxx-xxxx-xxxx-xxxx-xxxx
+			```
+		- 点击邮件内容offline registration instructions链接
+		- 页面访问：https://plugins.nessus.org/v2/offline.php
+		- 输入challenge值和activation code，提交
+		- 页面点击链接下载更新包（如all-2.0.tar.gz），点击nessus.license下载Linsence
 
 1. 激活漏洞插件
 
-	- /opt/nessus/sbin/nessuscli update all-2.0.tar.gz
+	- /opt/nessus/sbin/nessuscli update all-2.0.tar.gz（前提已上传包至服务器，需要等一会儿）
+	```
+	以上更新插件会得到一串数字，用于破解，请记住！！！
+	[info] Copying templates version 202205311353 to /opt/nessus/var/nessus/templates/tmp
+	[info] Finished copying templates.
+	[info] Moved new templates with version 202205311353 from plugins dir.
+	[info] Moved new pendo client with version 21220 from plugins dir.
+	 * Update successful.  The changes will be automatically processed by Nessus.
+	```
 	- /opt/nessus/sbin/nessuscli fetch --register-offline nessus.license
-	- 更新插件会得到一串数字，用于破解，请记住！！！
-	- 完事后，重启：service nessusd restart
-	- 访问：https://localhost:8834
-	- 等待初始化插件，大概10分钟~
-	- 可看到nessus初始化完成后，license限制只支持16个IP
+	```
+	Your Activation Code has been registered properly - thank you.
+	```
+	- 完事后，重启
+	```
+	service nessusd restart
+	```
+	- 访问：https://localhost:8834，等待初始化插件，大概10分钟~
+	- 可看到nessus初始化完成后，登录系统，license限制只支持16个IP
 	
 1. 破解IP限制
 
 	- 先将插件临时保存
-	- cp -r /opt/nessus/lib/nessus/plugins /tmp/nessus
+	```
+	cp -r /opt/nessus/lib/nessus/plugins /tmp/nessus（文件比较多，需等会）
+	```
 	- 创建plugin_feed_info.inc文件，内容如下：
-	- PLUGIN_SET = 202202012215;---->第四步获取的那一串数字
-	- PLUGIN_FEED = "ProfessionalFeed (Direct)";
-	- PLUGIN_FEED_TRANSPORT = "Tenable Network Security Lightning";
+	```
+	//激活漏洞插件这一步获取的那串数字
+	PLUGIN_SET = 202205311353;
+	PLUGIN_FEED = "ProfessionalFeed (Direct)";
+	PLUGIN_FEED_TRANSPORT = "Tenable Network Security Lightning";
+	```
 	- 将plugin_feed_info.inc文件分别放在如下2个目录：
-	- /opt/nessus/lib/nessus/plugins/
-	- /opt/nessus/var/nessus/
-	- 重启：service nessusd restart
+		- /opt/nessus/lib/nessus/plugins/
+		- /opt/nessus/var/nessus/
+		```
+		cp ./plugin_feed_info.inc /opt/nessus/lib/nessus/plugins/
+		cp ./plugin_feed_info.inc /opt/nessus/var/nessus/
+		```
+	- 重启
+	```
+	service nessusd restart
+	```
 	- 重启以后会发现和之前一样，并且/opt/nessus/lib/nessus/plugins/目录下的插件都不见了！！！莫急莫急~
 	- 重复再将plugin_feed_info.inc拷贝到目录下：
-	- /opt/nessus/lib/nessus/plugins/
-	- /opt/nessus/var/nessus/
-	- 重启：service nessusd restart
-	- 发现没有IP限制了
+		- /opt/nessus/lib/nessus/plugins/
+		- /opt/nessus/var/nessus/
+	- 我再重启
+	```
+	service nessusd restart
+	```
+	- 发现没有IP限制了，鼓掌~
 	
 1. 完善插件
-
 	- 将之前复制的插件文件夹再拷贝回来
 	- 切记路径：/opt/nessus/lib/nessus/plugins/
-	- 重启：service nessusd restart
+	```
+	root@knownsec-virtual-machine:/tmp/nessus# cp -r ./ /opt/nessus/lib/nessus/plugins/plugins
+	```
+	- 重启
+	```
+	service nessusd restart（要等一会儿）
+	```
 	
 1. 安装谷歌浏览器
 
