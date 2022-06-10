@@ -1,14 +1,20 @@
 module.exports = {
-    title: 'DayDayUp',
-    // description: 'Just playing around',
+    title: '天天UP ↑',
+    configureWebpack: {
+        resolve: {
+            alias: {
+                '@img': '/docs/.vuepress/public/assets/img/'
+            }
+        }
+    },
     themeConfig: {
-        logo: '/assets/img/2.png',
+        logo: '/assets/img/logo.png',
         sidebar: {
-            '/qa/basic/': [
+            '/qa/basics/': [
                 {
                     title: '基础知识',
                     children: [
-                        ['测试体系概览', '测试体系概览'],
+                        ['测试体系概览', '测试体系概览'], //左边文档，右边菜单名称
                         ['测试的生命周期', '测试的生命周期'],
                     ]
                 },
@@ -18,7 +24,39 @@ module.exports = {
                     title: '测试视角',
                     children: [
                         ['不同视角看测试', '不同视角看测试'],
-                        ['不同视角看测试', '不同视角看测试'],
+                    ]
+                },
+            ],
+            '/qa/automatic/': [
+                {
+                    title: '自动化测试',
+                    children: [
+                        ['自动化测试需要知道的事', '自动化测试需要知道的事'],
+                        ['Selenium', 'Selenium'],
+                        ['Cypress', 'Cypress'],
+                        ['Playwright', 'Playwright'],
+                    ]
+                },
+            ],
+            '/qa/performance/': [
+                {
+                    title: '性能测试',
+                    children: [
+                        ['TPS、并发数、线程数', '性能测试重要的概念'],
+                        ['构建性能测试体系', '构建性能测试体系'],
+                        ['Jmeter', 'Jmeter'],
+                        ['Locust', 'Locust'],
+                    ]
+                },
+            ],
+            '/qa/security/': [
+                {
+                    title: '安全测试',
+                    children: [
+                        ['Awvs破解', 'Awvs'],
+                        ['Nessus破解', 'Nessus'],
+                        ['Nessus破解', 'Nessus'],
+
                     ]
                 },
             ],
@@ -263,5 +301,6 @@ module.exports = {
         ],
         displayAllHeaders: true,
         activeHeaderLinks: false,
+        smoothScroll: true,
     }
 }
