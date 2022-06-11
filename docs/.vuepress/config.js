@@ -51,15 +51,76 @@ module.exports = {
             ],
             '/qa/security/': [
                 {
-                    title: '安全测试',
+                    title: '安全测试工具',
                     children: [
                         ['Awvs破解', 'Awvs'],
                         ['Nessus破解', 'Nessus'],
-                        ['Nessus破解', 'Nessus'],
-
+                    ]
+                },
+                {
+                    title: '常见漏洞攻防',
+                    children: [
+                        {
+                            title: '客户端脚本安全',
+                            children: [
+                                ['', '浏览器安全'],
+                                ['跨站脚本XSS', '跨站脚本XSS'],
+                                ['跨站请求伪造CSRF', '跨站请求伪造CSRF'],
+                                ['', '点击劫持'],
+                                ['', '网页钓鱼'],
+                            ]
+                        },
+                        {
+                            title: '服务端应用安全',
+                            children: [
+                                ['SQL注入', 'SQL注入'],
+                                ['文件上传', '文件上传'],
+                                ['服务端请求伪造SSRF', '服务端请求伪造SSRF'],
+                                ['反序列化漏洞', '反序列化漏洞'],
+                                ['WEB SERVER配置安全', 'WEB SERVER配置安全'],
+                                ['WEB框架漏洞', 'WEB框架漏洞'],
+                                ['访问控制', '访问控制'],
+                                ['加密算法安全', '加密算法安全'],
+                                ['拒绝服务攻击', '拒绝服务攻击'],
+                                ['开发语言安全', '开发语言安全'],
+                                ['认证与会话管理', '认证与会话管理'],
+                            ]
+                        },
+                        {
+                            title: '业务逻辑安全',
+                            children: []
+                        },
+                    ],
+                },
+            ],
+            '/qa/tool/': [
+                {
+                    title: '测试工具',
+                    children: [
+                        ['Docker', 'Docker'],
+                        ['Charles', 'Charles'],
+                        ['Git', 'Git'],
+                        ['BurpSuite', 'BurpSuite'],
+                        ['Wireshark', 'Wireshark'],
+                    ]
+                },
+                {
+                    title: 'DevOps',
+                    children: [
+                        ['代码预检查', '代码预检查'],
                     ]
                 },
             ],
+            '/qa/framework/': [
+                {
+                    title: '测试框架',
+                    children: [
+                        ['Pytest', 'Pytest'],
+                        ['Unittest', 'Unittest'],
+                    ]
+                },
+            ],
+
             '/basic/network/': [
                 {
                     title: '基础知识',
@@ -70,127 +131,11 @@ module.exports = {
                     ]
                 },
             ],
-            '/tool/selenium/': [
+            '/basic/os/': [
                 {
-                    title: '基础知识',
+                    title: '操作系统',
                     children: [
-                        ['Selenium', 'Selenium'],
-                    ]
-                },
-            ],
-            '/tool/Cypress/': [
-                {
-                    title: '基础知识',
-                    children: [
-                        ['Cypress', 'Cypress'],
-                    ]
-                },
-            ],
-            '/tool/Charles/': [
-                {
-                    title: '基础知识',
-                    children: [
-                        ['Charles', 'Charles'],
-                    ]
-                },
-            ],
-            '/tool/BurpSuite/': [
-                {
-                    title: '基础知识',
-                    children: [
-                        ['BurpSuite', 'BurpSuite'],
-                    ]
-                },
-            ],
-            '/tool/Wireshark/': [
-                {
-                    title: '基础知识',
-                    children: [
-                        ['Wireshark', 'Wireshark'],
-                    ]
-                },
-            ],
-            '/frontend/vue/': [
-                {
-                    title: '基础知识',
-                    children: [
-                        ['Vue基础知识点', 'Vue基础知识点'],
-                        ['Vue组件通信', 'Vue组件通信'],
-                    ]
-                },
-            ],
-            '/frontend/css/': [
-                {
-                    title: '基础知识',
-                    children: [
-                        ['CSS布局技巧', 'CSS布局技巧'],
-                        ['flex布局之美', 'flex布局之美'],
-                    ]
-                },
-            ],
-            '/backend/python/': [
-                {
-                    title: '基础知识',
-                    children: [
-                        ['90条Python编程建议', '90条Python编程建议'],
-                        ['Python优化技巧', 'Python优化技巧'],
-                        ['Python实用技巧', 'Python实用技巧'],
-                        ['Python并发编程', 'Python并发编程'],
-                        ['Python标准库', 'Python标准库'],
-                        ['Python正则表达式', 'Python正则表达式'],
-                        ['很nice的三方库', '很nice的三方库'],
-                        ['深入理解python特性', '深入理解python特性'],
-                        ['超全内置函数', '超全内置函数'],
-                        ['超全内置函数', '超全内置函数'],
-                        ['闭包替换递归', '闭包替换递归'],
-                    ]
-                },
-            ],
-            '/backend/django/': [
-                {
-                    title: '基础知识',
-                    children: [
-                        ['Django', 'Django'],
-                    ]
-                },
-            ],
-            '/backend/drf/': [
-                {
-                    title: '基础知识',
-                    children: [
-                        ['Django REST framework', 'Django REST framework'],
-                    ]
-                },
-            ],
-            '/backend/celery/': [
-                {
-                    title: '基础知识',
-                    children: [
-                        ['celery', 'Celery'],
-                    ]
-                },
-            ],
-            '/db/mysql/': [
-                {
-                    title: '基础知识',
-                    children: [
-                        ['Mysql', 'Mysql'],
-                    ]
-                },
-            ],
-            '/db/redis/': [
-                {
-                    title: '基础知识',
-                    children: [
-                        ['Redis', 'Redis'],
-                    ]
-                },
-            ],
-            '/db/elasticsearch/': [
-                {
-                    title: '基础知识',
-                    children: [
-                        ['Elasticsearch', 'Elasticsearch'],
+                        ['', '占位']
                     ]
                 },
             ],
@@ -211,6 +156,149 @@ module.exports = {
                     children: ['Linux快捷键']
                 },
             ],
+            '/basic/algorithms/': [
+                {
+                    title: '数据结构与算法',
+                    children: []
+                },
+            ],
+
+            '/frontend/vue/': [
+                {
+                    title: '基础知识',
+                    children: [
+                        ['Vue基础知识点', 'Vue基础知识点'],
+                        ['Vue组件通信', 'Vue组件通信'],
+                    ]
+                },
+            ],
+            '/frontend/css/': [
+                {
+                    title: '基础知识',
+                    children: [
+                        ['CSS布局技巧', 'CSS布局技巧'],
+                        ['flex布局之美', 'flex布局之美'],
+                    ]
+                },
+            ],
+            '/backend/python/': [
+                {
+                    title: 'Python特性',
+                    children: [
+                        ['90条Python编程建议', '90条Python编程建议'],
+                        ['Python优化技巧', 'Python优化技巧'],
+                        ['Python实用技巧', 'Python实用技巧'],
+                        ['Python并发编程', 'Python并发编程'],
+                        ['Python标准库', 'Python标准库'],
+                        ['Python正则表达式', 'Python正则表达式'],
+                        ['很nice的三方库', '很nice的三方库'],
+                        ['深入理解python特性', '深入理解python特性'],
+                        ['超全内置函数', '超全内置函数'],
+                        ['超全内置函数', '超全内置函数'],
+                        ['闭包替换递归', '闭包替换递归'],
+                    ]
+                },
+            ],
+            '/backend/django/': [
+                {
+                    title: 'Django基础知识',
+                    children: [
+                        ['Django', 'Django'],
+                    ]
+                },
+            ],
+            '/backend/drf/': [
+                {
+                    title: 'Drf基础知识',
+                    children: [
+                        ['Django REST framework', 'Django REST framework'],
+                    ]
+                },
+            ],
+            '/backend/celery/': [
+                {
+                    title: 'Celery基础知识',
+                    children: [
+                        ['celery', 'Celery'],
+                    ]
+                },
+            ],
+            '/database/mysql/': [
+                {
+                    title: '基础知识',
+                    children: [
+                        ['Mysql', 'Mysql'],
+                    ]
+                },
+            ],
+            '/database/redis/': [
+                {
+                    title: '基础知识',
+                    children: [
+                        ['Redis', 'Redis'],
+                    ]
+                },
+            ],
+            '/database/elasticsearch/': [
+                {
+                    title: '基础知识',
+                    children: [
+                        ['Elasticsearch', 'Elasticsearch'],
+                    ]
+                },
+            ],
+            '/database/mongodb/': [
+                {
+                    title: '基础知识',
+                    children: [
+                        ['Elasticsearch', 'Elasticsearch'],
+                    ]
+                },
+            ],
+            '/opensource/': [
+                {
+                    title: '项目参考',
+                    children: [
+                        ['project', '项目列表'],
+                    ]
+                },
+            ],
+            '/softskills/mind/': [
+                {
+                    title: '思考模型',
+                    children: [
+                        ['阿里工程师的自我修养', '阿里工程师的自我修养'],
+                    ]
+                },
+                {
+                    title: '沟通能力',
+                    children: [
+                        ['沟通训练营', '沟通训练'],
+                    ]
+                },
+            ],
+            '/softskills/communication/': [
+                {
+                    title: '思考模型',
+                    children: [
+                        ['阿里工程师的自我修养', '阿里工程师的自我修养'],
+                    ]
+                },
+                {
+                    title: '沟通能力',
+                    children: [
+                        ['沟通训练营', '沟通训练'],
+                    ]
+                },
+            ],
+            '/memo/': [
+                {
+                    title: '备忘录',
+                    children: [
+                        ['令人惊艳的链接备忘录', '令人惊艳的链接备忘录'],
+                    ]
+                },
+            ]
 
 
         },
@@ -234,22 +322,11 @@ module.exports = {
                 text: '计算机基础',
                 items: [
                     {text: '计算机网络', link: '/basic/network/'},
-                    {text: '操作系统', link: '/basics/os/'},
+                    {text: '操作系统', link: '/basic/os/'},
                     {text: 'Linux', link: '/basic/linux/'},
                     {text: '数据结构与算法', link: '/basic/algorithms/'},
                 ]
             },
-            // {
-            //     text: '自动化工具',
-            //     ariaLabel: 'Language Menu',
-            //     items: [
-            //         {text: 'Selenium', link: '/tool/selenium/'},
-            //         {text: 'Cypress', link: '/tool/cypress/'},
-            //         {text: 'Charles', link: '/tool/charles/'},
-            //         {text: 'BurpSuite', link: '/tool/burpsuite/'},
-            //         {text: 'Wireshark', link: '/tool/wireshark/'},
-            //     ]
-            // },
             {
                 text: '前端游乐场',
                 ariaLabel: 'Language Menu',
@@ -272,16 +349,16 @@ module.exports = {
                 text: '数据库',
                 ariaLabel: 'Language Menu',
                 items: [
-                    {text: 'Mysql', link: '/db/mysql/'},
-                    {text: 'Redis', link: '/db/redis/'},
-                    {text: 'Mongodb', link: '/db/mongodb/'},
-                    {text: 'Elasticsearch', link: '/db/elasticsearch/'},
+                    {text: 'Mysql', link: '/database/mysql/'},
+                    {text: 'Redis', link: '/database/redis/'},
+                    {text: 'Mongodb', link: '/database/mongodb/'},
+                    {text: 'Elasticsearch', link: '/database/elasticsearch/'},
                 ]
             },
             {
                 text: '开源前哨',
                 items: [
-                    {text: '思考模型', link: '/softskills/mysql/'},
+                    {text: '项目参考', link: '/opensource/'},
                 ]
             },
             {
@@ -294,7 +371,7 @@ module.exports = {
             {
                 text: '备忘录',
                 items: [
-                    {text: '思考模型', link: '/softskills/mind/'},
+                    {text: '有趣的链接', link: '/memo/'},
                 ]
             },
 
