@@ -1,20 +1,20 @@
 module.exports = {
-    title: '天天UP ↑',
+    title: '杏壳儿',
     configureWebpack: {
         resolve: {
             alias: {
-                '@img': '/docs/.vuepress/public/assets/img/'
+                '@img': '/docs/.vuepress/public/assets/img'
             }
         }
     },
     themeConfig: {
-        logo: '/assets/img/logo.png',
+        logo: '/assets/img/开心果.png',
         sidebar: {
             '/qa/basics/': [
                 {
                     title: '基础知识',
                     children: [
-                        ['测试体系概览', '测试体系概览'], //左边文档，右边菜单名称
+                        ['', '测试体系概览'], //左边文档，右边菜单名称
                         ['测试的生命周期', '测试的生命周期'],
                     ]
                 },
@@ -23,7 +23,7 @@ module.exports = {
                 {
                     title: '测试视角',
                     children: [
-                        ['不同视角看测试', '不同视角看测试'],
+                        ['', '不同视角看测试'],
                     ]
                 },
             ],
@@ -31,7 +31,7 @@ module.exports = {
                 {
                     title: '自动化测试',
                     children: [
-                        ['自动化测试需要知道的事', '自动化测试需要知道的事'],
+                        ['', '自动化测试需要知道的事'],
                         ['Selenium', 'Selenium'],
                         ['Cypress', 'Cypress'],
                         ['Playwright', 'Playwright'],
@@ -42,8 +42,8 @@ module.exports = {
                 {
                     title: '性能测试',
                     children: [
+                        ['', '构建性能测试体系'],
                         ['TPS、并发数、线程数', '性能测试重要的概念'],
-                        ['构建性能测试体系', '构建性能测试体系'],
                         ['Jmeter', 'Jmeter'],
                         ['Locust', 'Locust'],
                     ]
@@ -53,8 +53,8 @@ module.exports = {
                 {
                     title: '安全测试工具',
                     children: [
-                        ['Awvs破解', 'Awvs'],
-                        ['Nessus破解', 'Nessus'],
+                        ['', 'Nessus破解'],
+                        ['Awvs破解', 'Awvs破解'],
                     ]
                 },
                 {
@@ -77,13 +77,13 @@ module.exports = {
                                 ['文件上传', '文件上传'],
                                 ['服务端请求伪造SSRF', '服务端请求伪造SSRF'],
                                 ['反序列化漏洞', '反序列化漏洞'],
-                                ['WEB SERVER配置安全', 'WEB SERVER配置安全'],
-                                ['WEB框架漏洞', 'WEB框架漏洞'],
-                                ['访问控制', '访问控制'],
-                                ['加密算法安全', '加密算法安全'],
-                                ['拒绝服务攻击', '拒绝服务攻击'],
-                                ['开发语言安全', '开发语言安全'],
-                                ['认证与会话管理', '认证与会话管理'],
+                                ['', 'WEB SERVER配置安全'],
+                                ['', 'WEB框架漏洞'],
+                                ['', '访问控制'],
+                                ['', '加密算法安全'],
+                                ['', '拒绝服务攻击'],
+                                ['', '开发语言安全'],
+                                ['', '认证与会话管理'],
                             ]
                         },
                         {
@@ -97,17 +97,9 @@ module.exports = {
                 {
                     title: '测试工具',
                     children: [
-                        ['Docker', 'Docker'],
-                        ['Charles', 'Charles'],
-                        ['Git', 'Git'],
+                        ['', 'Charles'],
                         ['BurpSuite', 'BurpSuite'],
                         ['Wireshark', 'Wireshark'],
-                    ]
-                },
-                {
-                    title: 'DevOps',
-                    children: [
-                        ['代码预检查', '代码预检查'],
                     ]
                 },
             ],
@@ -115,17 +107,17 @@ module.exports = {
                 {
                     title: '测试框架',
                     children: [
+                        ['', 'Unittest'],
                         ['Pytest', 'Pytest'],
-                        ['Unittest', 'Unittest'],
                     ]
                 },
             ],
 
             '/basic/network/': [
                 {
-                    title: '基础知识',
+                    title: '计算机网络',
                     children: [
-                        ['计算机网络核心概念', '计算机网络核心概念'],
+                        ['', '计算机网络核心概念'],
                         ['HTTP、HTTPS协议', 'HTTP、HTTPS协议'],
                         ['Cookie、Session、Token、JWT', 'Cookie、Session、Token、JWT'],
                     ]
@@ -141,51 +133,50 @@ module.exports = {
             ],
             '/basic/linux/': [
                 {
-                    title: '基础',
+                    title: 'Linux',
                     children: [
-                        ['', '我是标题'],
-                        ['Linux快捷键', 'Linux快捷键'],
+                        ['', 'Linux快捷键'],
                         ['Linux环境变量配置', 'Linux环境变量配置'],
                         ['Linux三剑客', 'Linux三剑客'],
                         ['交换机流量镜像', '交换机流量镜像'],
-                        ['虚拟机网络连接介绍', '虚拟机网络连接介绍']
+                        ['虚拟机网络连接介绍', '虚拟机网络连接介绍'],
                     ]
-                },
-                {
-                    title: '资料',
-                    children: ['Linux快捷键']
                 },
             ],
             '/basic/algorithms/': [
                 {
                     title: '数据结构与算法',
-                    children: []
+                    children: [
+                        ['', '二叉树知识点'],
+                    ]
                 },
             ],
 
             '/frontend/vue/': [
                 {
-                    title: '基础知识',
+                    title: 'VUE',
                     children: [
-                        ['Vue基础知识点', 'Vue基础知识点'],
+                        ['', 'Vue基础知识点'],
                         ['Vue组件通信', 'Vue组件通信'],
                     ]
                 },
             ],
             '/frontend/css/': [
                 {
-                    title: '基础知识',
+                    title: 'CSS',
                     children: [
-                        ['CSS布局技巧', 'CSS布局技巧'],
+                        ['', 'CSS布局技巧'],
                         ['flex布局之美', 'flex布局之美'],
                     ]
                 },
             ],
+
             '/backend/python/': [
                 {
-                    title: 'Python特性',
+                    title: 'Python需要了解的知识点',
+                    collapsable: false,
                     children: [
-                        ['90条Python编程建议', '90条Python编程建议'],
+                        ['', '90条Python编程建议'],
                         ['Python优化技巧', 'Python优化技巧'],
                         ['Python实用技巧', 'Python实用技巧'],
                         ['Python并发编程', 'Python并发编程'],
@@ -194,111 +185,153 @@ module.exports = {
                         ['很nice的三方库', '很nice的三方库'],
                         ['深入理解python特性', '深入理解python特性'],
                         ['超全内置函数', '超全内置函数'],
-                        ['超全内置函数', '超全内置函数'],
+                        ['7个高质量学习Python的开源库', '7个高质量学习Python的开源库'],
                         ['闭包替换递归', '闭包替换递归'],
+                    ]
+                },
+            ],
+            '/backend/java/': [
+                {
+                    title: 'Java',
+                    children: [
+                        ['', 'Java核心知识点'],
                     ]
                 },
             ],
             '/backend/django/': [
                 {
-                    title: 'Django基础知识',
+                    title: 'Django',
                     children: [
-                        ['Django', 'Django'],
+                        ['', 'Django基础知识'],
                     ]
                 },
             ],
             '/backend/drf/': [
                 {
-                    title: 'Drf基础知识',
+                    title: 'Django REST framework',
                     children: [
-                        ['Django REST framework', 'Django REST framework'],
+                        ['', 'DRF必会知识点'],
                     ]
                 },
             ],
             '/backend/celery/': [
                 {
-                    title: 'Celery基础知识',
+                    title: 'Celery',
                     children: [
-                        ['celery', 'Celery'],
+                        ['', 'Celery基础操作'],
                     ]
                 },
             ],
-            '/database/mysql/': [
+            '/backend/mysql/': [
                 {
-                    title: '基础知识',
+                    title: 'MYSQL',
                     children: [
-                        ['Mysql', 'Mysql'],
+                        ['', 'Mysql'],
                     ]
                 },
             ],
-            '/database/redis/': [
+            '/backend/redis/': [
                 {
-                    title: '基础知识',
+                    title: 'REDIS',
                     children: [
-                        ['Redis', 'Redis'],
+                        ['', 'Redis'],
                     ]
                 },
             ],
-            '/database/elasticsearch/': [
+            '/backend/elasticsearch/': [
                 {
-                    title: '基础知识',
+                    title: 'Elasticsearch',
                     children: [
-                        ['Elasticsearch', 'Elasticsearch'],
+                        ['', 'Elasticsearch基础知识'],
                     ]
                 },
             ],
-            '/database/mongodb/': [
+            '/backend/mongodb/': [
                 {
-                    title: '基础知识',
+                    title: 'MongoDB',
                     children: [
-                        ['Elasticsearch', 'Elasticsearch'],
                     ]
                 },
             ],
-            '/opensource/': [
+            '/backend/uwsgi/': [
                 {
-                    title: '项目参考',
+                    title: 'uwsgi',
                     children: [
-                        ['project', '项目列表'],
+                        ['', 'Elasticsearch'],
                     ]
                 },
             ],
+            '/backend/gunicorn/': [
+                {
+                    title: 'gunicorn',
+                    children: [
+                        ['', 'Elasticsearch'],
+                    ]
+                },
+            ],
+
+            '/devops/docker/': [
+                {
+                    title: 'Docker',
+                    children: [
+                        ['', 'Docker基础知识点'],
+                    ]
+                },
+            ],
+            '/devops/git/': [
+                {
+                    title: 'Git版本控制',
+                    children: [
+                        ['', 'Git基础知识点'],
+                    ]
+                },
+            ],
+            '/devops/notes/': [
+                {
+                    title: 'DevOps笔记',
+                    children: [
+                        ['', '代码预检查'],
+                    ]
+                },
+            ],
+
+
             '/softskills/mind/': [
                 {
                     title: '思考模型',
                     children: [
-                        ['阿里工程师的自我修养', '阿里工程师的自我修养'],
-                    ]
-                },
-                {
-                    title: '沟通能力',
-                    children: [
-                        ['沟通训练营', '沟通训练'],
+                        ['', '阿里工程师的自我修养'],
                     ]
                 },
             ],
             '/softskills/communication/': [
                 {
-                    title: '思考模型',
-                    children: [
-                        ['阿里工程师的自我修养', '阿里工程师的自我修养'],
-                    ]
-                },
-                {
                     title: '沟通能力',
                     children: [
-                        ['沟通训练营', '沟通训练'],
+                        ['', '沟通训练'],
                     ]
                 },
             ],
+
+            '/opensource/': [
+                {
+                    title: '开源前哨',
+                    children: [
+                        ['', '项目列表'],
+                    ]
+                },
+            ],
+
             '/memo/': [
                 {
                     title: '备忘录',
                     children: [
-                        ['令人惊艳的链接备忘录', '令人惊艳的链接备忘录'],
+                        ['', '令人惊艳的链接'],
+                        ['help', 'MarkDown文档使用示例'],
+                        ['vuepress搭建', 'Vuepress搭建步骤'],
                     ]
                 },
-            ]
+            ],
 
 
         },
@@ -316,6 +349,7 @@ module.exports = {
                     {text: '安全测试', link: '/qa/security/'},
                     {text: '测试工具', link: '/qa/tool/'},
                     {text: '测试框架', link: '/qa/framework/'},
+                    {text: '测试视野', link: '/qa/view/'},
                 ]
             },
             {
@@ -331,53 +365,85 @@ module.exports = {
                 text: '前端游乐场',
                 ariaLabel: 'Language Menu',
                 items: [
-                    {text: 'Vue', link: '/frontend/vue/'},
-                    {text: 'Css', link: '/frontend/css/'}
+                    {text: 'VUE', link: '/frontend/vue/'},
+                    {text: 'CSS', link: '/frontend/css/'}
                 ]
             },
             {
                 text: '后端训练场',
-                ariaLabel: 'Language Menu',
+                smoothScroll: true,
                 items: [
-                    {text: 'Python', link: '/backend/python/'},
-                    {text: 'Django', link: '/backend/django/'},
-                    {text: 'Django REST Framework', link: '/backend/drf/'},
-                    {text: 'Celery', link: '/backend/celery/'},
+
+
+                    {
+                        text: '编程语言', items: [
+                            {text: 'Python', link: '/backend/python/'},
+                            {text: 'Java', link: '/backend/java/'},
+                        ]
+                    },
+                    {
+                        text: 'WEB框架', items: [{text: 'Django', link: '/backend/django/'},
+                            {text: 'Django REST Framework', link: '/backend/drf/'},]
+                    },
+                    {
+                        text: '中间件', items: [{text: 'Celery', link: '/backend/celery/'},
+                        ]
+                    },
+                    {
+                        text: '数据库', items: [{text: 'Mysql', link: '/backend/mysql/'},
+                            {text: 'Redis', link: '/backend/redis/'},
+                            {text: 'Mongodb', link: '/backend/mongodb/'},
+                            {text: 'Elasticsearch', link: '/backend/elasticsearch/'},]
+                    },
+                    {
+                        text: '部署', items: [
+                            {text: 'Uwsgi', link: '/backend/uwsgi/'},
+                            {text: 'Gunicorn', link: '/backend/gunicorn/'},
+                        ]
+                    },
                 ]
             },
             {
-                text: '数据库',
-                ariaLabel: 'Language Menu',
+                text: 'DevOps',
                 items: [
-                    {text: 'Mysql', link: '/database/mysql/'},
-                    {text: 'Redis', link: '/database/redis/'},
-                    {text: 'Mongodb', link: '/database/mongodb/'},
-                    {text: 'Elasticsearch', link: '/database/elasticsearch/'},
-                ]
-            },
-            {
-                text: '开源前哨',
-                items: [
-                    {text: '项目参考', link: '/opensource/'},
+                    {text: 'Docker', link: '/devops/docker/'},
+                    {text: 'Git', link: '/devops/git/'},
+                    {text: 'DevOps笔记', link: '/devops/notes/'},
                 ]
             },
             {
                 text: '软能力',
                 items: [
                     {text: '思考模型', link: '/softskills/mind/'},
-                    {text: '不咋会沟通', link: '/softskills/communication/'},
+                    {text: '沟通能力', link: '/softskills/communication/'},
                 ]
             },
-            {
-                text: '备忘录',
-                items: [
-                    {text: '有趣的链接', link: '/memo/'},
-                ]
-            },
+            {text: '开源前哨', link: '/opensource/', target: '_self'},
+            {text: '备忘录', link: '/memo/', target: '_self'}
 
         ],
-        displayAllHeaders: true,
         activeHeaderLinks: false,
         smoothScroll: true,
-    }
+        lastUpdated: '上一次更新',
+    },
+    plugins: [
+        '@vuepress/back-to-top',
+        {
+            dateOptions: {
+                hour24: true
+            },
+            transformer: (timestamp, lang) => {
+                // 不要忘了安装 moment
+                const moment = require('moment')
+                moment.locale(lang)
+                return moment(timestamp).fromNow()
+            }
+        },
+        '@vuepress/active-header-links',
+        {
+            sidebarLinkSelector: '.sidebar-link',
+            headerAnchorSelector: '.header-anchor'
+        },
+        '@vuepress/nprogress'
+    ]
 }

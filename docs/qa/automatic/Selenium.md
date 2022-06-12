@@ -1,6 +1,6 @@
 #selenium
 
-#### 准备工作
+## 准备工作
 1. 安装selenium库
 	 ```
 	 pip install selenium
@@ -44,7 +44,7 @@
 		Get LATEST driver version for 96.0.4664
 		Driver [C:\Users\Gdc\.wdm\drivers\chromedriver\win32\96.0.4664.45\chromedriver.exe] found in cache
 		```
-#### 基本用法
+## 基本用法
 1. 初始化浏览器对象
 	 - 在准备工作部分我们提到需要将浏览器渠道添加到环境变量或者指定绝对路径，前者可以直接初始化，后者则需要进行指定。
 	 ```
@@ -144,7 +144,7 @@
 	# 关闭浏览器
 	browser.close()
 	```
-#### 获取页面基础属性
+## 获取页面基础属性
 - 当我们用selenium打开某个页面，有一些基础属性如网页标题、网址、浏览器名称、页面源码等信息。
 ```
 from selenium import webdriver
@@ -161,7 +161,7 @@ print(browser.page_source)
 ```
 - 需要注意的是，这里的页面源码我们就可以用正则表达式、Bs4、xpath以及pyquery等工具进行解析提取想要的信息了。
 
-#### 定位页面元素
+## 定位页面元素
 - 我们在实际使用浏览器的时候，很重要的操作有输入文本、点击确定等等。对此，Selenium提供了一系列的方法来方便我们实现以上操作。常说的8种定位页面元素的操作方式，我们一一演示一下！
 1. id定位
 	```
@@ -312,7 +312,7 @@ print(browser.page_source)
 	```
 1. 多个元素
 	- 如果定位的目标元素在网页中不止一个，那么则需要用到find_elements，得到的结果会是列表形式。简单来说，就是element后面多了复数标识s，其他操作一致。
-#### 获取页面元素属性
+## 获取页面元素属性
 - 既然我们有很多方式来定位页面的元素，那么接下来就可以考虑获取以下元素的属性了，尤其是用Selenium进行网络爬虫的时候。
 - get_attribute获取属性
 - 以百度首页的logo为例，获取logo相关属性
@@ -355,7 +355,7 @@ print(logo.size)
 # 关闭浏览器
 browser.close()
 ```
-#### 页面交互操作
+## 页面交互操作
 - 页面交互就是在浏览器的各种操作，比如上面演示过的输入文本、点击链接等等，还有像清除文本、回车确认、单选框与多选框选中等。
 - 输入文本
 	```
@@ -452,7 +452,7 @@ browser.close()
 			- deselect_by_index           # 取消已选中的索引项
 			- deselect_by_value           # 取消已选中的value值
 			- deselect_by_visible_text    # 取消已选中的文本值
-#### 多窗口切换
+## 多窗口切换
 - 比如同一个页面的不同子页面的节点元素获取操作，不同选项卡之间的切换以及不同浏览器窗口之间的切换操作等等。
 - Frame切换
 	- Selenium打开一个页面之后，默认是在父页面进行操作，此时如果这个页面还有子页面，想要获取子页面的节点元素信息则需要切换到子页面进行擦走，这时候switch_to.frame()就来了。如果想回到父页面，用switch_to.parent_frame()即可。
@@ -478,7 +478,7 @@ browser.close()
 	browser.switch_to.window(browser.window_handles[0])
 	browser.get('http://www.taobao.com')
 	```
-#### 模拟鼠标操作
+## 模拟鼠标操作
 - 既然是模拟浏览器操作，自然也就需要能模拟鼠标的一些操作了，这里需要导入ActionChains 类。
 ```
 from selenium.webdriver.common.action_chains import ActionChains
@@ -566,7 +566,7 @@ from selenium.webdriver.common.action_chains import ActionChains
 	# 关闭浏览器
 	browser.close()
 	```
-#### 模拟键盘操作
+## 模拟键盘操作
 - selenium中的Keys()类提供了大部分的键盘操作方法，通过send_keys()方法来模拟键盘上的按键。
 - 引入Keys类
 ```
@@ -606,7 +606,7 @@ time.sleep(5)
 # 关闭浏览器
 browser.close()
 ```
-#### 延时等待
+## 延时等待
 - 如果遇到使用ajax加载的网页，页面元素可能不是同时加载出来的，这个时候尝试在get方法执行完成时获取网页源代码可能并非浏览器完全加载完成的页面。所以，这种情况下需要设置延时等待一定时间，确保全部节点都加载出来。
 - 三种方式可以来玩玩：强制等待、隐式等待和显式等待
 1. 强制等待
@@ -693,7 +693,7 @@ browser.close()
 	#判断一个元素是否仍在DOM中，传入WebElement对象，可以判断页面是否刷新了
 	staleness_of
 	```
-#### 其他
+## 其他
 1. 还有一些操作，比如下拉进度条，模拟javaScript，使用execute_script方法来实现
 	```
 	from selenium import webdriver

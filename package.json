@@ -4,6 +4,8 @@
   "main": "index.js",
   "license": "MIT",
   "devDependencies": {
+    "@vuepress/plugin-back-to-top": "^1.9.7",
+    "moment": "^2.29.3",
     "vuepress": "^1.9.7"
   },
   "scripts": {

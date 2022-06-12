@@ -1,6 +1,6 @@
-Python标准库
-============================================
-#### 文本
+# Python标准库
+[[toc]]
+## 文本
 
 1. string：通用字符串操作
 2. re：正则表达式操作
@@ -10,11 +10,11 @@ Python标准库
 6. stringprep：互联网字符串准备工具
 7. readline：GNU按行读取接口
 8. rlcompleter：GNU按行读取的实现函数
-#### 二进制数据
+## 二进制数据
 
 1. struct：将字节解析为打包的二进制数据
 2. codecs：注册表与基类的编解码器
-#### 数据类型
+## 数据类型
 
 1. datetime：基于日期与时间工具
 2. calendar：通用月份函数
@@ -28,7 +28,7 @@ Python标准库
 10. copy：浅拷贝与深拷贝
 11. pprint：格式化输出
 12. reprlib：交替repr()的实现
-#### 数学
+## 数学
 
 1. numbers：数值的虚基类
 2. math：数学函数
@@ -36,12 +36,12 @@ Python标准库
 4. decimal：定点数与浮点数计算
 5. fractions：有理数
 6. random：生成伪随机数
-#### 函数式编程
+## 函数式编程
 
 1. itertools：为高效循环生成迭代器
 2. functools：可调用对象上的高阶函数与操作
 3. operator：针对函数的标准操作
-#### 文件与目录
+## 文件与目录
 
 1. os.path：通用路径名控制
 2. fileinput：从多输入流中遍历行
@@ -53,7 +53,7 @@ Python标准库
 8. linecache：文本行的随机存储
 9. shutil：高级文件操作
 10. macpath：MacOS 9路径控制函数
-#### 持久化
+## 持久化
 
 1. pickle：Python对象序列化
 2. copyreg：注册机对pickle的支持函数
@@ -61,7 +61,7 @@ Python标准库
 4. marshal：内部Python对象序列化
 5. dbm：Unix“数据库”接口
 6. sqlite3：针对SQLite数据库的API2.0
-#### 压缩
+## 压缩
 
 1. zlib：兼容gzip的压缩
 2. gzip：对gzip文件的支持
@@ -69,18 +69,18 @@ Python标准库
 4. lzma：使用LZMA算法的压缩
 5. zipfile：操作ZIP存档
 6. tarfile：读写tar存档文件
-#### 文件格式化
+## 文件格式化
 
 1. csv：读写CSV文件
 2. configparser：配置文件解析器
 3. netrc：netrc文件处理器
 4. xdrlib：XDR数据编码与解码
 5. plistlib：生成和解析Mac OS X.plist文件
-#### 加密
+## 加密
 
 1. hashlib：安全散列与消息摘要
 2. hmac：针对消息认证的键散列
-#### 操作系统工具
+## 操作系统工具
 
 1. os：多方面的操作系统接口
 2. io：流核心工具
@@ -99,7 +99,7 @@ Python标准库
 15. platform：访问底层平台认证数据
 16. errno：标准错误记号
 17. ctypes：Python外部函数库
-#### 并发
+## 并发
 
 1. threading：基于线程的并行
 2. multiprocessing：基于进程的并行
@@ -112,7 +112,7 @@ Python标准库
 9. dummy_threading：threading模块的替代（当_thread不可用时）
 10. _thread：底层的线程API（threading基于其上）
 11. _dummy_thread：_thread模块的替代（当_thread不可用时）
-#### 进程间通信
+## 进程间通信
 
 1. socket：底层网络接口
 2. ssl：socket对象的TLS / SSL填充器
@@ -120,7 +120,7 @@ Python标准库
 4. asynchat：异步套接字命令 / 响应处理器
 5. signal：异步事务信号处理器
 6. mmap：内存映射文件支持
-#### 互联网
+## 互联网
 
 1. mail：邮件与MIME处理包
 2. json：JSON编码与解码
@@ -134,7 +134,7 @@ Python标准库
 10. quopri：MIME
 11. quoted - printable数据的编码与解码
 12. uu：uuencode文件的编码与解码
-#### HTML与XML
+## HTML与XML
 
 1. html：HTML支持
 2. html.parser：简单HTML与XHTML解析器
@@ -149,7 +149,7 @@ Python标准库
 11. xml.sax.saxutils：SAX工具
 12. xml.sax.xmlreader：SAX解析器接口
 13. xml.parsers.expat：运用Expat快速解析XML
-#### 互联网协议与支持
+## 互联网协议与支持
 
 1. webbrowser：简易Web浏览器控制器
 2. cgi：CGI支持
@@ -179,7 +179,7 @@ Python标准库
 26. xmlrpc.client：XML - RPC客户端访问
 27. xmlrpc.server：XML - RPC服务器基础
 28. ipaddress：IPv4 / IPv6控制库
-#### 多媒体
+## 多媒体
 
 1. audioop：处理原始音频数据
 2. aifc：读写AIFF和AIFC文件
@@ -190,22 +190,22 @@ Python标准库
 7. imghdr：指定图像类型
 8. sndhdr：指定声音文件类型
 9. ossaudiodev：访问兼容OSS的音频设备
-#### 国际化
+## 国际化
 
 1. gettext：多语言的国际化服务
 2. locale：国际化服务
-#### 编程框架
+## 编程框架
 
 1. turtle：Turtle图形库
 2. cmd：基于行的命令解释器支持
 3. shlex：简单词典分析
-#### Tk图形用户接口
+## Tk图形用户接口
 
 1. tkinter：Tcl / Tk接口
 2. tkinter.ttk：Tk主题控件
 3. tkinter.tix：Tk扩展控件
 4. tkinter.scrolledtext：滚轴文本控件
-#### 开发工具
+## 开发工具
 
 1. pydoc：文档生成器和在线帮助系统
 2. doctest：交互式Python示例
@@ -214,14 +214,14 @@ Python标准库
 5. test：Python回归测试包
 6. test.support：Python测试工具套件
 7. venv：虚拟环境搭建
-#### 调试
+## 调试
 
 1. bdb：调试框架
 2. faulthandler：Python反向追踪库
 3. pdb：Python调试器
 4. timeit：小段代码执行时间测算
 5. trace：Python执行状态追踪
-#### 运行时
+## 运行时
 
 1. sys：系统相关的参数与函数
 2. sysconfig：访问Python配置信息
@@ -238,11 +238,11 @@ Python标准库
 13. site：址相关的配置钩子（hook）
 14. fpectl：浮点数异常控制
 15. distutils：生成和安装Python模块
-#### 解释器
+## 解释器
 
 1. code：基类解释器
 2. codeop：编译Python代码
-#### 导入模块
+## 导入模块
 
 1. imp：访问import模块的内部
 2. zipimport：从ZIP归档中导入模块
@@ -250,7 +250,7 @@ Python标准库
 4. modulefinder：通过脚本查找模块
 5. runpy：定位并执行Python模块
 6. importlib：import的一种实施
-#### Python语言
+## Python语言
 
 1. parser：访问Python解析树
 2. ast：抽象句法树
@@ -265,16 +265,16 @@ Python标准库
 11. compileall：按字节编译Python库
 12. dis：Python字节码的反汇编器
 13. pickletools：序列化开发工具
-#### 其他
+## 其他
 
 1. formatter：通用格式化输出
-#### Windows相关
+## Windows相关
 
 1. msilib：读写Windows的Installer文件
 2. msvcrt：MS VC + + Runtime的有用程序
 3. winreg：Windows注册表访问
 4. winsound：Windows声音播放接口
-#### Unix相关
+## Unix相关
 
 1. posix：最常用的POSIX调用
 2. pwd：密码数据库
