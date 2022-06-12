@@ -29,6 +29,10 @@
 	- [https://github.com/yidao620c/python3-cookbook](https://github.com/yidao620c/python3-cookbook)
 1. pxplore-python
 	- [https://funhacks.gitbooks.io/explore-python/content/](https://funhacks.gitbooks.io/explore-python/content/)
+1. python进阶
+	- [https://py.eastlakeside.cn/](https://py.eastlakeside.cn/)
+1. 廖雪峰python
+	- [https://www.liaoxuefeng.com/wiki/1016959663602400](https://www.liaoxuefeng.com/wiki/1016959663602400)
 1. 白月黑羽
 	- [https://www.byhy.net/](https://www.byhy.net/)
 1. 小明
