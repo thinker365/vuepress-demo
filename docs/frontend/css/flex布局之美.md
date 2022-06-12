@@ -1,8 +1,7 @@
-Flex布局之美
-========================================
-#### Flex基本概念
+[[toc]]
+## Flex基本概念
 - 要想熟练掌握flex布局的话，你需要理解两个概念：轴和容器
-	![](axis_container.jpg)
+	![](~@img/axis_container.jpg)
 1. 将flex布局分为轴和容器。
 	- 轴
 		- 主轴（mian axis）
@@ -12,7 +11,7 @@ Flex布局之美
 		- 子容器（item）
 1. 轴
 	- 轴包括主轴和交叉轴
-	![](main_axis.jpg)
+	![](~@img/main_axis.jpg)
 	- 默认情况下，主轴的方向是从左向右的，交叉轴垂直于主轴，逆时针方向90度，那么接下来我们看flex-direction是如何决定主轴的。
 	- 交叉轴是由主轴决定的，主轴又是由flex-direction决定的。
 	- flex-direction属性设置在父容器上，才可以生效。
@@ -57,7 +56,7 @@ Flex布局之美
 1. 容器
 	- 分为父容器和子容器
 	- 父容器
-		![](pcontainer.jpg)
+		![](~@img/pcontainer.jpg)
 		```
 		justify-content:  设置子元素在主轴方向上的对齐方式
 		align-items： 设置子元素在交叉轴方向上的对齐方式
@@ -85,7 +84,7 @@ Flex布局之美
 		当你给父盒子(wrapper)设置属性align-items: stretch，这个属性是默认的，如果项目未设置高度或者设为 auto，将占满整个容器的高度。
 		```
 	- 子容器
-		![](scontainer.jpg)
+		![](~@img/scontainer.jpg)
 		- 子容器主要介绍2个属性，flex和align-self
 			- flex属性 定义在主轴是如何伸缩的
 				- 子容器是有弹性的，它们会自动填充剩余空间，子容器的伸缩比由flex属性决定。
@@ -115,7 +114,7 @@ Flex布局之美
 			拉伸对齐
 			align-self : stretch
 			```
-#### Flex更深入了解
+## Flex更深入了解
 1. 父容器
 	- flex-wrap  设置换行方式
 		- 绝对子容器是否可以选择换行，一般而言有三种状态，支持换行的话，也支持逆序换行。
@@ -202,5 +201,4 @@ Flex布局之美
 		- 通过设置order属性值，改变子容器的排列顺序。
 		- 可以是负值，数值越小的话，排的越靠前。
 
-#### 参考
-- [https://juejin.cn/post/6866914148387651592](https://juejin.cn/post/6866914148387651592)
+参考：[https://juejin.cn/post/6866914148387651592](https://juejin.cn/post/6866914148387651592)

@@ -1,10 +1,9 @@
-#selenium
-
+[[doc]]
 ## 准备工作
 1. 安装selenium库
-	 ```
-	 pip install selenium
-	 ```
+ ```shell script
+ pip install selenium
+ ```
 1. 安装浏览器驱动
 	- 手动安装
 		- 先查看本地Chrome浏览器版本：（两种方式均可）
@@ -16,7 +15,7 @@
 		- 备注：当然也可以不这样做，但是在调用的时候指定chromedriver.exe绝对路径亦可
 	- 自动安装
 		- 自动安装需要用到第三方库webdriver_manager，先安装这个库。
-		```
+		```python
 		from selenium import webdriver
 		from selenium.webdriver.common.keys import Keys
 		from webdriver_manager.chrome import ChromeDriverManager
@@ -29,25 +28,25 @@
 		browser.close()
 		```
 		- 在上述代码中，ChromeDriverManager().install()方法就是自动安装驱动的操作，它会自动获取当前浏览器的版本并去下载对应的驱动到本地。
-		```
+        ::: tip
 		====== WebDriver manager ======
 		Current google-chrome version is 96.0.4664
 		Get LATEST chromedriver version for 96.0.4664 google-chrome
 		There is no [win32] chromedriver for browser  in cache
 		Trying to download new driver from https://chromedriver.storage.googleapis.com/96.0.4664.45/chromedriver_win32.zip
 		Driver has been saved in cache [C:\Users\Gdc\.wdm\drivers\chromedriver\win32\96.0.4664.45]
-		```
+        :::
 		- 如果本地已经有该浏览器渠道，则会提示其已存在。
-		```
+		::: tip
 		====== WebDriver manager ======
 		Current google-chrome version is 96.0.4664
 		Get LATEST driver version for 96.0.4664
 		Driver [C:\Users\Gdc\.wdm\drivers\chromedriver\win32\96.0.4664.45\chromedriver.exe] found in cache
-		```
+		::: 
 ## 基本用法
 1. 初始化浏览器对象
 	 - 在准备工作部分我们提到需要将浏览器渠道添加到环境变量或者指定绝对路径，前者可以直接初始化，后者则需要进行指定。
-	 ```
+	 ```python
 	 from selenium import webdriver
 	 # 初始化浏览器为chrome浏览器
 	 browser = webdriver.Chrome()
@@ -58,7 +57,7 @@
 	 browser.close()
 	 ```
 	- 可以看到以上是有界面的浏览器，我们还可以初始化浏览器为无界面的浏览器。
-	```
+	```python
 	from selenium import webdriverx
 	# 无界面的浏览器
 	option = webdriver.ChromeOptions()
@@ -74,7 +73,7 @@
 
 1. 访问页面
 	- 进行页面访问使用的是get方法，传入参数为待访问页面的URL地址即可。
-	```
+	```python
 	from selenium import webdriver
 	# 初始化浏览器为chrome浏览器
 	browser = webdriver.Chrome()
@@ -85,7 +84,7 @@
 	```
 1. 设置浏览器大小
 	- set_window_size()方法可以用来设置浏览器大小（就是分辨率），而maximize_window则是设置浏览器为全屏！
-	```
+	```python
 	from selenium import webdriver
 	import time  
 	browser = webdriver.Chrome()
@@ -104,7 +103,7 @@
 	```
 1. 刷新页面
 	- 刷新页面是我们在浏览器操作时很常用的操作，这里refresh()方法可以用来进行浏览器页面刷新。
-	```
+	```python
 	from selenium import webdriver
 	import time  
 	browser = webdriver.Chrome()
@@ -124,7 +123,7 @@
 
 1. 前进后退
 	 - 前进后退也是我们在使用浏览器时非常常见的操作，这里forward()方法可以用来实现前进，back()可以用来实现后退。
-	```
+	```python
 	from selenium import webdriver
 	import time  
 	browser = webdriver.Chrome()
@@ -146,7 +145,7 @@
 	```
 ## 获取页面基础属性
 - 当我们用selenium打开某个页面，有一些基础属性如网页标题、网址、浏览器名称、页面源码等信息。
-```
+```python
 from selenium import webdriver
 browser = webdriver.Chrome()
 browser.get(r'https://www.baidu.com') 
@@ -164,7 +163,7 @@ print(browser.page_source)
 ## 定位页面元素
 - 我们在实际使用浏览器的时候，很重要的操作有输入文本、点击确定等等。对此，Selenium提供了一系列的方法来方便我们实现以上操作。常说的8种定位页面元素的操作方式，我们一一演示一下！
 1. id定位
-	```
+	```python
 	find_element_by_id()根据id属性获取，这里id属性是 kw
 
 	from selenium import webdriver
@@ -179,7 +178,7 @@ print(browser.page_source)
 	browser.close()
 	```
 2. name定位
-	```
+	```python
 	find_element_by_name()根据name属性获取，这里name属性是 wd
 	from selenium import webdriver
 	import time  
@@ -193,7 +192,7 @@ print(browser.page_source)
 	browser.close()
 	```
 1. class定位
-	```
+	```python
 	find_element_by_class_name()根据class属性获取，这里class属性是s_ipt
 
 	from selenium import webdriver
@@ -208,10 +207,8 @@ print(browser.page_source)
 	browser.close()
 	```
 1. tag定位
- 
 	- 我们知道HTML是通过tag来定义功能的，比如input是输入，table是表格等等。每个元素其实就是一个tag，一个tag往往用来定义一类功能，我们查看百度首页的html代码，可以看到有很多同类tag，所以其实很难通过tag去区分不同的元素。
-
-	```
+	```python
 	find_element_by_tag_name()
 
 	from selenium import webdriver
@@ -231,7 +228,7 @@ print(browser.page_source)
  
 	- 这种方法顾名思义就是用来定位文本链接的，比如百度首页上方的分类模块链接。
 
-	```
+	```python
 	find_element_by_link_text()
 
 	from selenium import webdriver
@@ -247,7 +244,7 @@ print(browser.page_source)
 	```
 1. partial定位
 	- 有时候一个超链接的文本很长，我们如果全部输入，既麻烦，又显得代码很不美观，这时候我们就可以只截取一部分字符串，用这种方法模糊匹配了。
-	```
+	```python
 	find_element_by_partial_link_text()
 
 	from selenium import webdriver
@@ -264,7 +261,7 @@ print(browser.page_source)
 1. xpath定位 
 	- 前面介绍的几种定位方法都是在理想状态下，有一定使用范围的，那就是：在当前页面中，每个元素都有一个唯一的id或name或class或超链接文本的属性，那么我们就可以通过这个唯一的属性值来定位他们。
 	- 但是在实际工作中并非有这么美好，那么这个时候我们就只能通过xpath或者css来定位了。
-	```
+	```python
 	find_element_by_xpath()
 
 	from selenium import webdriver
@@ -280,7 +277,7 @@ print(browser.page_source)
 	```
 1. css定位
 	- 这种方法相对xpath要简洁些，定位速度也要快些。
-	```
+	```python
 	find_element_by_css_selector()
 
 	from selenium import webdriver
@@ -296,7 +293,7 @@ print(browser.page_source)
 	```
 1. find_element的By定位
 	- 除了上述的8种定位方法，Selenium还提供了一个通用的方法find_element()，这个方法有两个参数：定位方式和定位值。
-	```
+	```python
 	# 使用前先导入By类
 	from selenium.webdriver.common.by import By
 	以上的操作可以等同于以下：
@@ -316,7 +313,7 @@ print(browser.page_source)
 - 既然我们有很多方式来定位页面的元素，那么接下来就可以考虑获取以下元素的属性了，尤其是用Selenium进行网络爬虫的时候。
 - get_attribute获取属性
 - 以百度首页的logo为例，获取logo相关属性
-```
+```python
 <img hidefocus="true" id="s_lg_img" class="index-logo-src" src="//www.baidu.com/img/PCtm_d9c8750bed0b3c7d089fa7d55720d6cf.png" width="270" height="129" onerror="this.src='//www.baidu.com/img/flexible/logo/pc/index.png';this.onerror=null;" usemap="#mp">
 
 from selenium import webdriver
@@ -330,7 +327,7 @@ print(logo.get_attribute('src'))
 browser.close()
 ```
 - 获取文本，用的是text属性，直接调用即可
-```
+```python
 from selenium import webdriver
 import time  
 browser = webdriver.Chrome()
@@ -342,7 +339,7 @@ print(logo.get_attribute('href'))
 browser.close()
 ```
 - 除了属性和文本值外，还有id、位置、标签名和大小等属性。
-```
+```python
 from selenium import webdriver
 import time  
 browser = webdriver.Chrome()
@@ -358,7 +355,7 @@ browser.close()
 ## 页面交互操作
 - 页面交互就是在浏览器的各种操作，比如上面演示过的输入文本、点击链接等等，还有像清除文本、回车确认、单选框与多选框选中等。
 - 输入文本
-	```
+	```python
 	send_keys()
 	
 	from selenium import webdriver
@@ -375,7 +372,7 @@ browser.close()
 	browser.close()
 	```
 - 点击 
-	```
+	```python
 	click()
 
 	from selenium import webdriver
@@ -392,7 +389,7 @@ browser.close()
 	browser.quit()
 	```
 - 清除文本
-	```
+	```python
 	clear()
 
 	from selenium import webdriver
@@ -412,7 +409,7 @@ browser.close()
 	browser.close()
 	```
 - 回车确认
-	```
+	```python
 	submit()
 
 	from selenium import webdriver
@@ -437,7 +434,9 @@ browser.close()
 	- 多选也比较容易，依次定位需要选择的元素，点击即可。
 - 下拉框 
 	- 下拉框的操作相对复杂一些，需要用到Select模块。
-	- from selenium.webdriver.support.select import Select
+	```shell script
+	from selenium.webdriver.support.select import Select
+    ```
 	- 在select模块中有以下定位方法
 		- 1、三种选择某一选项项的方法
 			- select_by_index()           # 通过索引定位；注意：index索引是从“0”开始。
@@ -461,7 +460,7 @@ browser.close()
 	- current_window_handle：获取当前窗口的句柄。
 	- window_handles：返回当前浏览器的所有窗口的句柄。
 	- switch_to_window()：用于切换到对应的窗口。
-	```
+	```python
 	from selenium import webdriver
 	import time	
 	browser = webdriver.Chrome()	
@@ -480,13 +479,13 @@ browser.close()
 	```
 ## 模拟鼠标操作
 - 既然是模拟浏览器操作，自然也就需要能模拟鼠标的一些操作了，这里需要导入ActionChains 类。
-```
+```python
 from selenium.webdriver.common.action_chains import ActionChains
 ```
 - 左键，这个其实就是页面交互操作中的点击click()操作。
 - 右键
 	- context_click()
-	```
+	```python
 	from selenium.webdriver.common.action_chains import ActionChains
 	from selenium import webdriver
 	import time  
@@ -506,7 +505,7 @@ from selenium.webdriver.common.action_chains import ActionChains
 	- perform()：执行ActionChains()中储存的所有操作，可以看做是执行之前一系列的操作
 
 - 双击
-	```
+	```python
 	double_click()
 
 	from selenium.webdriver.common.action_chains import ActionChains
@@ -525,7 +524,7 @@ from selenium.webdriver.common.action_chains import ActionChains
 	```
 - 拖拽
 	- drag_and_drop(source,target)，开始位置和结束位置需要被指定，这个常用于滑块类验证码的操作之类。
-	```
+	```python
 	from selenium.webdriver.common.action_chains import ActionChains
 	from selenium import webdriver
 	import time  
@@ -548,7 +547,7 @@ from selenium.webdriver.common.action_chains import ActionChains
 	browser.close()
 	```
 - 悬停
-	```
+	```python
 	move_to_element()
 
 	from selenium.webdriver.common.action_chains import ActionChains
@@ -569,7 +568,7 @@ from selenium.webdriver.common.action_chains import ActionChains
 ## 模拟键盘操作
 - selenium中的Keys()类提供了大部分的键盘操作方法，通过send_keys()方法来模拟键盘上的按键。
 - 引入Keys类
-```
+```python
 from selenium.webdriver.common.keys import Keys
 常见的键盘操作
 send_keys(Keys.BACK_SPACE)：删除键(BackSpace)
@@ -587,7 +586,7 @@ send_keys(Keys.F1)：键盘F1
 send_keys(Keys.F12)：键盘F12
 ```
 - 定位需要操作的元素，然后操作即可！
-```
+```python
 from selenium.webdriver.common.keys import Keys
 from selenium import webdriver
 import time
@@ -613,7 +612,7 @@ browser.close()
 	- 就很简单了，直接time.sleep(n)强制等待n秒，在执行get方法之后执行。
 1. 隐式等待
 	- implicitly_wait()设置等待时间，如果到时间有元素节点没有加载出来，就会抛出异常。
-	```
+	```python
 	from selenium import webdriver
 	browser = webdriver.Chrome()
 	# 隐式等待，等待时间10秒
@@ -626,7 +625,7 @@ browser.close()
 	```
 1. 显式等待
 	- 设置一个等待时间和一个条件，在规定时间内，每隔一段时间查看下条件是否成立，如果成立那么程序就继续执行，否则就抛出一个超时异常。
-	```
+	```python
 	from selenium import webdriver
 	from selenium.webdriver.support.wait import WebDriverWait
 	from selenium.webdriver.support import expected_conditions as EC
@@ -656,8 +655,8 @@ browser.close()
 	- until_not(method,message='')
 		- until_not 与until相反，until是当某元素出现或什么条件成立则继续执行，until_not是当某元素消失或什么条件不成立则继续执行，参数也相同。
 	- 其他等待条件
-	```
-	from selenium.webdriver.support import expected_conditions as EC
+	```shell script
+    from selenium.webdriver.support import expected_conditions as EC
 	# 判断标题是否和预期的一致
 	title_is
 	# 判断标题中是否包含预期的字符串
@@ -693,9 +692,10 @@ browser.close()
 	#判断一个元素是否仍在DOM中，传入WebElement对象，可以判断页面是否刷新了
 	staleness_of
 	```
+	
 ## 其他
 1. 还有一些操作，比如下拉进度条，模拟javaScript，使用execute_script方法来实现
-	```
+	```python
 	from selenium import webdriver
 	browser = webdriver.Chrome()
 	# 知乎发现页
@@ -704,7 +704,7 @@ browser.close()
 	browser.execute_script('alert("To Bottom")')
 	```
 1. 在selenium使用过程中，还可以很方便对Cookie进行获取、添加与删除等操作。
-	```
+	```python
 	from selenium import webdriver
 	browser = webdriver.Chrome()
 	# 知乎发现页
@@ -719,7 +719,7 @@ browser.close()
 	print(f'删除后Cookies的值：{browser.get_cookies()}')
 	```
 	- 输出：
-	```
+	```shell script
 	Cookies的值：[{'domain': '.zhihu.com', 'httpOnly': False, 'name': 'Hm_lpvt_98beee57fd2ef70ccdd5ca52b9740c49', 'path': '/', 'secure': False, 'value': '1640537860'}, {'domain': '.zhihu.com', ...]
 	添加后Cookies的值：[{'domain': 'www.zhihu.com', 'httpOnly': False, 'name': '才哥', 'path': '/', 'secure': True, 'value': '帅哥'}, {'domain': '.zhihu.com', 'httpOnly': False, 'name': 'Hm_lpvt_98beee57fd2ef70ccdd5ca52b9740c49', 'path': '/', 'secure': False, 'value': '1640537860'}, {'domain': '.zhihu.com',...]
 	删除后Cookies的值：[]

@@ -1,4 +1,4 @@
-# Charles从入门到精通
+[[toc]]
 ## Charles 工作原理
 Charles 的工作原理类似于中间人代理，即任何客户端和服务端的通信都会经过 Charles，于是 Charles 便可以拦截来自客户端和服务端的任何请求，并进行修改
 ## 搭建基础代理环境（Web端与App端）
@@ -84,4 +84,4 @@ Charles 的工作原理类似于中间人代理，即任何客户端和服务端
 	- 问：某些安卓机型证书下载后无法直接安装。
 	- 答：通常见于安卓机，例如小米手机。证书下载后，从“更多设置->系统安全->从存储设备安装”这个路径进行安装。
 
-参考：[https://kaiwu.lagou.com/course/courseInfo.htm?courseId=1073#/detail/pc?id=8324]()
+参考：[https://kaiwu.lagou.com/course/courseInfo.htm?courseId=1073#/detail/pc?id=8324](https://kaiwu.lagou.com/course/courseInfo.htm?courseId=1073#/detail/pc?id=8324)

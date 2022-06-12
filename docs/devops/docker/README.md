@@ -1,4 +1,5 @@
-#### 容器简介
+[[toc]]
+## 容器简介
 1. 什么是 Linux 容器
 	- Linux容器是与系统其他部分隔离开的一系列进程，从另一个镜像运行，并由该镜像提供支持进程所需的全部文件。容器提供的镜像包含了应用的所有依赖项，因而在从开发到测试再到生产的整个过程中，它都具有可移植性和一致性。
 	- 更加详细地来说，请您假定您在开发一个应用。您使用的是一台笔记本电脑，而且您的开发环境具有特定的配置。其他开发人员身处的环境配置可能稍有不同。您正在开发的应用依赖于您当前的配置，还要依赖于某些特定文件。与此同时，您的企业还拥有标准化的测试和生产环境，且具有自身的配置和一系列支持文件。您希望尽可能多在本地模拟这些环境，而不产生重新创建服务器环境的开销。
@@ -16,7 +17,7 @@
 	- 但这个概念非常有吸引力。
 	- 2001 年，通过 Jacques Gélinas 的 VServer 项目，隔离环境的实施进入了 Linux 领域。正如 Gélinas 所说，这项工作的目的是“在高度独立且安全的单一环境中运行多个通用 Linux 服务器 [sic]。” 在完成了这项针对 Linux 中多个受控制用户空间的基础性工作后，Linux 容器开始逐渐成形并最终发展成了现在的模样。
 
-#### 什么是 Docker？
+## 什么是 Docker？
 - “Docker” 一词指代多种事物，包括开源社区项目、开源项目使用的工具、主导支持此类项目的公司 Docker Inc. 以及该公司官方支持的工具。技术产品和公司使用同一名称，的确让人有点困惑。
 - IT 软件中所说的 “Docker” ，是指容器化技术，用于支持创建和使用 Linux 容器。
 - 开源 Docker 社区致力于改进这类技术，并免费提供给所有用户，使之获益。
@@ -37,7 +38,7 @@
 	- 运输：docker pull
 	- 运行：启动一个容器
 	- 每一个容器，他都有自己的文件系统rootfs.
-#### 安装Docker
+## 安装Docker
 ```
 # 需要两台节点进行安装
 [root@docker01 ~]# cat /etc/redhat-release 
@@ -119,7 +120,7 @@ Storage Driver: devicemapper
 	```
 1. Docker镜像生命周期
 	- backlog!
-#### docker镜像相关操作
+## docker镜像相关操作
 1. 搜索官方仓库镜像
 	- docker search centos
 1. 获取镜像
@@ -136,7 +137,7 @@ Storage Driver: devicemapper
 	- docker image load -i docker-centos.tar.gz
 1. 查看镜像的详细信息
 	- docker image inspect centos
-#### 容器的日常管理
+## 容器的日常管理
 1. 容器的起/停
 	- 最简单的运行一个容器
 	```
@@ -229,7 +230,7 @@ Storage Driver: devicemapper
 	```
 	docker run -P （大P）# 需要镜像支持
 	```
-#### Docker 数据卷的管理
+## Docker 数据卷的管理
 1. 挂载时创建卷
 	- 挂载卷
 	```
@@ -323,7 +324,7 @@ Storage Driver: devicemapper
 	```
 	docker run -d -p 1222:22 -p 80:80  centos6-httpd /init.sh 
 	```
-#### Dockerfile自动构建docker镜像
+## Dockerfile自动构建docker镜像
 - 官方构建dockerffile文件参考:https://github.com/CentOS/CentOS-Dockerfiles
 1. Dockerfile指令集
 	- dockerfile主要组成部分：
@@ -377,7 +378,7 @@ Storage Driver: devicemapper
 	CMD ["/usr/sbin/apachectl","-D","FOREGROUND"]
 	更多的Dockerfile可以参考官方方法。
 	```
-#### Docker中的镜像分层
+## Docker中的镜像分层
 - 参考文档：http://www.maiziedu.com/wiki/cloud/dockerimage
 - Docker 支持通过扩展现有镜像，创建新的镜像。实际上，Docker Hub 中 99% 的镜像都是通过在 base 镜像中安装和配置需要的软件构建出来的。
 - 新镜像是从 base 镜像一层一层叠加生成的。每安装一个软件，就在现有镜像的基础上增加一层。
@@ -397,7 +398,7 @@ Storage Driver: devicemapper
 		- 删除文件：在容器中删除文件时，Docker 也是从上往下依次在镜像层中查找此文件。找到后，会在容器层中记录下此删除操作。（只是记录删除操作）
 		- 只有当需要修改时才复制一份数据，这种特性被称作 Copy-on-Write。可见，容器层保存的是镜像变化的部分，不会对镜像本身进行任何修改。
 		- 这样就解释了我们前面提出的问题：容器层记录对镜像的修改，所有镜像层都是只读的，不会被容器修改，所以镜像可以被多个容器共享。
-#### 使用docker运行zabbix-server
+## 使用docker运行zabbix-server
 1. 容器间的互联
 	- 在运行zabbix之前务必要了解容器间互联的方法
 	```
@@ -490,7 +491,7 @@ Storage Driver: devicemapper
 	}' http://10.0.0.100/api_jsonrpc.php
 	{"jsonrpc":"2.0","result":"d3be707f9e866ec5d0d1c242292cbebd","id":1}
 	```
-#### docker 仓库（registry）
+## docker 仓库（registry）
 1. 创建一个普通仓库
 	- 新建仓库
 	```
@@ -556,7 +557,7 @@ Storage Driver: devicemapper
 		}
 	}
 	```
-#### docker-compose编排工具
+## docker-compose编排工具
 1. 安装docker-compose
 	- 安装docker-compose
 	```
@@ -747,7 +748,7 @@ Storage Driver: devicemapper
 	    </body>
 	</html>
 	```
-#### 重启docker服务，容器全部退出的解决办法
+## 重启docker服务，容器全部退出的解决办法
 1. 在启动是指定自动重启
 	```
 	docker run  --restart=always
@@ -771,7 +772,7 @@ Storage Driver: devicemapper
 	```
 	systemctl restart  docker.service
 	```
-#### Docker网络类型
+## Docker网络类型
 1. docker的网络类型
 	```
 	|None|不为容器配置任何网络功能，没有网络 --net=none|
@@ -900,7 +901,7 @@ Storage Driver: devicemapper
 	```
 	docker run  -it --network macvlan_1  --ip=10.1.0.222 busybox /bin/sh
 	```
-#### docker企业级镜像仓库harbor
+## docker企业级镜像仓库harbor
 - 容器管理
 	```
 	[root@docker01 harbor]# pwd
@@ -949,7 +950,7 @@ Storage Driver: devicemapper
 	```
 1. 在web界面里查看
 
-#### 使用容器的建议
+## 使用容器的建议
 1. 不要以拆分方式进行应用程序发布
 2. 不要创建大型镜像
 3. 不要在单个容器中运行多个进程
@@ -960,7 +961,7 @@ Storage Driver: devicemapper
 8. 不要使用单层镜像
 9. 不要将数据存放在容器内
 
-#### 关于Docker容器的监控
+## 关于Docker容器的监控
 1. 容器的基本信息
 2. 包括容器的数量、ID、名称、镜像、启动命令、端口等信息
 3. 容器的运行状态

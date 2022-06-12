@@ -1,3 +1,4 @@
+[[toc]]
 # Vuepress Github Pages 项目搭建
 ## 快速上手
 1. 创建并进入一个新目录

@@ -1,6 +1,5 @@
-令人惊艳的链接备忘录
-==================
-#### 测试
+# 令人惊艳的链接备忘录
+## 测试
 1. 软件测试帮助
 	- [https://www.softwaretestinghelp.com/](https://www.softwaretestinghelp.com/)
 1. 软件测试的艺术
@@ -9,7 +8,7 @@
 	- [https://www.angeszhu.cn/](https://www.angeszhu.cn/)
 1. 上海yoyo
 	- [https://www.cnblogs.com/yoyoketang/](https://www.cnblogs.com/yoyoketang/)
-#### 编程
+## 编程
 1. Java全栈知识点
 	- [https://www.pdai.tech/](https://www.pdai.tech/)
 1. 编程导航
@@ -28,13 +27,15 @@
 	- [https://github.com/taizilongxu/interview_python](https://github.com/taizilongxu/interview_python)
 1. python3 cookbook
 	- [https://github.com/yidao620c/python3-cookbook](https://github.com/yidao620c/python3-cookbook)
+1. pxplore-python
+	- [https://funhacks.gitbooks.io/explore-python/content/](https://funhacks.gitbooks.io/explore-python/content/)
 1. 白月黑羽
 	- [https://www.byhy.net/](https://www.byhy.net/)
 1. 小明
 	- [https://www.dongwm.com/](https://www.dongwm.com/)
 1. 程序示例
 	- [https://www.programcreek.com/python/](https://www.programcreek.com/python/)
-#### 前端
+## 前端
 1. 被删的前端游乐场
 	- [http://www.godbasin.com/](http://www.godbasin.com/)
 1. 前端进阶之旅
@@ -78,14 +79,14 @@
 	- [https://www.javascriptc.com/books/javascript-garden/](https://www.javascriptc.com/books/javascript-garden/)
 1. CSSAPI
 	- [https://overapi.com/css](https://overapi.com/css)
-#### 后端
+## 后端
 1. DRF中文文档
 	- [https://q1mi.github.io/Django-REST-framework-documentation/](https://q1mi.github.io/Django-REST-framework-documentation/)
 2. yuan老师网站
 	- [http://www.yuan316.com/](http://www.yuan316.com/)
 3. 不知名大佬（DRF、Django）
 	- [http://drf.jiuyou.info/#/](http://drf.jiuyou.info/#/)
-#### 综合
+## 综合
 1. 语雀keep_running
 	- [https://www.yuque.com/keep_running](https://www.yuque.com/keep_running)
 1. 陶辉笔记
@@ -105,7 +106,7 @@
 	- [https://vimjc.com/](https://vimjc.com/)
 1. 杰哥的IT之旅
 	- [https://juejin.cn/post/6955680987653079054#heading-0](https://juejin.cn/post/6955680987653079054#heading-0)
-#### 效率工具
+## 效率工具
 1. 插件超级丰富的utools
 	- [http://u.tools/](http://u.tools/)
 1. 100+工具合和网站推荐

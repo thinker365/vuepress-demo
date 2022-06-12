@@ -1,8 +1,7 @@
-Vue组件通信
-=============
-#### Props方式
+[[toc]]
+## Props方式
 Props方式是Vue中最常见的一种父传子的一种方式，使用也比较简单。
-```
+```vue
 父组件代码如下：
 <template>
   <!-- 子组件 -->
@@ -34,7 +33,7 @@ const handleAdd = () => {
 }
 </script>
 ```
-```
+```vue
 子组件只需要对父组件传递的值进行渲染即可，代码如下：
 
 <template>
@@ -52,9 +51,9 @@ const props = defineProps({
 })
 </script>
 ```
-#### emit方式
+## emit方式
 emit方式也是Vue中最常见的组件通信方式，该方式用于子传父
-```
+```vue
 子组件代码如下：
 
 <template>
@@ -82,7 +81,7 @@ const handleSubmit = () => {
 }
 </script>
 ```
-```
+```vue
 父组件代码如下：
 
 <template>
@@ -104,16 +103,16 @@ const handleAdd = value => {
 </script>
 ```
 
-#### v-model方式
+## v-model方式
 v-model是Vue中一个比较出色的语法糖，就比如下面这段代码
-```
+```vue
 <ChildComponent v-model:title="pageTitle" />
 ```
 就是下面这段代码的简写形势
-```
+```vue
 <ChildComponent :title="pageTitle" @update:title="pageTitle = $event" />
 ```
-```
+```vue
 子组件
 <template>
   <div class="child-wrap input-group">
@@ -151,7 +150,7 @@ const handleAdd = () => {
 ```
 - 在子组件中我们首先定义props和emits，然后添加完成之后emit指定事件。
 - 注：update:*是Vue中的固定写法，*表示props中的某个属性名。
-```
+```vue
 父组件中使用就比较简单，代码如下：
 <template>
   <!-- 父组件 -->
@@ -167,9 +166,9 @@ import ChildComponents from './child.vue'
 const list = ref(['JavaScript', 'HTML', 'CSS'])
 </script>
 ```
-#### refs方式
+## refs方式
 在使用选项式API时，我们可以通过this.$refs.name的方式获取指定元素或者组件，但是组合式API中就无法使用哪种方式获取。如果我们想要通过ref的方式获取组件或者元素，需要定义一个同名的Ref对象，在组件挂载后就可以访问了。
-```
+```vue
 示例代码如下：
 <template>
   <ul class="parent list-group">
@@ -188,7 +187,7 @@ const childRefs = ref(null)
 </script>
 ```
 
-```
+```vue
 子组件代码如下：
 <template>
   <div class="child-wrap input-group">
@@ -219,9 +218,9 @@ defineExpose({ list })
 ```
 setup组件默认是关闭的，也即通过模板ref获取到的组件的公开实例，不会暴露任何在script setup中声明的绑定。如果需要公开需要通过defineExposeAPI暴露。
 
-#### provide/inject方式
+## provide/inject方式
 provide和inject是Vue中提供的一对API，该API可以实现父组件向子组件传递数据，无论层级有多深，都可以通过这对API实现。
-```
+```vue
 父组件
 <template>
   <!-- 子组件 -->
@@ -255,7 +254,7 @@ const handleAdd = () => {
 }
 </script>
 ```
-```
+```vue
 子组件
 <template>
   <ul class="parent list-group">
@@ -270,11 +269,11 @@ const list = inject('list')
 ```
 值得注意的是使用provide进行数据传递时，尽量readonly进行数据的包装，避免子组件修改父级传递过去的数据。
 
-#### 事件总线
-- Vue3中移除了事件总线，但是可以借助于第三方工具来完成，Vue官方推荐mitt[2]或tiny-emitter[3]；
+## 事件总线
+- Vue3中移除了事件总线，但是可以借助于第三方工具来完成，Vue官方推荐mitt或tiny-emitter；
 - 在大多数情况下不推荐使用全局事件总线的方式来实现组件通信，虽然比较简单粗暴，但是长久来说维护事件总线是一个大难题
 
-#### 状态管理工具
-Vuex[4]和Pinia[5]是Vue3中的状态管理工具，使用这两个工具可以轻松实现组件通信，这两个工具功能比较强大。
+## 状态管理工具
+Vuex和Pinia是Vue3中的状态管理工具，使用这两个工具可以轻松实现组件通信，这两个工具功能比较强大。
 
-参考：[https://juejin.cn/post/7062740057018335245]()
+参考：[https://juejin.cn/post/7062740057018335245](https://juejin.cn/post/7062740057018335245)

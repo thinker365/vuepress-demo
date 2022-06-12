@@ -16,12 +16,13 @@ module.exports = {
                     children: [
                         ['', '测试体系概览'], //左边文档，右边菜单名称
                         ['测试的生命周期', '测试的生命周期'],
+                        ['不同视角看测试', '不同视角看测试'],
                     ]
                 },
             ],
             '/qa/view/': [
                 {
-                    title: '测试视角',
+                    title: '测试思考',
                     children: [
                         ['', '不同视角看测试'],
                     ]
@@ -43,7 +44,7 @@ module.exports = {
                     title: '性能测试',
                     children: [
                         ['', '构建性能测试体系'],
-                        ['TPS、并发数、线程数', '性能测试重要的概念'],
+                        ['TPS、并发数、线程数', '关于TPS、并发数、线程数'],
                         ['Jmeter', 'Jmeter'],
                         ['Locust', 'Locust'],
                     ]
@@ -105,7 +106,7 @@ module.exports = {
             ],
             '/qa/framework/': [
                 {
-                    title: '测试框架',
+                    title: '单测框架',
                     children: [
                         ['', 'Unittest'],
                         ['Pytest', 'Pytest'],
@@ -147,7 +148,7 @@ module.exports = {
                 {
                     title: '数据结构与算法',
                     children: [
-                        ['', '二叉树知识点'],
+                        ['', '二叉树'],
                     ]
                 },
             ],
@@ -166,7 +167,7 @@ module.exports = {
                     title: 'CSS',
                     children: [
                         ['', 'CSS布局技巧'],
-                        ['flex布局之美', 'flex布局之美'],
+                        ['flex布局之美', 'FLEX布局之美'],
                     ]
                 },
             ],
@@ -249,8 +250,7 @@ module.exports = {
             '/backend/mongodb/': [
                 {
                     title: 'MongoDB',
-                    children: [
-                    ]
+                    children: []
                 },
             ],
             '/backend/uwsgi/': [
@@ -349,7 +349,7 @@ module.exports = {
                     {text: '安全测试', link: '/qa/security/'},
                     {text: '测试工具', link: '/qa/tool/'},
                     {text: '测试框架', link: '/qa/framework/'},
-                    {text: '测试视野', link: '/qa/view/'},
+                    {text: '测试思考', link: '/qa/view/'},
                 ]
             },
             {
@@ -445,5 +445,6 @@ module.exports = {
             headerAnchorSelector: '.header-anchor'
         },
         '@vuepress/nprogress'
-    ]
+    ],
+    markdown: {lineNumbers: true}
 }

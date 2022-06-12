@@ -1,14 +1,13 @@
-Cookie、Session、Token、JWT
-============
-#### 什么是认证
+[[toc]]
+## 什么是认证
 - 认证（Authentication）通俗地讲就是验证当前用户的身份
-#### 什么是授权
+## 什么是授权
 - 授权（Authorization）是用户授予第三方应用访问该用户某些资源的权限
 - 如在安装手机应用的时候，APP 会询问是否允许授予权限（访问相册、地理位置等权限）
 - 实现授权的方式有：Cookie、Session、Token、OAuthL
-#### 什么是凭证
+## 什么是凭证
 - 凭证（Credentials）是实现认证和授权的前提是需要一种媒介（证书） 来标记访问 者的身份
-#### 什么是cookie
+## 什么是cookie
 1. HTTP 是无状态的协议（对于事务处理没有记忆能力，每次客户端和服务端会话完成时，服务端不会保存任何会话信息）：每个请求都是完全独立的，服务端无法确认当前访问者的身份信息，无法分辨上一次的请求发送者和这一次的发送者是不是同一个人。所以服务器与浏览器为了进行会话跟踪（知道是谁在访问我），就必须主动的去维护一个状态，这个状态用于告知服务端前后两个请求是否来自同一浏览器。而这个状态需要通过 cookie 或者 session 去实现。
 2. cookie 存储在客户端： cookie 是服务器发送到用户浏览器并保存在本地的一小块数据，它会在浏览器下次向同一服务器再发起请求时被携带并发送到服务器上。
 1. cookie 是不可跨域的： 每个 cookie 都会绑定单一的域名，无法在别的域名下获取使用，一级域名和二级域名之间是允许共享使用的（靠的是 domain）。
@@ -35,7 +34,7 @@ Cookie、Session、Token、JWT
 	** httpOnly**
 	- 如果给某个cookie 设置了 httpOnly 属性，则无法通过JS 脚本读取到该 cookie 的信息。但还是能通过Application中手动修改cookie，所以只是在一定程度上可以防止 XSS 攻击，不是绝对的安全
 
-#### 什么是session
+## 什么是session
 - session 是另一种记录服务器和客户端会话状态的机制；
 - session 是基于cookie 实现的，session 存储在服务器端，sessionId 会被存储到客户端的cookie 中
 - session 认证流程
@@ -52,7 +51,7 @@ Cookie、Session、Token、JWT
 	3. 存取值的类型不同：Cookie 只支持存字符串数据，想要设置其他类型的数据，需要将其转换成字符串，Session 可以存任意数据类型。
 	4. 有效期不同： Cookie 可设置为长时间保持，比如我们经常使用的默认登录功能，Session 一般失效时间较短，客户端关闭（默认情况下）或者 Session 超时都会失效。
 	5. 存储大小不同： 单个 Cookie 保存的数据不能超过 4K，Session 可存储数据远高于 Cookie，但是当访问量过多，会占用过多的服务器资源。
-#### 什么是token
+## 什么是token
 1. Acesss Token
 	- 访问资源接口（API）时所需要的资源凭证
 	- 简单 token 的组成： 
@@ -83,7 +82,7 @@ Cookie、Session、Token、JWT
 	- Session 是一种记录服务器和客户端会话状态的机制，使服务端有状态化，可以记录会话信息。而 Token 是令牌，访问资源接口（API）时所需要的资源凭证。Token 使服务端无状态化，不会存储会话信息。
 	- Session 和 Token 并不矛盾，作为身份认证 Token 安全性比 Session 好，因为每一个请求都有签名还能防止监听以及重放攻击，而 Session 就必须依赖链路层来保障通讯安全了。如果你需要实现有状态的会话，仍然可以增加 Session 来在服务器端保存一些状态。
 	- 所谓 Session 认证只是简单的把 User 信息存储到 Session 里，因为 SessionID 的不可预测性，暂且认为是安全的。而 Token ，如果指的是 OAuth Token 或类似的机制的话，提供的是 认证 和 授权 ，认证是针对用户，授权是针对 App 。其目的是让某 App 有权利访问某用户的信息。这里的 Token 是唯一的。不可以转移到其它 App上，也不可以转到其它用户上。Session 只提供一种简单的认证，即只要有此 SessionID ，即认为有此 User 的全部权利。是需要严格保密的，这个数据应该只保存在站方，不应该共享给其它网站或者第三方 App。所以简单来说：如果你的用户数据可能需要和第三方共享，或者允许第三方调用 API 接口，用 Token 。如果永远只是自己的网站，自己的 App，用什么就无所谓了。
-#### 什么是JWT
+## 什么是JWT
 - JSON Web Token（简称 JWT）是目前最流行的跨域认证解决方案。
 - 是一种认证授权机制。
 - JWT 主要由三部分组成，每个部分用 . 进行分割，各个部分分别是Header、Payload、Signature
@@ -130,11 +129,11 @@ Cookie、Session、Token、JWT
 	- 区别：
 		- Token：服务端验证客户端发送过来的 Token 时，还需要查询数据库获取用户信息，然后验证 Token 是否有效。
 		- JWT：将 Token 和 Payload 加密后存储于客户端，服务端只需要使用密钥解密进行校验（校验也是 JWT 自己实现的）即可，不需要查询或者减少查询数据库，因为 JWT 自包含了用户信息和加密的数据
-#### 常见的前后端鉴权方式
+## 常见的前后端鉴权方式
 1. Session-Cookie；
 2. Token 验证（包括 JWT，SSO）；
 3. OAuth2.0（开放授权）
-#### 使用注意事项
+## 使用注意事项
 1. 使用 cookie 时需要考虑的问题
 	- 因为存储在客户端，容易被客户端篡改，使用前需要验证合法性
 	- 不要存储敏感数据，比如用户密码，账户余额
@@ -196,7 +195,7 @@ Cookie、Session、Token、JWT
 			- 然而浏览器从来不会主动在关闭之前通知服务器它将要关闭，因此服务器根本不会有机会知道浏览器已经关闭，之所以会有这种错觉，是大部分 session 机制都使用会话 cookie 来保存 session id，而关闭浏览器后这个 session id 就消失了，再次连接服务器时也就无法找到原来的 session。
 			- 如果服务器设置的 cookie 被保存在硬盘上，或者使用某种手段改写浏览器发出的 HTTP 请求头，把原来的 session id 发送给服务器，则再次打开浏览器仍然能够打开原来的 session。
 			- 恰恰是由于关闭浏览器不会导致 session 被删除，迫使服务器为 session 设置了一个失效时间，当距离客户端上一次使用 session 的时间超过这个失效时间时，服务器就认为客户端已经停止了活动，才会把 session 删除以节省存储空间
-#### 参考链接
+## 参考链接
 1. [https://mp.weixin.qq.com/s/xzv44ibRdq4zbu9rl-_AvQ]()
 2. [https://mp.weixin.qq.com/s/DeERrIodO2WUT5ZevOQ3bA]()
 3. [https://mp.weixin.qq.com/s/i-xmWec09MCIK_AOBzHZdw]()
