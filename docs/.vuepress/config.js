@@ -50,6 +50,13 @@ module.exports = {
                     ]
                 },
             ],
+			'/qa/special/': [
+			    {
+			        title: '专项测试',
+			        children: [
+			        ]
+			    },
+			],
             '/qa/security/': [
                 {
                     title: '安全测试工具',
@@ -301,6 +308,7 @@ module.exports = {
                     title: '思考模型',
                     children: [
                         ['', '阿里工程师的自我修养'],
+                        ['可借鉴的方法论', '可借鉴的方法论'],
                     ]
                 },
             ],
@@ -346,6 +354,7 @@ module.exports = {
                     {text: '测试基础知识', link: '/qa/basics/'},
                     {text: '自动化测试', link: '/qa/automatic/'},
                     {text: '性能测试', link: '/qa/performance/'},
+                    {text: '专项测试', link: '/qa/special/'},
                     {text: '安全测试', link: '/qa/security/'},
                     {text: '测试工具', link: '/qa/tool/'},
                     {text: '测试框架', link: '/qa/framework/'},

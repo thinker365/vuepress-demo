@@ -91,6 +91,8 @@
 3. 不知名大佬（DRF、Django）
 	- [http://drf.jiuyou.info/#/](http://drf.jiuyou.info/#/)
 ## 综合
+1. Web安全
+	- [https://websec.readthedocs.io/zh/latest/index.html](https://websec.readthedocs.io/zh/latest/index.html)
 1. 语雀keep_running
 	- [https://www.yuque.com/keep_running](https://www.yuque.com/keep_running)
 1. 陶辉笔记
