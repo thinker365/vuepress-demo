@@ -100,6 +100,8 @@
 1. Linux字典
 	- [https://www.linuxcool.com/](https://www.linuxcool.com/)
 	- [https://linuxtools-rst.readthedocs.io/zh_CN/latest/index.html](https://linuxtools-rst.readthedocs.io/zh_CN/latest/index.html)
+1. Linux命令大全
+	- [https://linux.9iphp.com/](https://linux.9iphp.com/)
 1. Github漫游指南
 	- [https://github.phodal.com/#/](https://github.phodal.com/#/)
 1. SQL自学网
