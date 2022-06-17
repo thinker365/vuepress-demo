@@ -14,5 +14,8 @@
     "deploy": "bash deploy.sh"
   },
   "repository": "git@github.com:thinker365/vuepress-demo.git",
-  "author": "liulinyuan <18380430509@163.com>"
+  "author": "liulinyuan <18380430509@163.com>",
+  "dependencies": {
+    "vue-pdf": "^4.3.0"
+  }
 }

@@ -47,6 +47,8 @@ module.exports = {
                         ['TPS、并发数、线程数', '关于TPS、并发数、线程数'],
                         ['Jmeter', 'Jmeter'],
                         ['Locust', 'Locust'],
+                        ['NetData', 'NetData性能监控'],
+                        ['Prometheus入门到实战', 'Prometheus入门到实战'],
                     ]
                 },
             ],
@@ -301,6 +303,14 @@ module.exports = {
                     ]
                 },
             ],
+            '/devops/efficiency/': [
+                {
+                    title: '软件研发效能',
+                    children: [
+                        ['', '研发效能负面清单'],
+                    ]
+                },
+            ],
 
 
             '/softskills/mind/': [
@@ -418,6 +428,7 @@ module.exports = {
                     {text: 'Docker', link: '/devops/docker/'},
                     {text: 'Git', link: '/devops/git/'},
                     {text: 'DevOps笔记', link: '/devops/notes/'},
+                    {text: '研发效能', link: '/devops/efficiency/'},
                 ]
             },
             {
