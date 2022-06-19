@@ -3,7 +3,8 @@ module.exports = {
     configureWebpack: {
         resolve: {
             alias: {
-                '@img': '/docs/.vuepress/public/assets/img'
+                '@img': '/docs/.vuepress/public/assets/img',
+                '@file': '/docs/.vuepress/public/assets/document',
             }
         }
     },
@@ -130,6 +131,7 @@ module.exports = {
                         ['', '计算机网络核心概念'],
                         ['HTTP、HTTPS协议', 'HTTP、HTTPS协议'],
                         ['Cookie、Session、Token、JWT', 'Cookie、Session、Token、JWT'],
+                        ['pdf', 'PDF测试'],
                     ]
                 },
             ],
@@ -244,7 +246,7 @@ module.exports = {
                 {
                     title: 'REDIS',
                     children: [
-                        ['', 'Redis'],
+                        ['', 'Redis基础知识'],
                     ]
                 },
             ],
@@ -266,7 +268,7 @@ module.exports = {
                 {
                     title: 'uwsgi',
                     children: [
-                        ['', 'Elasticsearch'],
+                        ['', '说明'],
                     ]
                 },
             ],
@@ -274,7 +276,7 @@ module.exports = {
                 {
                     title: 'gunicorn',
                     children: [
-                        ['', 'Elasticsearch'],
+                        ['', '说明'],
                     ]
                 },
             ],

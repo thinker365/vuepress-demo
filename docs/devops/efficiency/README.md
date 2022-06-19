@@ -59,4 +59,5 @@
 50. 缺乏自动监控/人肉运维
 51. 缺乏可观测性
 52. 不自动收集用户反馈
-参考：[https://mp.weixin.qq.com/s/TDt61RxevMNvY2M1ZRiH9g](https://mp.weixin.qq.com/s/TDt61RxevMNvY2M1ZRiH9g)
+### 参考
+- [https://mp.weixin.qq.com/s/TDt61RxevMNvY2M1ZRiH9g](https://mp.weixin.qq.com/s/TDt61RxevMNvY2M1ZRiH9g)

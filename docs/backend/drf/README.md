@@ -7,7 +7,7 @@
 4. 支持ORM（对象映射关系）和**非ORM的数据序列化**
 ## Django和Drf请求的生命周期
 ### Django请求生命周期
-![](uTools_1654323628804.png)
+![](~@img/uTools_1654323628804.png)
 - 注解：每一个中间件对应一个类，类中可以定义方法：请求和响应时都要挨个的穿过这些类
 1. 前端发送请求
 2. wsgi, 就是socket服务端，用于接收用户请求并将请求进行初次封装，然后将请求交给web框架（Flask、Django）
@@ -1461,8 +1461,8 @@ class StudentModelSerializers(serializers.ModelSerializer):
 ```
 - 
 ## 视图
-### 参考[https://blog.csdn.net/LHQ626/article/details/118400296](https://blog.csdn.net/LHQ626/article/details/118400296)
-![](uTools_1654421118321.png)
+参考[https://blog.csdn.net/LHQ626/article/details/118400296](https://blog.csdn.net/LHQ626/article/details/118400296)
+![](~@img/uTools_1654421118321.png)
 ### 视图中调用Http请求和响应处理类
 1. 什么时候声明的序列化器需要继承序列化器基类Serializer,什么时候继承模型序列化器类ModelSerializer?
 	- 继承序列化器类Serializer
@@ -1904,7 +1904,7 @@ class StudentInfoView(RetrieveUpdateAPIView):
 		queryset = Student.objects.all()
 		serializer_class = StudentModelSerializers
 	```
-## 路由Routers
+## 路由
 - 对于视图集ViewSet,我们除了可以自己手动指明请求方式与动作action之间的对应关系外，还可以使用Routers来帮助我们快速实现路由信息。依赖于视图集，只有使用了视图集，才可以使用自动生成路由，如果是非视图集，不需要使用路由集routers
 - REST framework提供了两个router类,使用方式一致的。结果多一个或少一个根目录url地址的问题而已，用任何一个都可以。
 	- SimpleRouter
@@ -2496,7 +2496,6 @@ REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES":['api.extensions.auth.JwtQueryParamsAuthentication',]
 }
 ```
-
 ## 权限
 ### 两种实现
 1. 系统：
@@ -2800,6 +2799,235 @@ class VipAPIView(APIView):
 	def get(self, request):
 		return Response({'msg': 'ok'})
 ```
+## 缓存（Django-redis）
+应该符合的规则：1、频繁读取的数据，否则使用缓存，性能提升也不大。2、较少变动的数据。
+### 安装
+```python
+pip3 install django-redis
+```
+### settings配置
+```python
+CACHES = {
+    'default': {
+        'BACKEND': 'django_redis.cache.RedisCache',
+        'LOCATION': 'redis://127.0.0.1:6379/1',
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+            # socket 建立连接超时设置
+            "SOCKET_CONNECT_TIMEOUT": 5,
+            # 连接建立后的读写操作超时设置
+            "SOCKET_TIMEOUT": 5,
+            "CONNECTION_POOL_KWARGS": {
+                # 连接池最大数量
+                "max_connections": 100,
+                "encoding": 'utf-8'
+            },
+             "PASSWORD": "123456",
+        },
+    },
+}
+```
+### 视图中操作redis
+```python
+from django.core.cache import cache
+
+
+# timeout为过期时间，单位：秒，timeout=0为立即过期， timeout为None永不超时
+cache.set('v', '555', 60*60)
+
+# ttl搜索过期时间，返回值：0--标示key不存在或过期，
+# None--key存在，但是没有设置过期时间
+cache.ttl(key)
+
+# expire指定一个key的过期时间
+cache.expire(key, timeout)
+
+# persist设置key永不过期
+chache.persist(key)
+
+# 判断key为v是否存在
+cache.has_key('v')
+
+# 获取key为v的缓存
+cache.get('v')
+
+# 删除key为v的缓存
+cache.delete('v')
+
+# 扫描key
+cache.iter_keys("demo_*")
+```
+### redis锁
+```python
+from django.core.cache import cache
+
+with cache.lock(key):
+    do_something()
+```
+### 全站缓存
+使用中间件，经过一系列的认证等操作，如果内容在缓存中存在，则使用FetchFromCacheMiddleware获取内容并返回给用户；当返回给用户之前，判断缓存中是否已经存在，如果不存在则UpdateCacheMiddleware会将缓存保存至缓存，从而实现全站缓存
+```python
+MIDDLEWARE = [
+    'django.middleware.cache.UpdateCacheMiddleware', # 写最上面
+    # 其他中间件...
+    'django.middleware.cache.FetchFromCacheMiddleware', # 写最下面
+  ]
+```
+### 单独视图缓存
+```python
+方式一：通过装饰器
+from django.views.decorators.cache import cache_page
+    class Personal_Assets_View(APIView):
+        @cache_page(60 * 15)
+        def get(self, request, *args, **kwargs):
+            
+方式二：通过url
+from django.views.decorators.cache import cache_page
+urlpatterns = [
+    re_path(r'^assets/personal/list/$', cache_page(60 * 10)(views.Personal_Assets_View.as_view())),
+]
+```
+## 跨域（理解不深）
+### 同源
+所谓同源（即指在同一个域），具有相同的协议（protocol），主机（host）和端口号（port）
+### 目的
+1. 同源政策的目的，是为了保证用户信息的安全，防止恶意的网站窃取数据。
+2. 在发送Ajax请求时，如果当前浏览器的URL是a.com，页面中向b.com发送ajax请求，请求可以正常发送，但数据回到浏览器时，浏览器就会阻止。
+### 非AJAX跨域
+### AJAX跨域
+1. JSONP（仅仅用于get请求）
+2. CORS（跨域资源共享）
+    - 本质是设置响应头，相比JSONP只能发GET请求，CORS允许任何类型的请求。
+	- 原理
+		- CORS 通过 HTTP 请求中附带 Origin 的 Header 来表明自己来源域。例如 Origin 的 Header 就是 www.a.com
+		- 服务器端接收到这个请求之后，会判断是否允许该来源域的请求。如果允许，服务器在返回的响应中会附带上 Access-Control-Allow-Origin 这个 Header，内容为 www.a.com 来表示允许该次跨域访问。
+		- 浏览器根据是否返回了对应的 Header 来决定该跨域请求是否成功。如果是非简单请求，浏览器会先发送一个 OPTIONS 预请求来获取服务器的 CORS 配置，如果服务器不支持接下来的操作，浏览器也会拦截接下来的请求
+	- 劣势
+		- 增加服务器的负担，且访问速度慢
+	- 分类
+		- 简单请求，同时满足以下两大条件
+		::: tip
+		- 请求方法是以下三种方法之一：
+			- HEAD
+			- GET
+			- POST
+		- HTTP的头信息不超出以下几种字段：
+			- Accept
+			- Accept-Language
+			- Content-Language
+			- Last-Event-ID
+			- Content-Type：只限于三个值application/x-www-form-urlencoded、multipart/form-data、text/plain
+		:::
+		- 非简单请求（凡是不同时满足上面两个条件，就属于非简单请求）
+		- 处理方式
+			- 简单请求：一次请求
+			- 非简单请求：两次请求，在发送数据之前会先发一次请求用于做“预检”，只有“预检”通过后才再发送一次请求用于数据传输。
+			```
+			- 请求方式：OPTIONS
+			- “预检”其实做检查，检查如果通过则允许传输数据，检查不通过则不再发送真正想要发送的消息
+			- 如何“预检”
+				 - 如果复杂请求是PUT等请求，则服务端需要设置允许某请求，否则“预检”不通过，Access-Control-Request-Method
+				 - 如果复杂请求设置了请求头，则服务端需要设置允许某请求头，否则“预检”不通过，Access-Control-Request-Headers
+			```
+	- 实现
+	```shell script
+	pip install django-cors-headers
+	```
+	```python
+	settings.py
+	
+	INSTALLED_APPS = [
+	    ...
+	    'corsheaders'
+	]
+	
+	MIDDLEWARE = [
+	    ...
+	    # 一定要写在CSRF之前，为了方便处理，一般写在最前面
+	    'corsheaders.middleware.CorsMiddleware'
+	]
+	# 跨域增加忽略
+	CORS_ALLOW_CREDENTIALS = True
+	CORS_ORIGIN_ALLOW_ALL = True
+	CORS_ORIGIN_WHITELIST = (
+	    '*'
+	)
+	CORS_ALLOW_METHODS = (
+	    'DELETE',
+	    'GET',
+	    'OPTIONS',
+	    'PATCH',
+	    'POST',
+	    'PUT',
+	    'VIEW',
+	)
+	
+	CORS_ALLOW_HEADERS = (
+	    'XMLHttpRequest',
+	    'X_FILENAME',
+	    'accept-encoding',
+	    'authorization',
+	    'content-type',
+	    'dnt',
+	    'origin',
+	    'user-agent',
+	    'x-csrftoken',
+	    'x-requested-with',
+	    'Pragma',
+	    # token是我自定义的，如果你有也需要在这里写上
+	    'token',
+	)
+	```
+	- 注意点：来源必须标明:ip，端口，协议，而且ip，协议，端口一一对应才能获取；127.0.0.1与localhost代表的不是同一个。
+	- 在b.com中设置一个响应头就可以解决问题
+	```python
+	from django.shortcuts import render,HttpResponse
+	
+	def book(request):
+	    result = HttpResponse('bbbbbbb')
+	    result['Access-Control-Allow-Origin'] = "*"
+	    return result
+	```
+3. Nginx代理跨域
+真正项目上线之后，使用cors解决跨域时，在nginx上设置响应头即可，因为单独使用django-cors-header无法实现Django静态文件的cors通信
+```ini
+upstream devops_api {
+    server 127.0.0.1:8081;
+}
+
+server {
+    listen       81;
+    server_name  localhost;
+    charset UTF-8;
+    access_log /var/log/nginx/django_api_access.log;
+    error_log /var/log/nginx/django_api_error.log;
+    client_max_body_size 75M;
+
+    location / {
+        # 指定允许跨域的方法，*代表所有
+        add_header Access-Control-Allow-Methods GET, POST, OPTIONS;
+        # 预检命令的缓存，如果不缓存每次会发送两次请求
+        add_header Access-Control-Max-Age 3600;
+        # 带cookie请求需要加上这个字段，并设置为true
+        add_header Access-Control-Allow-Credentials true;
+        # 表示允许这个域跨域调用（客户端发送请求的域名和端口） 
+        # $http_origin动态获取请求客户端请求的域   不用*的原因是带cookie的请求不支持*号
+        add_header Access-Control-Allow-Origin $http_origin;
+        # 表示请求头的字段 动态获取
+        add_header Access-Control-Allow-Headers 
+        $http_access_control_request_headers;
+        # OPTIONS预检命令，预检命令通过时才发送请求
+        # 检查请求的类型是不是预检命令
+        if ($request_method = OPTIONS){
+            return 200;
+        }
+        include uwsgi_params;
+        uwsgi_pass devops_api;
+        uwsgi_read_timeout 30;
+    }
+}
+```
+    
 ## DRF版本控制
 ### 为什么需要版本控制
 我们都知道每一个程序都是有版本的。而且版本也会升级从v1升级到v2、v3、v4·····，但是我们不可能因为新版本出现旧版本就不去维护，因为用户有权选择不更新版本。所以我们就需要对版本进行控制，这个DRF也给我们提供了一些封装好的方法
@@ -3149,7 +3377,6 @@ REST_FRAMEWORK = {
 	"DEFAULT_PARSER_CLASSES":  ["rest_framework.JSONParser", "rest_framework.FormParser"]
 }
 ```
-
 ## 过滤Filtering
 	- 对于列表数据可能需要根据字段进行过滤，我们可以通过添加django-fitlter扩展来增强支持
 	```
