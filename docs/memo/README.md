@@ -33,6 +33,8 @@
 	- [https://py.eastlakeside.cn/](https://py.eastlakeside.cn/)
 1. 廖雪峰python
 	- [https://www.liaoxuefeng.com/wiki/1016959663602400](https://www.liaoxuefeng.com/wiki/1016959663602400)
+1. 飞污熊
+	- [https://github.com/yidao620c](https://github.com/yidao620c)
 1. 白月黑羽
 	- [https://www.byhy.net/](https://www.byhy.net/)
 1. 小明

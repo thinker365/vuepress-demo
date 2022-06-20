@@ -199,6 +199,7 @@ module.exports = {
                         ['超全内置函数', '超全内置函数'],
                         ['7个高质量学习Python的开源库', '7个高质量学习Python的开源库'],
                         ['闭包替换递归', '闭包替换递归'],
+                        ['Python Cookbook', 'Python Cookbook'],
                     ]
                 },
             ],
