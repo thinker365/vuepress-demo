@@ -111,6 +111,7 @@ module.exports = {
                         ['', 'Charles'],
                         ['BurpSuite', 'BurpSuite'],
                         ['Wireshark', 'Wireshark'],
+                        ['Fapro', 'Fapro网络协议服务端模拟器'],
                     ]
                 },
             ],
