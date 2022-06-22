@@ -1,10 +1,39 @@
-# Elasticsearch基础知识点
+[[toc]]
 ## 前言
 - ES（全称 Elastic Search）是一款开源、近实时、高性能的分布式搜索引擎。
 - 在近 3 年的热门搜索引擎类数据统计中，ES 都霸居榜首（数据来源：DBRaking），可见的其深受大家的喜爱。
 - 随着 ES 的功能越来越强大，其和数据库的边界也越来越小，除了进行全文检索，ES 也支持聚合/排序。
 - ES 底层基于Lucene开发，针对Lucene的局限性，ES 提供了 RESTful API 风格的接口、支持分布式、可水平扩展，同时它可以被多种编程语言调用。
 - ES 很多基础概念以及底层实现其本质是 Lucene 的概念。
+## 为什么选择ES
+### 分词
+python开发工程师--》python、开发、工程师、python开发、开发工程师、python开发工程师
+### 纠错
+直接挑动--》结果能检索出字节跳动数据
+### 相关度打分
+relevance score(相关度得分)算法：计算出，一个索引中的文本与搜索文本，他们之间的关联匹配程度
+- Term
+- 词频(TF)：一个文档出现多次，重要
+- 逆文档频率：多个文档出现，不重要
+- (IDF)
+- coord
+- boost 
+- ···
+### 拼音搜索
+```
+public class Position implements Serializable{
+	private String name;
+	private String pinyin;/name对应全拼
+	private String header;/name首字母缩写
+	......省略getter setter
+}
+```
+### 分布式集群
+- 单表操作数据量有相对最优值，MySOL为1000万左右。
+- 传统数据库分库分表实现相对复杂
+### 搜索效率
+
+
 ## 历史背景
 1. Lucene 的历史背景
 	- Doug Cutting，他是 Hadoop 语言和 Lucene 工具包的创始人。Doug Cutting 毕业于斯坦福大学，在 Xerox 积累了一定的工作经验后，从 1997 年开始，利用业余时间开发出了 Lucene。Lucene 面世于 1999 年，并于 2005 年成为 Apache 顶级开源项目。
@@ -59,6 +88,20 @@
 		- shard 也是一种资源，shard 过多会影响集群的稳定性。因为 shard 过多，元信息会变多，这些元信息会占用堆内存。shard 过多也会影响读写性能，因为每个读写请求都需要一个线程。所以如果 index 没有很大的数据量，不需要设置很多 shard。
 		- 更快的前 k 个查询
 		- 间隔查询(Intervals queries) 某些搜索用例（例如，法律和专利搜索）引入了查找单词或短语彼此相距一定距离的记录的需要。Elasticsearch 7.0 中的间隔查询引入了一种构建此类查询的全新方式，与之前的方法（跨度查询 span queries）相比，使用和定义更加简单。与跨度查询相比，间隔查询对边缘情况的适应性更强。
+## ES支持的功能特性
+>全文检索：基于倒排索引机制的全文检索工具，搜索效率高
+>分词：ES中有对应的分词器也可以集成第三方的分词器
+>纠错：ES中有对应的模糊查询
+>相关度打分：ES中使用BM25作为相关度打分算法
+>拼音搜索：ES中结合对应的拼音插件可以对拼音搜索支持
+>实时性:ES对海量数据全文搜索非常快近实时搜索
+>可扩展性：ES分布式集群和扩展实现非常容易
+>ELK：Elasticsearch,Logstash和Kibana解决方案
+>智能搜索建议：Term Phrase Completion Context Suggester
+>ES：filter执行原理bitset机制与caching机制
+>ES控制搜索精准度：boost best fields dis_.max function_score
+......
+
 ## 基础概念介绍
 1. index
 	- Index 翻译过来是索引的意思。在 ES 里，索引有两个含义：
