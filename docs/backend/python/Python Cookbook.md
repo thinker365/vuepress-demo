@@ -16382,104 +16382,70 @@ def acquire(*locks):
 		lock.release()
 	del acquired[-len(locks):]
 ```
-如何使用这个上下文管理器呢？你可以按照正常途径创建一个锁对象，但不论是
-单个锁还是多个锁中都使用 acquire() 函数来申请锁，示例如下：
+如何使用这个上下文管理器呢？你可以按照正常途径创建一个锁对象，但不论是单个锁还是多个锁中都使用 acquire() 函数来申请锁，示例如下：
+```python
 import threading
 x_lock = threading.Lock()
 y_lock = threading.Lock()
 def thread_1():
-while True:
-with acquire(x_lock, y_lock):
-print('Thread-1')
+	while True:
+		with acquire(x_lock, y_lock):
+			print('Thread-1')
 def thread_2():
-while True:
-with acquire(y_lock, x_lock):
-print('Thread-2')
+	while True:
+		with acquire(y_lock, x_lock):
+			print('Thread-2')
+t1 = threading.Thread(target=thread_1)
+t1.daemon = True # 什么时候需要设置为守护线程？如果希望子线程一直运行，可以把子线程的代码写在while True里面一直循环，但同时要设置为守护线程，不然主线程结束了，子线程还一直运行，程序结束不了
+t1.start()
+t2 = threading.Thread(target=thread_2)
+t2.daemon = True
+t2.start()
+```
+如果你执行这段代码，你会发现它即使在不同的函数中以不同的顺序获取锁也没有发生死锁。其关键在于，在第一段代码中，我们对这些锁进行了排序。通过排序，使得不管用户以什么样的顺序来请求锁，这些锁都会按照固定的顺序被获取。如果有多个acquire() 操作被嵌套调用，可以通过线程本地存储（TLS）来检测潜在的死锁问题。
+```python
+import threading
+x_lock = threading.Lock()
+y_lock = threading.Lock()
+def thread_1():
+	while True:
+		with acquire(x_lock):
+			with acquire(y_lock):
+				print('Thread-1')
+def thread_2():
+	while True:
+		with acquire(y_lock):
+			with acquire(x_lock):
+				print('Thread-2')
 t1 = threading.Thread(target=thread_1)
 t1.daemon = True
 t1.start()
 t2 = threading.Thread(target=thread_2)
 t2.daemon = True
 t2.start()
-如果你执行这段代码，你会发现它即使在不同的函数中以不同的顺序获取锁也没
-有发生死锁。其关键在于，在第一段代码中，我们对这些锁进行了排序。通过排序，使
-得不管用户以什么样的顺序来请求锁，这些锁都会按照固定的顺序被获取。如果有多个
-acquire() 操作被嵌套调用，可以通过线程本地存储（TLS）来检测潜在的死锁问题。
-假设你的代码是这样写的：
-import threading
-x_lock = threading.Lock()
-y_lock = threading.Lock()
-def thread_1():
-while True:
-with acquire(x_lock):
-with acquire(y_lock):
-print('Thread-1')
-def thread_2():
-while True:
-with acquire(y_lock):
-with acquire(x_lock):
-print('Thread-2')
-t1 = threading.Thread(target=thread_1)
-t1.daemon = True
-t1.start()
-t2 = threading.Thread(target=thread_2)
-t2.daemon = True
-t2.start()
-如果你运行这个版本的代码，必定会有一个线程发生崩溃，异常信息可能像这样：
-Exception in thread Thread-1:
-Traceback (most recent call last):
-File "/usr/local/lib/python3.3/threading.py", line 639, in _bootstrap_inner
-self.run()
-File "/usr/local/lib/python3.3/threading.py", line 596, in run
-self._target(*self._args, **self._kwargs)
-File "deadlock.py", line 49, in thread_1
-with acquire(y_lock):
-File "/usr/local/lib/python3.3/contextlib.py", line 48, in __enter__
-return next(self.gen)
-File "deadlock.py", line 15, in acquire
-raise RuntimeError("Lock Order Violation")
-RuntimeError: Lock Order Violation
->>>
-发生崩溃的原因在于，每个线程都记录着自己已经获取到的锁。acquire() 函数会
-检查之前已经获取的锁列表，由于锁是按照升序排列获取的，所以函数会认为之前已获
-取的锁的 id 必定小于新申请到的锁，这时就会触发异常。
-讨论
-死锁是每一个多线程程序都会面临的一个问题（就像它是每一本操作系统课本的
-共同话题一样）。根据经验来讲，尽可能保证每一个线程只能同时保持一个锁，这样程
-序就不会被死锁问题所困扰。一旦有线程同时申请多个锁，一切就不可预料了。
-死锁的检测与恢复是一个几乎没有优雅的解决方案的扩展话题。一个比较常用的
-死锁检测与恢复的方案是引入看门狗计数器。当线程正常运行的时候会每隔一段时间
-重置计数器，在没有发生死锁的情况下，一切都正常进行。一旦发生死锁，由于无法重
-置计数器导致定时器超时，这时程序会通过重启自身恢复到正常状态。
-避免死锁是另外一种解决死锁问题的方式，在进程获取锁的时候会严格按照对象
-id 升序排列获取，经过数学证明，这样保证程序不会进入死锁状态。证明就留给读者作
-为练习了。避免死锁的主要思想是，单纯地按照对象 id 递增的顺序加锁不会产生循环
-依赖，而循环依赖是死锁的一个必要条件，从而避免程序进入死锁状态。
-下面以一个关于线程死锁的经典问题：“哲学家就餐问题”，作为本节最后一个例
-子。题目是这样的：五位哲学家围坐在一张桌子前，每个人面前有一碗饭和一只筷子。
-在这里每个哲学家可以看做是一个独立的线程，而每只筷子可以看做是一个锁。每个哲
-学家可以处在静坐、思考、吃饭三种状态中的一个。需要注意的是，每个哲学家吃饭是
-需要两只筷子的，这样问题就来了：如果每个哲学家都拿起自己左边的筷子，那么他们
-五个都只能拿着一只筷子坐在那儿，直到饿死。此时他们就进入了死锁状态。下面是一
-个简单的使用死锁避免机制解决“哲学家就餐问题”的实现：
+```
+- 如果你运行这个版本的代码，必定会有一个线程发生崩溃。发生崩溃的原因在于，每个线程都记录着自己已经获取到的锁。acquire() 函数会检查之前已经获取的锁列表，由于锁是按照升序排列获取的，所以函数会认为之前已获取的锁的 id 必定小于新申请到的锁，这时就会触发异常。
+- 死锁是每一个多线程程序都会面临的一个问题（就像它是每一本操作系统课本的共同话题一样）。根据经验来讲，尽可能保证每一个线程只能同时保持一个锁，这样程序就不会被死锁问题所困扰。一旦有线程同时申请多个锁，一切就不可预料了。
+- 死锁的检测与恢复是一个几乎没有优雅的解决方案的扩展话题。一个比较常用的死锁检测与恢复的方案是引入看门狗计数器。当线程正常运行的时候会每隔一段时间重置计数器，在没有发生死锁的情况下，一切都正常进行。一旦发生死锁，由于无法重置计数器导致定时器超时，这时程序会通过重启自身恢复到正常状态。
+- 避免死锁是另外一种解决死锁问题的方式，在进程获取锁的时候会严格按照对象id 升序排列获取，经过数学证明，这样保证程序不会进入死锁状态。证明就留给读者作为练习了。避免死锁的主要思想是，单纯地按照对象 id 递增的顺序加锁不会产生循环依赖，而循环依赖是死锁的一个必要条件，从而避免程序进入死锁状态。
+- 下面以一个关于线程死锁的经典问题：“哲学家就餐问题”，作为本节最后一个例子。题目是这样的：五位哲学家围坐在一张桌子前，每个人面前有一碗饭和一只筷子。在这里每个哲学家可以看做是一个独立的线程，而每只筷子可以看做是一个锁。每个哲学家可以处在静坐、思考、吃饭三种状态中的一个。需要注意的是，每个哲学家吃饭是需要两只筷子的，这样问题就来了：如果每个哲学家都拿起自己左边的筷子，那么他们五个都只能拿着一只筷子坐在那儿，直到饿死。此时他们就进入了死锁状态。下面是一个简单的使用死锁避免机制解决“哲学家就餐问题”的实现：
+```python
 import threading
 # The philosopher thread
 def philosopher(left, right):
-while True:
-with acquire(left,right):
-print(threading.currentThread(), 'eating')
+	while True:
+		with acquire(left,right):
+			print(threading.currentThread(), 'eating')
 # The chopsticks (represented by locks)
 NSTICKS = 5
 chopsticks = [threading.Lock() for n in range(NSTICKS)]
 # Create all of the philosophers
 for n in range(NSTICKS):
-t = threading.Thread(target=philosopher,
-args=(chopsticks[n],chopsticks[(n+1) % NSTICKS]))
+t = threading.Thread(target=philosopher,args=(chopsticks[n],chopsticks[(n+1) % NSTICKS]))
 t.start()
-最后，要特别注意到，为了避免死锁，所有的加锁操作必须使用 acquire() 函数。
-如果代码中的某部分绕过 acquire 函数直接申请锁，那么整个死锁避免机制就不起作用
-了。
-12.6 保存线程的状态信息
+```
+最后，要特别注意到，为了避免死锁，所有的加锁操作必须使用 acquire() 函数。如果代码中的某部分绕过 acquire 函数直接申请锁，那么整个死锁避免机制就不起作用了。
+### 12.6 保存线程的状态信息
 问题
 你需要保存正在运行线程的状态，这个状态对于其他的线程是不可见的。
 解决方案
@@ -16538,141 +16504,123 @@ self.local.sock）。因此，当不同的线程执行套接字操作时，由�
 其原理是，每个 threading.local() 实例为每个线程维护着一个单独的实例字典。
 所有普通实例操作比如获取、修改和删除值仅仅操作这个字典。每个线程使用一个独立
 的字典就可以保证数据的隔离了。
-12.7 创建一个线程池
-问题
-你创建一个工作者线程池，用来相应客户端请求或执行其他的工作。
-解决方案
-concurrent.futures 函数库有一个 ThreadPoolExecutor 类可以被用来完成这个
-任务。下面是一个简单的 TCP 服务器，使用了一个线程池来响应客户端：
+### 12.7 创建一个线程池
+concurrent.futures 函数库有一个 ThreadPoolExecutor 类可以被用来完成这个任务。下面是一个简单的 TCP 服务器，使用了一个线程池来响应客户端：
+```python
 from socket import AF_INET, SOCK_STREAM, socket
 from concurrent.futures import ThreadPoolExecutor
 def echo_client(sock, client_addr):
-'''
-Handle a client connection
-'''
-print('Got connection from', client_addr)
-while True:
-msg = sock.recv(65536)
-if not msg:
-break
-sock.sendall(msg)
-print('Client closed connection')
-sock.close()
+	'''
+	Handle a client connection
+	'''
+	print('Got connection from', client_addr)
+	while True:
+		msg = sock.recv(65536)
+		if not msg:
+			break
+		sock.sendall(msg)
+	print('Client closed connection')
+	sock.close()
 def echo_server(addr):
-pool = ThreadPoolExecutor(128)
-sock = socket(AF_INET, SOCK_STREAM)
-sock.bind(addr)
-sock.listen(5)
-while True:
-client_sock, client_addr = sock.accept()
-pool.submit(echo_client, client_sock, client_addr)
+	pool = ThreadPoolExecutor(128)
+	sock = socket(AF_INET, SOCK_STREAM)
+	sock.bind(addr)
+	sock.listen(5)
+	while True:
+		client_sock, client_addr = sock.accept()
+		pool.submit(echo_client, client_sock, client_addr)
 echo_server(('',15000))
-如果你想手动创建你自己的线程池，通常可以使用一个 Queue 来轻松实现。下面
-是一个稍微不同但是手动实现的例子：
+```
+如果你想手动创建你自己的线程池，通常可以使用一个 Queue 来轻松实现。下面是一个稍微不同但是手动实现的例子：
+```python
 from socket import socket, AF_INET, SOCK_STREAM
 from threading import Thread
 from queue import Queue
 def echo_client(q):
-'''
-Handle a client connection
-'''
-sock, client_addr = q.get()
-print('Got connection from', client_addr)
-while True:
-msg = sock.recv(65536)
-if not msg:
-break
-sock.sendall(msg)
-print('Client closed connection')
-sock.close()
+	'''
+	Handle a client connection
+	'''
+	sock, client_addr = q.get()
+	print('Got connection from', client_addr)
+	while True:
+		msg = sock.recv(65536)
+		if not msg:
+			break
+		sock.sendall(msg)
+	print('Client closed connection')
+	sock.close()
 def echo_server(addr, nworkers):
-# Launch the client workers
-q = Queue()
-for n in range(nworkers):
-t = Thread(target=echo_client, args=(q,))
-t.daemon = True
-t.start()
-# Run the server
-sock = socket(AF_INET, SOCK_STREAM)
-sock.bind(addr)
-sock.listen(5)
-while True:
-client_sock, client_addr = sock.accept()
-q.put((client_sock, client_addr))
+	# Launch the client workers
+	q = Queue()
+	for n in range(nworkers):
+		t = Thread(target=echo_client, args=(q,))
+		t.daemon = True
+		t.start()
+	# Run the server
+	sock = socket(AF_INET, SOCK_STREAM)
+	sock.bind(addr)
+	sock.listen(5)
+	while True:
+		client_sock, client_addr = sock.accept()
+		q.put((client_sock, client_addr))
 echo_server(('',15000), 128)
-使用 ThreadPoolExecutor 相对于手动实现的一个好处在于它使得任务提交者更
-方便的从被调用函数中获取返回值。例如，你可能会像下面这样写：
+```
+使用 ThreadPoolExecutor 相对于手动实现的一个好处在于它使得任务提交者更方便的从被调用函数中获取返回值。例如，你可能会像下面这样写：
+```python
 from concurrent.futures import ThreadPoolExecutor
 import urllib.request
 def fetch_url(url):
-u = urllib.request.urlopen(url)
-data = u.read()
-return data
+	u = urllib.request.urlopen(url)
+	data = u.read()
+	return data
 pool = ThreadPoolExecutor(10)
 # Submit work to the pool
-a = pool.submit(fetch_url, 'http://www.python.org') b = pool.submit(fetch_url, 'http://www.pypy.org')
+a = pool.submit(fetch_url, 'http://www.python.org') 
+b = pool.submit(fetch_url, 'http://www.pypy.org')
 # Get the results back
 x = a.result()
 y = b.result()
-例子中返回的 handle 对象会帮你处理所有的阻塞与协作，然后从工作线程中返回
-数据给你。特别的，a.result() 操作会阻塞进程直到对应的函数执行完成并返回一个
-结果。
-讨论
-通常来讲，你应该避免编写线程数量可以无限制增长的程序。例如，看看下面这个
-服务器：
+```
+- 例子中返回的 handle 对象会帮你处理所有的阻塞与协作，然后从工作线程中返回数据给你。特别的，a.result() 操作会阻塞进程直到对应的函数执行完成并返回一个结果。
+- 通常来讲，你应该避免编写线程数量可以无限制增长的程序。例如，看看下面这个服务器：
+```python
 from threading import Thread
 from socket import socket, AF_INET, SOCK_STREAM
 def echo_client(sock, client_addr):
-'''
-Handle a client connection
-'''
-print('Got connection from', client_addr)
-while True:
-msg = sock.recv(65536)
-if not msg:
-break
-sock.sendall(msg)
-print('Client closed connection')
-sock.close()
+	'''
+	Handle a client connection
+	'''
+	print('Got connection from', client_addr)
+	while True:
+		msg = sock.recv(65536)
+		if not msg:
+			break
+		sock.sendall(msg)
+	print('Client closed connection')
+	sock.close()
 def echo_server(addr, nworkers):
-# Run the server
-sock = socket(AF_INET, SOCK_STREAM)
-sock.bind(addr)
-sock.listen(5)
-while True:
-client_sock, client_addr = sock.accept()
-t = Thread(target=echo_client, args=(client_sock, client_addr))
-t.daemon = True
-t.start()
+	# Run the server
+	sock = socket(AF_INET, SOCK_STREAM)
+	sock.bind(addr)
+	sock.listen(5)
+	while True:
+		client_sock, client_addr = sock.accept()
+		t = Thread(target=echo_client, args=(client_sock, client_addr))
+		t.daemon = True
+		t.start()
 echo_server(('',15000))
-尽管这个也可以工作，但是它不能抵御有人试图通过创建大量线程让你服务器资
-源枯竭而崩溃的攻击行为。通过使用预先初始化的线程池，你可以设置同时运行线程的
-上限数量。
-你可能会关心创建大量线程会有什么后果。现代操作系统可以很轻松的创建几千
-个线程的线程池。甚至，同时几千个线程等待工作并不会对其他代码产生性能影响。当
-然了，如果所有线程同时被唤醒并立即在 CPU 上执行，那就不同了——特别是有了全
-局解释器锁 GIL。通常，你应该只在 I/O 处理相关代码中使用线程池。
-创建大的线程池的一个可能需要关注的问题是内存的使用。例如，如果你在 OS X
-系统上面创建 2000 个线程，系统显示 Python 进程使用了超过 9GB 的虚拟内存。不
-过，这个计算通常是有误差的。当创建一个线程时，操作系统会预留一个虚拟内存区域
-来放置线程的执行栈（通常是 8MB 大小）。但是这个内存只有一小片段被实际映射到
-真实内存中。因此，Python 进程使用到的真实内存其实很小（比如，对于 2000 个线程
-来讲，只使用到了 70MB 的真实内存，而不是 9GB）。如果你担心虚拟内存大小，可以
-使用 threading.stack_size() 函数来降低它。例如：
+```
+- 尽管这个也可以工作，但是它不能抵御有人试图通过创建大量线程让你服务器资源枯竭而崩溃的攻击行为。通过使用预先初始化的线程池，你可以设置同时运行线程的上限数量。
+- 你可能会关心创建大量线程会有什么后果。现代操作系统可以很轻松的创建几千个线程的线程池。甚至，同时几千个线程等待工作并不会对其他代码产生性能影响。当然了，如果所有线程同时被唤醒并立即在 CPU 上执行，那就不同了——特别是有了全局解释器锁 GIL。通常，你应该只在 I/O 处理相关代码中使用线程池。
+- 创建大的线程池的一个可能需要关注的问题是内存的使用。例如，如果你在 OS X系统上面创建 2000 个线程，系统显示 Python 进程使用了超过 9GB 的虚拟内存。不过，这个计算通常是有误差的。当创建一个线程时，操作系统会预留一个虚拟内存区域来放置线程的执行栈（通常是 8MB 大小）。但是这个内存只有一小片段被实际映射到真实内存中。因此，Python 进程使用到的真实内存其实很小（比如，对于 2000 个线程来讲，只使用到了 70MB 的真实内存，而不是 9GB）。如果你担心虚拟内存大小，可以使用 threading.stack_size() 函数来降低它。例如：
+```python
 import threading
 threading.stack_size(65536)
-如果你加上这条语句并再次运行前面的创建 2000 个线程试验，你会发现 Python
-进程只使用到了大概 210MB 的虚拟内存，而真实内存使用量没有变。注意线程栈大小
-必须至少为 32768 字节，通常是系统内存页大小（4096、8192 等）的整数倍。
-12.8 简单的并行编程
-问题
-你有个程序要执行 CPU 密集型工作，你想让他利用多核 CPU 的优势来运行的快
-一点。
-解决方案
-concurrent.futures 库提供了一个 ProcessPoolExecutor 类，可被用来在一个单
-独的 Python 解释器中执行计算密集型函数。不过，要使用它，你首先要有一些计算密
-集型的任务。我们通过一个简单而实际的例子来演示它。假定你有个 Apache web 服务
-器日志目录的 gzip 压缩包：
+```
+如果你加上这条语句并再次运行前面的创建 2000 个线程试验，你会发现 Python进程只使用到了大概 210MB 的虚拟内存，而真实内存使用量没有变。注意线程栈大小必须至少为 32768 字节，通常是系统内存页大小（4096、8192 等）的整数倍。
+### 12.8 简单的并行编程
+concurrent.futures 库提供了一个 ProcessPoolExecutor 类，可被用来在一个单独的 Python 解释器中执行计算密集型函数。不过，要使用它，你首先要有一些计算密集型的任务。我们通过一个简单而实际的例子来演示它。假定你有个 Apache web 服务器日志目录的 gzip 压缩包：
+```
 logs/
 20120701.log.gz
 20120702.log.gz
@@ -16681,138 +16629,129 @@ logs/
 20120705.log.gz
 20120706.log.gz
 ...
+```
 进一步假设每个日志文件内容类似下面这样：
+```
 124.115.6.12 - - [10/Jul/2012:00:18:50 -0500] "GET /robots.txt ..." 200 71
 210.212.209.67 - - [10/Jul/2012:00:18:51 -0500] "GET /ply/ ..." 200 11875
 210.212.209.67 - - [10/Jul/2012:00:18:51 -0500] "GET /favicon.ico ..." 404 369
-61.135.216.105 - - [10/Jul/2012:00:20:04 -0500] "GET /blog/atom.xml ..." 304 - ...
+61.135.216.105 - - [10/Jul/2012:00:20:04 -0500] "GET /blog/atom.xml ..." 304 - 
+...
+```
 下面是一个脚本，在这些日志文件中查找出所有访问过 robots.txt 文件的主机：
-# findrobots.py
+```python
 import gzip
 import io
 import glob
 def find_robots(filename):
-'''
-Find all of the hosts that access robots.txt in a single log file
-'''
-robots = set()
-with gzip.open(filename) as f:
-for line in io.TextIOWrapper(f,encoding='ascii'):
-fields = line.split()
-if fields[6] == '/robots.txt':
-robots.add(fields[0])
-return robots
+	'''
+	Find all of the hosts that access robots.txt in a single log file
+	'''
+	robots = set()
+	with gzip.open(filename) as f:
+		for line in io.TextIOWrapper(f,encoding='ascii'):
+			fields = line.split()
+			if fields[6] == '/robots.txt':
+				robots.add(fields[0])
+	return robots
 def find_all_robots(logdir):
-'''
-Find all hosts across and entire sequence of files
-'''
-files = glob.glob(logdir+'/*.log.gz')
-all_robots = set()
-for robots in map(find_robots, files):
-all_robots.update(robots)
-return all_robots
+	'''
+	Find all hosts across and entire sequence of files
+	'''
+	files = glob.glob(logdir+'/*.log.gz')
+	all_robots = set()
+	for robots in map(find_robots, files):
+		all_robots.update(robots)
+	return all_robots
 if __name__ == '__main__':
-robots = find_all_robots('logs')
-for ipaddr in robots:
-print(ipaddr)
-前面的程序使用了通常的 map-reduce 风格来编写。函数 find_robots() 在一个文
-件名集合上做 map 操作，并将结果汇总为一个单独的结果，也就是 find_all_robots()
-函数中的 all_robots 集合。现在，假设你想要修改这个程序让它使用多核 CPU。很简
-单——只需要将 map() 操作替换为一个 concurrent.futures 库中生成的类似操作即
-可。下面是一个简单修改版本：
-# findrobots.py
+	robots = find_all_robots('logs')
+	for ipaddr in robots:
+		print(ipaddr)
+```
+前面的程序使用了通常的 map-reduce 风格来编写。函数 find_robots() 在一个文件名集合上做 map 操作，并将结果汇总为一个单独的结果，也就是 find_all_robots()函数中的 all_robots 集合。现在，假设你想要修改这个程序让它使用多核 CPU。很简单——只需要将 map() 操作替换为一个 concurrent.futures 库中生成的类似操作即可。下面是一个简单修改版本：
+```python
 import gzip
 import io
 import glob
 from concurrent import futures
 def find_robots(filename):
-'''
-Find all of the hosts that access robots.txt in a single log file
-'''
-robots = set()
-with gzip.open(filename) as f:
-for line in io.TextIOWrapper(f,encoding='ascii'):
-fields = line.split()
-if fields[6] == '/robots.txt':
-robots.add(fields[0])
-return robots
+	'''
+	Find all of the hosts that access robots.txt in a single log file
+	'''
+	robots = set()
+	with gzip.open(filename) as f:
+		for line in io.TextIOWrapper(f,encoding='ascii'):
+			fields = line.split()
+			if fields[6] == '/robots.txt':
+				robots.add(fields[0])
+	return robots
 def find_all_robots(logdir):
-'''
-Find all hosts across and entire sequence of files
-'''
-files = glob.glob(logdir+'/*.log.gz')
-all_robots = set()
-with futures.ProcessPoolExecutor() as pool:
-for robots in pool.map(find_robots, files):
-all_robots.update(robots)
-return all_robots
+	'''
+	Find all hosts across and entire sequence of files
+	'''
+	files = glob.glob(logdir+'/*.log.gz')
+	all_robots = set()
+	with futures.ProcessPoolExecutor() as pool:
+		for robots in pool.map(find_robots, files):
+			all_robots.update(robots)
+	return all_robots
 if __name__ == '__main__':
-robots = find_all_robots('logs')
-for ipaddr in robots:
-print(ipaddr)
-通过这个修改后，运行这个脚本产生同样的结果，但是在四核机器上面比之前快了
-3.5 倍。实际的性能优化效果根据你的机器 CPU 数量的不同而不同。
-讨论
-ProcessPoolExecutor 的典型用法如下：
+	robots = find_all_robots('logs')
+	for ipaddr in robots:
+		print(ipaddr)
+```
+- 通过这个修改后，运行这个脚本产生同样的结果，但是在四核机器上面比之前快了3.5 倍。实际的性能优化效果根据你的机器 CPU 数量的不同而不同。
+- ProcessPoolExecutor 的典型用法如下：
+```python
 from concurrent.futures import ProcessPoolExecutor
 with ProcessPoolExecutor() as pool:
-...
-do work in parallel using pool
-...
-其原理是，一个 ProcessPoolExecutor 创建 N 个独立的 Python 解释器，N 是系
-统上面可用 CPU 的个数。你可以通过提供可选参数给 ProcessPoolExecutor(N) 来修
-改处理器数量。这个处理池会一直运行到 with 块中最后一个语句执行完成，然后处理
-池被关闭。不过，程序会一直等待直到所有提交的工作被处理完成。
-被提交到池中的工作必须被定义为一个函数。有两种方法去提交。如果你想让一个
-列表推导或一个 map() 操作并行执行的话，可使用 pool.map() :
+	...
+	do work in parallel using pool
+	...
+```
+- 其原理是，一个 ProcessPoolExecutor 创建 N 个独立的 Python 解释器，N 是系统上面可用 CPU 的个数。你可以通过提供可选参数给 ProcessPoolExecutor(N) 来修改处理器数量。这个处理池会一直运行到 with 块中最后一个语句执行完成，然后处理池被关闭。不过，程序会一直等待直到所有提交的工作被处理完成。
+- 被提交到池中的工作必须被定义为一个函数。有两种方法去提交。如果你想让一个列表推导或一个 map() 操作并行执行的话，可使用 pool.map() :
+```python
 # A function that performs a lot of work
 def work(x):
-...
-return result
+	...
+	return result
 # Nonparallel code
 results = map(work, data)
 # Parallel implementation
 with ProcessPoolExecutor() as pool:
-results = pool.map(work, data)
+	results = pool.map(work, data)
+```
 另外，你可以使用 pool.submit() 来手动的提交单个任务：
+```python
 # Some function
 def work(x):
-...
-return result
+	...
+	return result
 with ProcessPoolExecutor() as pool:
-...
-# Example of submitting work to the pool
-future_result = pool.submit(work, arg)
-# Obtaining the result (blocks until done)
-r = future_result.result()
-...
-如果你手动提交一个任务，结果是一个 Future 实例。要获取最终结果，你需要调
-用它的 result() 方法。它会阻塞进程直到结果被返回来。
-如果不想阻塞，你还可以使用一个回调函数，例如：
+	...
+	# Example of submitting work to the pool
+	future_result = pool.submit(work, arg)
+	# Obtaining the result (blocks until done)
+	r = future_result.result()
+	...
+```
+如果你手动提交一个任务，结果是一个 Future 实例。要获取最终结果，你需要调用它的 result() 方法。它会阻塞进程直到结果被返回来。如果不想阻塞，你还可以使用一个回调函数，例如：
+```python
 def when_done(r):
-print('Got:', r.result())
+	print('Got:', r.result())
 with ProcessPoolExecutor() as pool:
-future_result = pool.submit(work, arg)
-future_result.add_done_callback(when_done)
-回调函数接受一个 Future 实例，被用来获取最终的结果（比如通过调用它的
-result() 方法）。尽管处理池很容易使用，在设计大程序的时候还是有很多需要注意的
-地方，如下几点：
-• 这种并行处理技术只适用于那些可以被分解为互相独立部分的问题。
-• 被提交的任务必须是简单函数形式。对于方法、闭包和其他类型的并行执行还不
-支持。
-• 函数参数和返回值必须兼容 pickle，因为要使用到进程间的通信，所有解释器之
-间的交换数据必须被序列化
-• 被提交的任务函数不应保留状态或有副作用。除了打印日志之类简单的事情，
-一旦启动你不能控制子进程的任何行为，因此最好保持简单和纯洁——函数不要
-去修改环境。
-• 在 Unix 上进程池通过调用 fork() 系统调用被创建，
-它会克隆 Python 解释器，包括 fork 时的所有程序状态。而在 Windows 上，克隆解
-释器时不会克隆状态。实际的 fork 操作会在第一次调用 pool.map() 或 pool.submit()
-后发生。
-• 当你混合使用进程池和多线程的时候要特别小心。
-你应该在创建任何线程之前先创建并激活进程池（比如在程序启动的 main 线程中
-创建进程池）。
-12.9 Python 的全局锁问题
+	future_result = pool.submit(work, arg)
+	future_result.add_done_callback(when_done)
+```
+- 回调函数接受一个 Future 实例，被用来获取最终的结果（比如通过调用它的result() 方法）。尽管处理池很容易使用，在设计大程序的时候还是有很多需要注意的地方，如下几点：
+	- 这种并行处理技术只适用于那些可以被分解为互相独立部分的问题。
+	- 被提交的任务必须是简单函数形式。对于方法、闭包和其他类型的并行执行还不支持。
+	- 函数参数和返回值必须兼容 pickle，因为要使用到进程间的通信，所有解释器之间的交换数据必须被序列化
+	- 被提交的任务函数不应保留状态或有副作用。除了打印日志之类简单的事情，一旦启动你不能控制子进程的任何行为，因此最好保持简单和纯洁——函数不要去修改环境。
+	- 在 Unix 上进程池通过调用 fork() 系统调用被创建，它会克隆 Python 解释器，包括 fork 时的所有程序状态。而在 Windows 上，克隆解释器时不会克隆状态。实际的 fork 操作会在第一次调用 pool.map() 或 pool.submit()后发生。
+	- 当你混合使用进程池和多线程的时候要特别小心。你应该在创建任何线程之前先创建并激活进程池（比如在程序启动的 main 线程中创建进程池）。
+### 12.9 Python 的全局锁问题
 问题
 你已经听说过全局解释器锁 GIL，担心它会影响到多线程程序的执行性能。
 解决方案
