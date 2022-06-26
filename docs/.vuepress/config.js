@@ -48,6 +48,7 @@ module.exports = {
                         ['TPS、并发数、线程数', '关于TPS、并发数、线程数'],
                         ['Jmeter', 'Jmeter'],
                         ['Locust', 'Locust'],
+                        ['说透性能测试', '说透性能测试'],
                         ['NetData', 'NetData性能监控'],
                         ['Prometheus入门到实战', 'Prometheus入门到实战'],
                     ]
