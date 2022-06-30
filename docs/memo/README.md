@@ -46,6 +46,8 @@
 	- [http://www.godbasin.com/](http://www.godbasin.com/)
 1. 前端进阶之旅
 	- [https://yuchengkai.cn/](https://yuchengkai.cn/)
+1. vue+element
+	- [https://github.com/PanJiaChen/vue-element-admin](https://github.com/PanJiaChen/vue-element-admin)
 1. 大屏数据展示模板
 	- [https://gitee.com/lvyeyou/DaShuJuZhiDaPingZhanShi](https://gitee.com/lvyeyou/DaShuJuZhiDaPingZhanShi)
 	- [https://gitee.com/smartchart/smartchart](https://gitee.com/smartchart/smartchart)
