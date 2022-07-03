@@ -173,6 +173,7 @@ module.exports = {
                     children: [
                         ['', 'Vue基础知识点'],
                         ['Vue组件通信', 'Vue组件通信'],
+                        ['Vuex入门到实战', 'Vuex入门到实战'],
                     ]
                 },
             ],
