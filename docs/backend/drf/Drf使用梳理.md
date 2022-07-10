@@ -80,3 +80,13 @@ class XView(CreateAPIView,ListAPIView):
         serializer.save(x_id=f'{uuid.uuid4()}')
     
 ```
+## 为什么使用基于类的视图
+1. 代码复用，因为类可以继承，可以拓展，特别是将共用的功能抽象成Minxin类或者基类，避免重复造轮子。
+2. DRF推荐基于类的视图（CBV）
+3. DRF提供4中CBV开发模式
+	- 基础APIView类
+	- Mixins类和GenericAPI类混合使用
+	- 通用视图generics.*类，比如generics.ListCreateAPIView
+	- 视图集ViewSet和ModelViewSet
+	
+	

@@ -114,6 +114,7 @@ module.exports = {
                         ['BurpSuite', 'BurpSuite'],
                         ['Wireshark', 'Wireshark'],
                         ['Fapro', 'Fapro网络协议服务端模拟器'],
+                        ['Vim编辑器', 'Vim编辑器'],
                     ]
                 },
             ],

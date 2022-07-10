@@ -63,7 +63,7 @@ if __name__ == '__main__':
                 else:
                     print(f'该赛事赔率无相同时间')
     '''
-    tmp_id = '2222621'
+    tmp_id = '2148954'
     tmp = get_bet_id(tmp_id)
     tmp_list = []
     for item in tmp:
@@ -73,5 +73,3 @@ if __name__ == '__main__':
         print(f'相同时间：{common_time}')
     else:
         print(f'该赛事赔率无相同时间')
-
-from rest_framework.generics import CreateAPIView
