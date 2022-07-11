@@ -9,6 +9,8 @@
 1. 上海yoyo
 	- [https://www.cnblogs.com/yoyoketang/](https://www.cnblogs.com/yoyoketang/)
 ## 编程
+1. 设计模式
+	- [https://refactoringguru.cn/design-patterns](https://refactoringguru.cn/design-patterns)
 1. Java全栈知识点
 	- [https://www.pdai.tech/](https://www.pdai.tech/)
 1. 编程导航
@@ -88,7 +90,9 @@
 1. CSSAPI
 	- [https://overapi.com/css](https://overapi.com/css)
 ## 后端
-1. DRF中文文档
+1. 开源库检索
+	- [https://opensourcelibs.com/](https://opensourcelibs.com/)
+2. DRF中文文档
 	- [https://q1mi.github.io/Django-REST-framework-documentation/](https://q1mi.github.io/Django-REST-framework-documentation/)
 2. yuan老师网站
 	- [http://www.yuan316.com/](http://www.yuan316.com/)
