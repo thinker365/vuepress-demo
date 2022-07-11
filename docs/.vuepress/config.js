@@ -114,6 +114,7 @@ module.exports = {
                         ['BurpSuite', 'BurpSuite'],
                         ['Wireshark', 'Wireshark'],
                         ['Fapro', 'Fapro网络协议服务端模拟器'],
+                        ['Vim编辑器', 'Vim编辑器'],
                     ]
                 },
             ],
@@ -174,6 +175,7 @@ module.exports = {
                         ['', 'Vue基础知识点'],
                         ['Vue组件通信', 'Vue组件通信'],
                         ['Vuex入门到实战', 'Vuex入门到实战'],
+                        ['Axios核心技术', 'Axios核心技术'],
                     ]
                 },
             ],
@@ -228,6 +230,7 @@ module.exports = {
                     title: 'Django REST framework',
                     children: [
                         ['', 'DRF必会知识点'],
+                        ['Drf使用梳理', 'DRF使用梳理'],
                     ]
                 },
             ],

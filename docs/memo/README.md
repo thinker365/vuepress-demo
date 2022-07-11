@@ -44,6 +44,8 @@
 1. 程序示例
 	- [https://www.programcreek.com/python/](https://www.programcreek.com/python/)
 ## 前端
+1. 国内Vue爱好者
+	- [https://vue3js.cn/](https://vue3js.cn/)
 1. 被删的前端游乐场
 	- [http://www.godbasin.com/](http://www.godbasin.com/)
 1. 前端进阶之旅
