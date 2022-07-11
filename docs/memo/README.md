@@ -92,8 +92,6 @@
 1. CSSAPI
 	- [https://overapi.com/css](https://overapi.com/css)
 ## 后端
-1. 开源库检索
-	- [https://opensourcelibs.com/](https://opensourcelibs.com/)
 2. DRF中文文档
 	- [https://q1mi.github.io/Django-REST-framework-documentation/](https://q1mi.github.io/Django-REST-framework-documentation/)
 2. yuan老师网站
@@ -101,6 +99,8 @@
 3. 不愿透露姓名的大佬（DRF、Django）
 	- [http://drf.jiuyou.info/#/](http://drf.jiuyou.info/#/)
 ## 综合
+1. 开源库检索
+	- [https://opensourcelibs.com/](https://opensourcelibs.com/)
 1. Web安全
 	- [https://websec.readthedocs.io/zh/latest/index.html](https://websec.readthedocs.io/zh/latest/index.html)
 1. 语雀keep_running
