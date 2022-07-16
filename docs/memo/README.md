@@ -8,6 +8,8 @@
 	- [https://www.angeszhu.cn/](https://www.angeszhu.cn/)
 1. 上海yoyo
 	- [https://www.cnblogs.com/yoyoketang/](https://www.cnblogs.com/yoyoketang/)
+1. gitee测试平台合集
+	- [https://gitee.com/explore/testing?lang=Python](https://gitee.com/explore/testing?lang=Python)
 ## 编程
 1. 设计模式
 	- [https://refactoringguru.cn/design-patterns](https://refactoringguru.cn/design-patterns)
@@ -99,6 +101,8 @@
 3. 不愿透露姓名的大佬（DRF、Django）
 	- [http://drf.jiuyou.info/#/](http://drf.jiuyou.info/#/)
 ## 综合
+1. API HUB
+	- [https://www.apifox.cn/apihub/](https://www.apifox.cn/apihub/)
 1. 开源库检索
 	- [https://opensourcelibs.com/](https://opensourcelibs.com/)
 1. Web安全

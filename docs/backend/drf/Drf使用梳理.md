@@ -90,3 +90,4 @@ class XView(CreateAPIView,ListAPIView):
 	- 视图集ViewSet和ModelViewSet
 	
 	
+	
