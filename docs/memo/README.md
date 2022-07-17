@@ -1,5 +1,7 @@
 # 令人惊艳的链接备忘录
 ## 测试
+1. 测试人社区
+	- [https://ceshiren.com/](https://ceshiren.com/)
 1. 软件测试帮助
 	- [https://www.softwaretestinghelp.com/](https://www.softwaretestinghelp.com/)
 1. 软件测试的艺术
@@ -37,6 +39,8 @@
 	- [https://py.eastlakeside.cn/](https://py.eastlakeside.cn/)
 1. 廖雪峰python
 	- [https://www.liaoxuefeng.com/wiki/1016959663602400](https://www.liaoxuefeng.com/wiki/1016959663602400)
+1. pytest
+	- [https://duoke360.com/tutorial/pytest/pytest-overview](https://duoke360.com/tutorial/pytest/pytest-overview)
 1. 飞污熊
 	- [https://github.com/yidao620c](https://github.com/yidao620c)
 1. 白月黑羽
