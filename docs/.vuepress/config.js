@@ -206,6 +206,7 @@ module.exports = {
                         ['7个高质量学习Python的开源库', '7个高质量学习Python的开源库'],
                         ['闭包替换递归', '闭包替换递归'],
                         ['Python Cookbook', 'Python Cookbook'],
+                        ['Python5大常用魔术方法', 'Python5大常用魔术方法'],
                     ]
                 },
             ],
@@ -255,6 +256,7 @@ module.exports = {
                     title: 'REDIS',
                     children: [
                         ['', 'Redis基础知识'],
+                        ['Redis架构演化之路', 'Redis架构演化之路'],
                     ]
                 },
             ],
