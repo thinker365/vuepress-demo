@@ -33,7 +33,7 @@
 ![](~@img/uTools_1658927724881.png)
 - 数据持久化最粗暴的思路就是上面提到的那样，写完 Redis 内存后，同步写 PageCache + fsync 磁盘，当然，这样肯定因为磁盘拖慢整个写入速度。
 - 如何优化？也很简单，我们可以这样做：Redis 写内存由主线程来做，写内存完成后就给客户端返回结果，然后 Redis 用「另一个线程」去写磁盘，这样就可以避免主线程写磁盘对性能的影响。
-![](~@img/uTools_1658927979524.png.png)
+![](~@img/uTools_1658927979524.png)
 - 这种持久化方案，其实就是我们经常听到的 Redis AOF（Append Only File）。
 - Redis AOF 持久化提供了 3 种刷盘机制：
 	- appendfsync always：主线程同步 fsync
