@@ -39,30 +39,23 @@ mitm为Man-In-The-Middle attack，mitmproxy 即为 中间人攻击代理。
 	- 提供了一个交互式命令行界面，允许交互式检查和修改HTTP流量（不支持windows，支持os和linux）
 	- 它支持 SSL/TLS 的拦截代理，具有 HTTP/1、 HTTP/2和 WebSocket 的控制台接口。
 	- 它与 mitmdump 的不同之处在于，所有请求都保存在内存中，这意味着它用于获取和操作小型样本，小的数据量。
-	```
-	mitmproxy -p 8989
-	```
-	- 然后浏览器设置代理（127.0.0.1，8989），即可看到访问的请求
-	- 或者
-	- 首先进入它的默认视图，这时候它是没有任何请求进来的
-	- 新开一个终端
-	```
-	curl --proxy http://127.0.0.1:8989 'https://cn.bing.com/search?q=哈哈'
-	```
-	- 在默认视图即可看到相关请求
+	- 使用
+		- 浏览器设置代理（127.0.0.1，8989）
+		- 安装证书：[http://mitm.it/](http://mitm.it/)
+		```
+		mitmproxy -p 8989
+		```
+		- 然后，即可看到访问的请求
 1. mitmweb
 	- 提供了一个基于浏览器的GUI，它允许交互式检查和修改 HTTP 流量
 	```
 	mitmweb -p 8989
 	```
-	- 然后浏览器设置代理（127.0.0.1，8989），即可看到访问的请求
 1. mitmdump（重点学习）
 	- 提供非交互式终端输出，它提供了类似tcpdump的功能，可查看、记录和以编程方式处理HTTP流量。因此就不用手动截获和分析 http 请求和响应，只需要写好请求和响应的处理逻辑即可。而且可以做请求的流量的录制与回放。
 	```
 	mitmdump -w d://lyc.txt
 	```
-	- 设置代理
-	- 安装证书：[http://mitm.it/](http://mitm.it/)
 ## 插件（自定义脚本，强大的地方）
 1. 编写一个py文件供 mitmproxy 加载，文件中定义了若干函数，这些函数实现了某些 mitmproxy 提供的事件，mitmproxy 会在某个事件发生时调用对应的函数
 2. 编写一个py文件供 mitmproxy 加载，文件定义了变量 addons，addons 是个数组，每个元素是一个类实例，这些类有若干方法，这些方法实现了某些 mitmproxy 提供的事件，mitmproxy 会在某个事件发生时调用对应的方法。这些类，称为一个个的addon。（推荐模式，官方也是这样）
@@ -81,3 +74,7 @@ mitmweb -s addons.py
 - 实际使用场景，大多数情况下我们只会用到HTTP生命周期的几个事件。甚至只需要用到 http_connect、request、response 三个事件。
 ## 官网
 1. [https://docs.mitmproxy.org/stable/](https://docs.mitmproxy.org/stable/)
+
+
+
+
