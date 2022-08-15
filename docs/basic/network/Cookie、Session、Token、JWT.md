@@ -31,7 +31,7 @@
 	**secure**
 	- 该 cookie 是否仅被使用安全协议传输。安全协议有HTTPS，SSL等，在网络上传输数据之前先将数据加密。默认为false。 当 secure 值为true时，cookie在HTTP中是无效，在HTTPS 中才有效。
 
-	** httpOnly**
+	**httpOnly**
 	- 如果给某个cookie 设置了 httpOnly 属性，则无法通过JS 脚本读取到该 cookie 的信息。但还是能通过Application中手动修改cookie，所以只是在一定程度上可以防止 XSS 攻击，不是绝对的安全
 
 ## 什么是session
@@ -51,6 +51,12 @@
 	3. 存取值的类型不同：Cookie 只支持存字符串数据，想要设置其他类型的数据，需要将其转换成字符串，Session 可以存任意数据类型。
 	4. 有效期不同： Cookie 可设置为长时间保持，比如我们经常使用的默认登录功能，Session 一般失效时间较短，客户端关闭（默认情况下）或者 Session 超时都会失效。
 	5. 存储大小不同： 单个 Cookie 保存的数据不能超过 4K，Session 可存储数据远高于 Cookie，但是当访问量过多，会占用过多的服务器资源。
+- 关于URL重写
+	- 如果没有禁用cookie，session创建之后会将session id传给客户端cookie，当再发起请求时，会带着session id传给服务器，如果客户端禁用cookie，这个时候就需要通过URL重写技术。
+	- 例如：
+	- http://xxx.com/yyy;sessionid=ByOK3vjFD75aPnrF7C2HmdnV6QZcEbzWoWiBYEnLerjQ99zWpBng
+	- http://xxx.com/yyy?sessionid=ByOK3vjFD75aPnrF7C2HmdnV6QZcEbzWoWiBYEnLerjQ99zWpBng	
+	- 他们没有区别，sessionid是自动带上的；重写了之后，会自动判断客户端是否禁用了cookie，如果禁用，就会将session id自动加到url上面。如果没有禁用，那么它就不会带上这个session id。
 ## 什么是token
 1. Acesss Token
 	- 访问资源接口（API）时所需要的资源凭证
