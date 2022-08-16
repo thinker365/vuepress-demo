@@ -1,62 +1,45 @@
-# -*- coding:utf-8 -*-
-"""
-作者: shuzan
-时间: 2022/6/12/0012 21:42
-文件: tmptest.py
-"""
+[[toc]]
+
+## 链表
+## 队列（先进先出）
+```
+from collections import deque
 
 
-# for i in range(10):
-#     print(i)
+class Queue:
+    def __init__(self):
+        self.items = deque()
 
-# a = [x for x in range(10)]
-# print(a)
-# a.remove(9)
-# print(a)
-# a.pop()
-# print(a)
-# a.pop(1)
-# print(a)
-# a.append(3)
-# print(a.count(3))
-# import sys
-# print(sys.path)
-# print(sys.modules)
-# print(sys.meta_path)
+    def append(self, value):
+        return self.items.append(value)
 
-# # assert 1 == True
-# import queue
-# print(queue.Queue)
+    def pop(self):
+        return self.items.popleft()
 
-#
-# class LinkedNode:
-#     def __init__(self, data):
-#         self.data = data
-#         self.next = None
-#
-#
-# class Solution:
-#     def reverse_linked_list(self):
-#         pass
-#
-#
-# from collections import deque
-#
-#
-# class Stack:
-#     def __init__(self):
-#         self.items = deque()
-#
-#     def append(self, value):
-#         return self.items.append(value)
-#
-#     def pop(self):
-#         return self.items.pop()
-#
-#     def empty(self):
-#         return len(self.items) == 0
+    def empty(self):
+        return len(self.items) == 0
+```
+## 栈（先进后出）
+```
+from collections import deque
 
 
+class Stack:
+    def __init__(self):
+        self.items = deque()
+
+    def append(self, value):
+        return self.items.append(value)
+
+    def pop(self):
+        return self.items.pop()
+
+    def empty(self):
+        return len(self.items) == 0
+```
+## 字典&集合
+## 二叉树
+```
 class BinaryTreeNode:
     def __init__(self, data=None, left=None, right=None):
         self.data = data
@@ -100,3 +83,9 @@ if __name__ == '__main__':
     root.right.right = BinaryTreeNode(7)
     s = Solution()
     print(s.pre_order_traversal(root))
+```
+## 堆
+## 快速排序
+## 归并排序
+## 堆排序
+## 二分查找
