@@ -208,6 +208,7 @@ module.exports = {
                         ['闭包替换递归', '闭包替换递归'],
                         ['Python Cookbook', 'Python Cookbook'],
                         ['Python5大常用魔术方法', 'Python5大常用魔术方法'],
+                        ['优雅的代码片段', '优雅的代码片段'],
                     ]
                 },
             ],
