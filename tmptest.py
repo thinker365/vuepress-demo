@@ -339,47 +339,76 @@
 #             pizza = NYGreekPizza(self.ingredientFactory)
 #         return pizza
 
-import threading
+# import threading
+#
+#
+# class Singleton:
+#     _instance_lock = threading.Lock()
+#
+#     def __init__(self, cls):
+#         self._cls = cls
+#         self.uniqueInstance = None
+#
+#     def __call__(self, *args, **kwargs):
+#         if self._instance_lock is None:
+#             with self._instance_lock:
+#                 if self.uniqueInstance is None:
+#                     self.uniqueInstance = self._cls()
+#         return self.uniqueInstance
+#
+#
+# @Singleton
+# class MyClass:
+#     def __init__(self):
+#         import time
+#         time.sleep(1)
+#
+#
+# thread_num = 2
+# threads = [None] * thread_num
+# results = [None] * thread_num
+#
+#
+# def task(index):
+#     obj = MyClass()
+#     results[index] = id(obj)
+#
+#
+# if __name__ == "__main__":
+#     for i in range(thread_num):
+#         threads[i] = threading.Thread(target=task, args=(i,))
+#         threads[i].start()
+#     print(threads)
+#     for j in range(thread_num):
+#         threads[j].join()
+#     print(results)
+#     assert results[0] == results[1]
+
+#
+# doubled_list = map(lambda x: x * 2, [item for item in range(10)])
+# print(list(doubled_list))
+# from functools import reduce
+# summation = reduce(lambda x, y: x + y, [item for item in range(10)])
+# print(summation)
+
+# print(list(range(10)))
+# print(list(filter(bool, list(range(10)))))
 
 
-class Singleton:
-    _instance_lock = threading.Lock()
-
-    def __init__(self, cls):
-        self._cls = cls
-        self.uniqueInstance = None
-
-    def __call__(self, *args, **kwargs):
-        if self._instance_lock is None:
-            with self._instance_lock:
-                if self.uniqueInstance is None:
-                    self.uniqueInstance = self._cls()
-        return self.uniqueInstance
+# results = [(i, j) for i in range(10) for j in range(i)]
+# print(results)
+#
+#
+# results = []
+# for i in range(10):
+#     print('i==>', i)
+#     for j in range(i):
+#         print(j)
+#         results.append((i, j))
 
 
-@Singleton
-class MyClass:
-    def __init__(self):
-        import time
-        time.sleep(1)
+from itertools import accumulate
 
-
-thread_num = 2
-threads = [None] * thread_num
-results = [None] * thread_num
-
-
-def task(index):
-    obj = MyClass()
-    results[index] = id(obj)
-
-
-if __name__ == "__main__":
-    for i in range(thread_num):
-        threads[i] = threading.Thread(target=task, args=(i,))
-        threads[i].start()
-    print(threads)
-    for j in range(thread_num):
-        threads[j].join()
-    print(results)
-    assert results[0] == results[1]
+a = [3, 4, 6, 2, 1, 9, 0, 7, 5, 8]
+resutls = list(accumulate(a, max))
+print(resutls)
