@@ -209,6 +209,7 @@ module.exports = {
                         ['Python Cookbook', 'Python Cookbook'],
                         ['Python5大常用魔术方法', 'Python5大常用魔术方法'],
                         ['优雅的代码片段', '优雅的代码片段'],
+                        ['Python实现设计模式', 'Python实现设计模式'],
                     ]
                 },
             ],
