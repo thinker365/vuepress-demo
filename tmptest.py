@@ -407,8 +407,57 @@
 #         results.append((i, j))
 
 
-from itertools import accumulate
+# from itertools import accumulate
+#
+# a = [3, 4, 6, 2, 1, 9, 0, 7, 5, 8]
+# resutls = list(accumulate(a, max))
+# print(resutls)
 
-a = [3, 4, 6, 2, 1, 9, 0, 7, 5, 8]
-resutls = list(accumulate(a, max))
-print(resutls)
+
+# BaseException
+
+# try:
+#     pass  # 可能异常的代码
+# except (KeyError, ImportError, ...) as e:  # 可以捕获多个异常
+#     pass  # 异常处理代码
+# else:
+#     pass  # 异常没发生时候的处理逻辑
+# finally:
+#     pass  # 无论异常是否发生，都会处理的逻辑，如资源的关闭、释放
+
+
+# class MyException(Exception):
+#     pass
+#
+#
+# try:
+#     raise MyException('自定义异常执行')
+# except Exception as e:
+#     print(e)
+
+#
+# n = [0]
+# print(n[0] + 1)
+
+
+# import dis
+#
+#
+# def func():
+#     l = []
+#     l[0] = 1
+#
+#
+# print(dis.dis(func))
+
+from functools import wraps
+
+# 避免每次send激活生成器
+def coroutine(func):
+    @wraps(func)
+    def primer(*args, **kwargs):
+        gen = func(*args, **kwargs)
+        next(gen)
+        return gen
+
+    return primer

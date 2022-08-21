@@ -210,6 +210,7 @@ module.exports = {
                         ['Python5大常用魔术方法', 'Python5大常用魔术方法'],
                         ['优雅的代码片段', '优雅的代码片段'],
                         ['Python实现设计模式', 'Python实现设计模式'],
+                        ['异常', '异常'],
                     ]
                 },
             ],
@@ -365,6 +366,16 @@ module.exports = {
                     ]
                 },
             ],
+            '/interview/': [
+                {
+                    title: '面试',
+                    children: [
+                        ['', '自我介绍'],
+                        ['技术面试', '技术面试'],
+                        ['HR面试', 'HR面试'],
+                    ]
+                },
+            ],
 
 
         },
@@ -454,8 +465,8 @@ module.exports = {
                 ]
             },
             {text: '开源前哨', link: '/opensource/', target: '_self'},
-            {text: '备忘录', link: '/memo/', target: '_self'}
-
+            {text: '备忘录', link: '/memo/', target: '_self'},
+            {text: '面试', link: '/interview/', target: '_self'}
         ],
         activeHeaderLinks: false,
         smoothScroll: true,
