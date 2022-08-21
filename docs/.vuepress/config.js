@@ -368,11 +368,12 @@ module.exports = {
             ],
             '/interview/': [
                 {
-                    title: '面试',
+                    title: '面试指南',
                     children: [
                         ['', '自我介绍'],
                         ['技术面试', '技术面试'],
                         ['HR面试', 'HR面试'],
+                        ['简历制作', '简历制作'],
                     ]
                 },
             ],
@@ -466,7 +467,7 @@ module.exports = {
             },
             {text: '开源前哨', link: '/opensource/', target: '_self'},
             {text: '备忘录', link: '/memo/', target: '_self'},
-            {text: '面试', link: '/interview/', target: '_self'}
+            {text: '面试指南', link: '/interview/', target: '_self'}
         ],
         activeHeaderLinks: false,
         smoothScroll: true,
