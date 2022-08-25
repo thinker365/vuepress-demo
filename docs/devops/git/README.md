@@ -5,114 +5,109 @@
 ## 准备阶段
 - 进入 Git官网 下载合适你的安装包，安装好 Git 后，打开命令行工具，进入工作文件夹（为了便于理解我们在系统桌面上演示），创建一个新的demo文件夹。
 ## 常用操作
-1. git clone
-	```
-	git clone https://github.com/gafish/gafish.github.com.git
-	```
-1. git config
-	```
-	“配置开发者用户名和邮箱
-	git config user.name gafish
-	git config user.email gafish@qqqq.com
-	每次代码提交的时候都会生成一条提交记录，其中会包含当前配置的用户名和邮箱。
-	```
-1. git branch
-	- “创建、重命名、查看、删除项目分支，通过 Git 做项目开发时，一般都是在开发分支中进行，开发完成后合并分支到主干。
-	```
-	git branch daily/0.0.0
-	创建一个名为 daily/0.0.0 的日常开发分支，分支名只要不包括特殊字符即可。
-	git branch -m daily/0.0.0 daily/0.0.1
-	如果觉得之前的分支名不合适，可以为新建的分支重命名，重命名分支名为 daily/0.0.1
-	git branch
-	通过不带参数的branch命令可以查看当前项目分支列表
-	git branch -d daily/0.0.1
-	如果分支已经完成使命则可以通过 -d 参数将分支删除，这里为了继续下一步操作，暂不执行删除操作
-	```
-1. git checkout
-	- “切换分支
-	```
-	git checkout daily/0.0.1
-	切换到 daily/0.0.1 分支，后续的操作将在这个分支上进行
-	```
-1. git status
-	- 查看文件变动状态
-	```
-	git status
-	通过 git status 命令可以看到文件当前状态 Changes not staged for commit:（改动文件未提交到暂存区）
-	```
-1. git add
-	- “添加文件变动到暂存区
-	```
-	git add README.md
-	通过指定文件名 README.md 可以将该文件添加到暂存区，如果想添加所有文件可用 git add . 命令，这时候可通过 git status 看到文件当前状态 Changes to be committed: （文件已提交到暂存区）
-	```
-1. git commit
-	- “提交文件变动到版本库
-	```
-	git commit -m '这里写提交原因'
-	通过 -m 参数可直接在命令行里输入提交描述文本
-	```
-1. git push
-	- “将本地的代码改动推送到服务器
-	```
-	git push origin daily/0.0.1
-	origin 指代的是当前的git服务器地址，这行命令的意思是把 daily/0.0.1 分支推送到服务器，当看到命令行返回如下字符表示推送成功了。
-	```
-1. git pull
-	- “将服务器上的最新代码拉取到本地
-	```
-	git pull origin daily/0.0.1
-	如果其它项目成员对项目做了改动并推送到服务器，我们需要将最新的改动更新到本地，这里我们来模拟一下这种情况。
-	```
-1. git log
-	- “查看版本提交记录
-	```
-	git log
-	通过以上命令，我们可以查看整个项目的版本提交记录，它里面包含了提交人、日期、提交原因等信息
-	```
-1. git tag
-	- 为项目标记里程碑
-	```
-	git tag publish/0.0.1
-	git push origin publish/0.0.1
-	当我们完成某个功能需求准备发布上线时，应该将此次完整的项目代码做个标记，并将这个标记好的版本发布到线上，这里我们以 publish/0.0.1 为标记名并发布
-	```
-1. .gitignore
-	- “设置哪些内容不需要推送到服务器，这是一个配置文件
-	```
-	touch .gitignore
-	.gitignore 不是 Git 命令，而在项目中的一个文件，通过设置 .gitignore 的内容告诉 Git 哪些文件应该被忽略不需要推送到服务器，通过以上命令可以创建一个 .gitignore 文件，并在编辑器中打开文件，每一行代表一个要忽略的文件或目录，如：
-	demo.html
-	build/
-	以上内容的意思是 Git 将忽略 demo.html 文件 和 build/ 目录，这些内容不会被推送到服务器上
-	```
+### git clone
+```
+git clone https://github.com/gafish/gafish.github.com.git
+```
+### git config
+```
+“配置开发者用户名和邮箱
+git config user.name gafish
+git config user.email gafish@qqqq.com
+每次代码提交的时候都会生成一条提交记录，其中会包含当前配置的用户名和邮箱。
+```
+### git branch
+- 创建、重命名、查看、删除项目分支，通过 Git 做项目开发时，一般都是在开发分支中进行，开发完成后合并分支到主干。
+```
+git branch daily/0.0.0
+创建一个名为 daily/0.0.0 的日常开发分支，分支名只要不包括特殊字符即可。
+git branch -m daily/0.0.0 daily/0.0.1
+如果觉得之前的分支名不合适，可以为新建的分支重命名，重命名分支名为 daily/0.0.1
+git branch
+通过不带参数的branch命令可以查看当前项目分支列表
+git branch -d daily/0.0.1
+如果分支已经完成使命则可以通过 -d 参数将分支删除，这里为了继续下一步操作，暂不执行删除操作
+```
+### git checkout
+- 切换分支
+```
+git checkout daily/0.0.1
+切换到 daily/0.0.1 分支，后续的操作将在这个分支上进行
+```
+### git status
+- 查看文件变动状态
+```
+git status
+通过 git status 命令可以看到文件当前状态 Changes not staged for commit:（改动文件未提交到暂存区）
+```
+### git add
+- 添加文件变动到暂存区
+```
+git add README.md
+通过指定文件名 README.md 可以将该文件添加到暂存区，如果想添加所有文件可用 git add . 命令，这时候可通过 git status 看到文件当前状态 Changes to be committed: （文件已提交到暂存区）
+```
+### git commit
+- 提交文件变动到版本库
+```
+git commit -m '这里写提交原因'
+通过 -m 参数可直接在命令行里输入提交描述文本
+```
+### git push
+- 将本地的代码改动推送到服务器
+```
+git push origin daily/0.0.1
+origin 指代的是当前的git服务器地址，这行命令的意思是把 daily/0.0.1 分支推送到服务器，当看到命令行返回如下字符表示推送成功了。
+```
+### git pull
+- 将服务器上的最新代码拉取到本地
+```
+git pull origin daily/0.0.1
+如果其它项目成员对项目做了改动并推送到服务器，我们需要将最新的改动更新到本地，这里我们来模拟一下这种情况。
+```
+### git log
+- 查看版本提交记录
+```
+git log
+通过以上命令，我们可以查看整个项目的版本提交记录，它里面包含了提交人、日期、提交原因等信息
+```
+### git tag
+- 为项目标记里程碑
+```
+git tag publish/0.0.1
+git push origin publish/0.0.1
+当我们完成某个功能需求准备发布上线时，应该将此次完整的项目代码做个标记，并将这个标记好的版本发布到线上，这里我们以 publish/0.0.1 为标记名并发布
+```
+### .gitignore
+- 设置哪些内容不需要推送到服务器，这是一个配置文件
+```
+touch .gitignore
+.gitignore 不是 Git 命令，而在项目中的一个文件，通过设置 .gitignore 的内容告诉 Git 哪些文件应该被忽略不需要推送到服务器，通过以上命令可以创建一个 .gitignore 文件，并在编辑器中打开文件，每一行代表一个要忽略的文件或目录，如：
+demo.html
+build/
+以上内容的意思是 Git 将忽略 demo.html 文件 和 build/ 目录，这些内容不会被推送到服务器上
+```
 ## 深入探索
-1. 基本概念
-	- 工作区（Working Directory）
-		- 就是你在电脑里能看到的目录，比如上文中的 gafish.github.com 文件夹就是一个工作区图片
-	- 本地版本库（Local Repository）
-		- 工作区有一个隐藏目录 .git，这个不算工作区，而是 Git 的版本库。
-	- 暂存区（stage）
-		- 本地版本库里存了很多东西，其中最重要的就是称为 stage（或者叫index）的暂存区，还有 Git 为我们自动创建的第一个分支 master，以及指向 master 的一个指针叫 HEAD。
-
-	- 远程版本库（Remote Repository）
-		- 一般指的是 Git 服务器上所对应的仓库，本文的示例所在的github仓库就是一个远程版本库图片
-
-	- 工作区、暂存区、本地版本库、远程版本库之间几个常用的 Git 操作流程如下图所示：
-	![](微信图片_20220310214012.jpg)
-
-
-	- 分支（Branch）
-		- 分支是为了将修改记录的整个流程分开存储，让分开的分支不受其它分支的影响，所以在同一个数据库里可以同时进行多个不同的修改
-	- 主分支（Master）
-		- 前面提到过 master 是 Git 为我们自动创建的第一个分支，也叫主分支，其它分支开发完成后都要合并到 master
-	- 标签（Tag）
-		- 标签是用于标记特定的点或提交的历史，通常会用来标记发布版本的名称或版本号（如：publish/0.0.1），虽然标签看起来有点像分支，但打上标签的提交是固定的，不能随意的改动，参见上图中的1.0 / 2.0 / 3.0
-
-	- HEAD
-		- HEAD 指向的就是当前分支的最新提交
-1. 操作文件
-	- git add
+### 基本概念
+1. 工作区（Working Directory）
+	- 就是你在电脑里能看到的目录，比如上文中的 gafish.github.com 文件夹就是一个工作区图片
+1. 本地版本库（Local Repository）
+	- 工作区有一个隐藏目录 .git，这个不算工作区，而是 Git 的版本库。
+1. 暂存区（stage）
+	- 本地版本库里存了很多东西，其中最重要的就是称为 stage（或者叫index）的暂存区，还有 Git 为我们自动创建的第一个分支 master，以及指向 master 的一个指针叫 HEAD。
+1. 远程版本库（Remote Repository）
+	- 一般指的是 Git 服务器上所对应的仓库，本文的示例所在的github仓库就是一个远程版本库图片
+1. 工作区、暂存区、本地版本库、远程版本库之间几个常用的 Git 操作流程如下图所示：
+	![](~@img/git.jpg)
+1. 分支（Branch）
+	- 分支是为了将修改记录的整个流程分开存储，让分开的分支不受其它分支的影响，所以在同一个数据库里可以同时进行多个不同的修改
+1. 主分支（Master）
+	- 前面提到过 master 是 Git 为我们自动创建的第一个分支，也叫主分支，其它分支开发完成后都要合并到 master
+1. 标签（Tag）
+	- 标签是用于标记特定的点或提交的历史，通常会用来标记发布版本的名称或版本号（如：publish/0.0.1），虽然标签看起来有点像分支，但打上标签的提交是固定的，不能随意的改动，参见上图中的1.0 / 2.0 / 3.0
+1. HEAD
+	- HEAD 指向的就是当前分支的最新提交
+### 操作文件
+1. git add
 	```
 	“添加文件到暂存区
 	git add -i
@@ -151,8 +146,8 @@
 	git add --ignore-removal .
 	添加工作区 修改 或 新增 的文件列表， 删除 的文件不会被添加
 	```
-- git commit
-	- “把暂存区的文件提交到本地版本库
+1. git commit
+	- 把暂存区的文件提交到本地版本库
 	```
 	git commit -m '第一行提交原因'  -m '第二行提交原因'
 	不打开编辑器，直接在命令行中输入多行提交原因
@@ -164,15 +159,15 @@
 	将当前文件改动提交到 HEAD 或当前分支的历史ID
 	```
 
-- git mv
-	- “移动或重命名文件、目录
+1. git mv
+	- 移动或重命名文件、目录
 	```
 	git mv a.md b.md -f
 	将 a.md 重命名为 b.md ，同时添加变动到暂存区，加 -f 参数可以强制重命名，相比用 mv a.md b.md 命令省去了 git add 操作
 	```
 
-- git rm
-	- “从工作区和暂存区移除文件
+1. git rm
+	- 从工作区和暂存区移除文件
 	```
 	git rm b.md
 	从工作区和暂存区移除文件 b.md ，同时添加变动到暂存区，相比用 rm b.md 命令省去了 git add 操作
@@ -180,7 +175,7 @@
 	允许从工作区和暂存区移除目录
 	```
 
-- git status
+1. git status
 	```
 	git status -s
 	以简短方式查看工作区和暂存区文件状态
@@ -188,10 +183,9 @@
 	查看工作区和暂存区文件状态，包括被忽略的文件
 	```
 
-1. 操作分支
-
-	- git branch
-	- “查看、创建、删除分支
+### 操作分支
+1. git branch
+	- 查看、创建、删除分支
 	```
 	git branch -a
 	查看本地版本库和远程版本库上的分支列表
@@ -203,8 +197,8 @@
 	查看带有最后提交id、最近提交原因等信息的本地版本库分支列表
 	```
 
-	- git merge
-	- “将其它分支合并到当前分支
+1. git merge
+	- 将其它分支合并到当前分支
 	```
 	git merge --squash
 	将待合并分支上的 commit 合并成一个新的 commit 放入当前分支，适用于待合并分支的提交记录不需要保留的情况图片
@@ -214,8 +208,8 @@
 	在没有冲突的情况下合并，不想手动编辑提交原因，而是用 Git 自动生成的类似 Merge branch 'test' 的文字直接提交
 	```
 
-	- git checkout
-	- “切换分支
+1. git checkout
+	- 切换分支
 	```
 	git checkout -b daily/0.0.1
 	创建 daily/0.0.1 分支，同时切换到这个新创建的分支
@@ -227,8 +221,8 @@
 	这个命令主要用来比较两个分支间的差异内容，并提供交互式的界面来选择进一步的操作，这个命令不仅可以比较两个分支间的差异，还可以比较单个文件的差异。
 	```
 
-	- git stash
-	- “在 Git 的栈中保存当前修改或删除的工作进度，当你在一个分支里做某项功能开发时，接到通知把昨天已经测试完没问题的代码发布到线上，但这时你已经在这个分支里加入了其它未提交的代码，这个时候就可以把这些未提交的代码存到栈里。
+1. git stash
+	- 在 Git 的栈中保存当前修改或删除的工作进度，当你在一个分支里做某项功能开发时，接到通知把昨天已经测试完没问题的代码发布到线上，但这时你已经在这个分支里加入了其它未提交的代码，这个时候就可以把这些未提交的代码存到栈里。
 	```
 	git stash
 	将未提交的文件保存到Git栈中
@@ -256,9 +250,9 @@
 	$ git stash list
 	stash@{0}: Created via "git stash store".
 	```
-1. 操作历史
-	- git log
-	- “显示提交历史记录
+### 操作历史
+1. git log
+	- 显示提交历史记录
 	```
 	git log -p
 	显示带提交差异对比的历史记录
@@ -299,17 +293,15 @@
 	%b: commit信息内容
 	%n: 换行
 	```
-
-
-	- git cherry-pick
-	- “合并分支的一条或几条提交记录到当前分支末梢
+1. git cherry-pick
+	- 合并分支的一条或几条提交记录到当前分支末梢
 	```
 	git cherry-pick 170a305
 	合并提交ID 170a305 到当前分支末梢
 	```
 
-	- git reset
-	- “将当前的分支重设（reset）到指定的 <commit> 或者 HEAD
+1. git reset
+	- 将当前的分支重设（reset）到指定的 <commit> 或者 HEAD
 	```
 	git reset --mixed <commit>
 	--mixed 是不带参数时的默认参数，它退回到某个版本，保留文件内容，回退提交历史
@@ -319,8 +311,8 @@
 	自从 <commit> 以来在工作区中的任何改变都被丢弃，并把 HEAD 指向 <commit>
 	```
 
-	- git rebase
-	- “重新定义分支的版本库状态
+1. git rebase
+	- 重新定义分支的版本库状态
 	```
 	git rebase branch_name
 	合并分支，这跟 merge 很像，但还是有本质区别
@@ -343,9 +335,8 @@
 	#  x, exec = run command (the rest of the line) using shell
 	将第一行的 pick 改成 Commands 中所列出来的命令，然后保存并退出，所对应的修改将会生效。如果移动提交记录的顺序，将改变历史记录中的排序。
 	```
-
-	- git revert
-	- “撤销某次操作，此次操作之前和之后的 commit 和 history 都会保留，并且把这次撤销作为一次最新的提交
+1. git revert
+	- 撤销某次操作，此次操作之前和之后的 commit 和 history 都会保留，并且把这次撤销作为一次最新的提交
 	```
 	git revert HEAD
 	撤销前一次提交操作
@@ -355,80 +346,80 @@
 	需要撤销多次操作的时候加 -n 参数，这样不会每次撤销操作都提交，而是等所有撤销都完成后一起提交
 	```
 
-	- git diff
-	- “查看工作区、暂存区、本地版本库之间的文件差异，用一张图来解释
+1. git diff
+	- 查看工作区、暂存区、本地版本库之间的文件差异，用一张图来解释
 	```
 	git diff --stat
 	通过 --stat 参数可以查看变更统计数据
 	```
-	- git reflog
+1. git reflog
 	- reflog 可以查看所有分支的所有操作记录（包括commit和reset的操作、已经被删除的commit记录，跟 git log 的区别在于它不能查看已经删除了的commit记录
 
-1. 远程版本库连接
-	- 如果在GitHub项目初始化之前，文件已经存在于本地目录中，那可以在本地初始化本地版本库，再将本地版本库跟远程版本库连接起来
-	```
-	git init
-	在本地目录内部会生成.git文件夹
-	```
-	
-	```
-	git remote
-	git remote -v
-	不带参数，列出已经存在的远程分支，加上 -v 列出详细信息，在每一个名字后面列出其远程url
-	git remote add origin https://github.com/gafish/gafish.github.com.git
-	添加一个新的远程仓库，指定一个名字，以便引用后面带的URL
-	```
+### 远程版本库连接
+如果在GitHub项目初始化之前，文件已经存在于本地目录中，那可以在本地初始化本地版本库，再将本地版本库跟远程版本库连接起来
+```
+git init
+在本地目录内部会生成.git文件夹
+```
 
-	```
-	git fetch
-	将远程版本库的更新取回到本地版本库
-	git fetch origin daily/0.0.1
-	默认情况下，git fetch 取回所有分支的更新。如果只想取回特定分支的更新，可以指定分支名。
-	```
-1. 问题排查
+```
+git remote
+git remote -v
+不带参数，列出已经存在的远程分支，加上 -v 列出详细信息，在每一个名字后面列出其远程url
+git remote add origin https://github.com/gafish/gafish.github.com.git
+添加一个新的远程仓库，指定一个名字，以便引用后面带的URL
+```
 
-	```
-	git blame
-	“查看文件每行代码块的历史信息
-	git blame -L 1,10 demo.html
-	截取 demo.html 文件1-10行历史信息
-	```
+```
+git fetch
+将远程版本库的更新取回到本地版本库
+git fetch origin daily/0.0.1
+默认情况下，git fetch 取回所有分支的更新。如果只想取回特定分支的更新，可以指定分支名。
+```
+### 问题排查
 
-	```
-	git bisect
-	“二分查找历史记录，排查BUG
-	git bisect start
-	开始二分查找
-	git bisect bad
-	标记当前二分提交ID为有问题的点
-	git bisect good
-	标记当前二分提交ID为没问题的点
-	git bisect reset
-	查到有问题的提交ID后回到原分支
-	```
+```
+git blame
+查看文件每行代码块的历史信息
+git blame -L 1,10 demo.html
+截取 demo.html 文件1-10行历史信息
+```
 
-1. 更多操作
-	```
-	git submodule
-	“通过 Git 子模块可以跟踪外部版本库，它允许在某一版本库中再存储另一版本库，并且能够保持2个版本库完全独立
-	git submodule add https://github.com/gafish/demo.git demo
-	将 demo 仓库添加为子模块
+```
+git bisect
+二分查找历史记录，排查BUG
+git bisect start
+开始二分查找
+git bisect bad
+标记当前二分提交ID为有问题的点
+git bisect good
+标记当前二分提交ID为没问题的点
+git bisect reset
+查到有问题的提交ID后回到原分支
+```
 
-	git submodule update demo
-	更新子模块 demo
-	```
+### 更多操作
+```
+git submodule
+通过 Git 子模块可以跟踪外部版本库，它允许在某一版本库中再存储另一版本库，并且能够保持2个版本库完全独立
+git submodule add https://github.com/gafish/demo.git demo
+将 demo 仓库添加为子模块
 
-	```
-	git gc
-	“运行Git的垃圾回收功能，清理冗余的历史快照
-	```
+git submodule update demo
+更新子模块 demo
+```
 
-	```
-	git archive
-	“将加了tag的某个版本打包提取
-	git archive -v --format=zip v0.1 > v0.1.zip
-	--format 表示打包的格式，如 zip，-v 表示对应的tag名，后面跟的是tag名，如 v0.1。
-	```
+```
+git gc
+运行Git的垃圾回收功能，清理冗余的历史快照
+```
 
-## 参考资料
-    - [https://mp.weixin.qq.com/s/dYMaQSS25QsK07UmSbTt3A](https://mp.weixin.qq.com/s/dYMaQSS25QsK07UmSbTt3A)
+```
+git archive
+将加了tag的某个版本打包提取
+git archive -v --format=zip v0.1 > v0.1.zip
+--format 表示打包的格式，如 zip，-v 表示对应的tag名，后面跟的是tag名，如 v0.1。
+```
+
+- 参考资料
+- [https://mp.weixin.qq.com/s/dYMaQSS25QsK07UmSbTt3A](https://mp.weixin.qq.com/s/dYMaQSS25QsK07UmSbTt3A)
