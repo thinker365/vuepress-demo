@@ -468,31 +468,40 @@
 # print(l1 + l2 + l3)
 # l1.extend(l2)
 # print(l1)
-import itertools
+# import itertools
+#
+# x = itertools.chain(range(4), [1, 2], [3, 4], (6, 7))
+# print(list(x))
+#
+# x = [{"a": 1}, {"a": 2}, {"a": 3}]
+# xx = itertools.groupby(x, lambda y: y['a'] <= 2)
+# for flag, group in xx:
+#     print(flag, list(group))
+#
+# x = itertools.permutations(range(3), 2)
+# print(list(x))
+#
+# x = itertools.combinations(range(3), 2)
+# print(list(x))
+#
+# x = itertools.combinations_with_replacement(range(3), 2)
+# print(list(x))
+#
+# x = itertools.compress(range(3), (True, True))
+# print(list(x))
+#
+# x = itertools.count(start=10, step=2)
+# print(list(itertools.islice(x, 0, 20, 10)))
+#
+# print(list(map(lambda x, y: x + y, range(5), range(5))))
+#
+# print(list(map(lambda x: x , [1, 2, 3])))
 
-x = itertools.chain(range(4), [1, 2], [3, 4], (6, 7))
-print(list(x))
 
-x = [{"a": 1}, {"a": 2}, {"a": 3}]
-xx = itertools.groupby(x, lambda y: y['a'] <= 2)
-for flag, group in xx:
-    print(flag, list(group))
+from websocket import WebSocket
 
-x = itertools.permutations(range(3), 2)
-print(list(x))
-
-x = itertools.combinations(range(3), 2)
-print(list(x))
-
-x = itertools.combinations_with_replacement(range(3), 2)
-print(list(x))
-
-x = itertools.compress(range(3), (True, True))
-print(list(x))
-
-x = itertools.count(start=10, step=2)
-print(list(itertools.islice(x, 0, 20, 10)))
-
-print(list(map(lambda x, y: x + y, range(5), range(5))))
-
-print(list(map(lambda x: x , [1, 2, 3])))
+ws = WebSocket('ws://echo.websocket.org')
+print('send')
+ws.send('hello')
+result = ws.recv()
+print('return-->', result)
