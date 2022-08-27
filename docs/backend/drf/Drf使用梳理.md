@@ -82,12 +82,23 @@ class XView(CreateAPIView,ListAPIView):
 ```
 ## 为什么使用基于类的视图
 1. 代码复用，因为类可以继承，可以拓展，特别是将共用的功能抽象成Minxin类或者基类，避免重复造轮子。
-2. DRF推荐基于类的视图（CBV）
+2. DRF推荐基于类的视图（CBV） 
 3. DRF提供4中CBV开发模式
-	- 基础APIView类
-	- Mixins类和GenericAPI类混合使用
+	- 基础APIView类（不需要对用户的请求方法判断啦）
+	- Mixins类和GenericAPI类混合使用（其实没啥，用下面这种足以）
 	- 通用视图generics.*类，比如generics.ListCreateAPIView
 	- 视图集ViewSet和ModelViewSet
 	
-	
-	
+## 一些TIPS
+1. 通过图形化页面操作API，请将rest_framework注册到INSTALL_APPS中
+2. django本身也有serializers，不只是DRF才有哦
+3. REST（表述性状态转移），太容易忘记了有木有，RESTful表示符合这个约束的。三点：资源（url\uri定位资源）、表现层（json\xml表现）、状态转移（http方法）
+4. Serializer和ModelSerializer，前者需要手动指定反序列化和序列化字段，后者根据模型自动生成可香了
+5. 定义序列化器，只读字段需要注明（read_only=True），如id，creata_data，客户端就不能通过post、put添加修改数据
+6. DRF同Django一样，支持FBV（@api_view）和CBV（复用率高，可继承，可扩展）的方式编写视图，
+7. DRF统一返回Response，无需指定HttpResponse和JsonResponse
+8. DRF登录页面，需将api-auth添加到urlpatterns中，访问api-auth/login
+
+- 参考
+- [https://www.bookstack.cn/read/django-rest-framework-api-guide/README.md](https://www.bookstack.cn/read/django-rest-framework-api-guide/README.md)
+- [https://juejin.cn/post/6844904185163415566](https://juejin.cn/post/6844904185163415566)
