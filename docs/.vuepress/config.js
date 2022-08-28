@@ -50,6 +50,7 @@ module.exports = {
                         ['Jmeter', 'Jmeter'],
                         ['Locust', 'Locust'],
                         ['说透性能测试', '说透性能测试'],
+                        ['性能指标监控', '性能指标监控'],
                         ['NetData', 'NetData性能监控'],
                         ['Prometheus入门到实战', 'Prometheus入门到实战'],
                     ]
@@ -153,6 +154,7 @@ module.exports = {
                     title: 'Linux',
                     children: [
                         ['', 'Linux快捷键'],
+                        ['Linux常用命令', 'Linux常用命令'],
                         ['Linux环境变量配置', 'Linux环境变量配置'],
                         ['Linux三剑客', 'Linux三剑客'],
                         ['交换机流量镜像', '交换机流量镜像'],

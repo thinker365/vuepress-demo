@@ -1,7 +1,7 @@
 ---
 home: true
 heroImage: /assets/img/2_Parrot.png
-heroText: L圈圈De圈圈
+heroText: Liu圈圈De圈圈
 tagline: 找不着北的时候，就多看看东西叭！
 actionText: Let's play  ->
 actionLink: /qa/basics/
