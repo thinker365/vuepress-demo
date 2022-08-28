@@ -153,7 +153,7 @@ module.exports = {
                 {
                     title: 'Linux',
                     children: [
-                        ['', 'Linux快捷键'],
+                        ['', 'Linux快捷高效用法'],
                         ['Linux常用命令', 'Linux常用命令'],
                         ['Linux环境变量配置', 'Linux环境变量配置'],
                         ['Linux三剑客', 'Linux三剑客'],
