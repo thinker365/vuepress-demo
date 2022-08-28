@@ -37,7 +37,7 @@ curl https://testerhome.com | grep -o 'http://[a-zA-Z0-9\.\-]*'
 :::
 
 ::: tip
-### pattern 正则表达式
+pattern 正则表达式
 1. 基本表达式
 	- ^表示开头
 	- $表示结尾

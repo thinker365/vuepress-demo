@@ -63,9 +63,10 @@ if __name__ == '__main__':
                 else:
                     print(f'该赛事赔率无相同时间')
     '''
-    tmp_id = '2209820'
+    tmp_id = '2217219'
     tmp = get_bet_id(tmp_id)
     tmp_list = []
+
     for item in tmp:
         tmp_list.append(get_bet_time_data(item[1], tmp_id, item[0]))
     common_time = sorted(get_common_data(tmp_list[0], tmp_list[1], tmp_list[2]))

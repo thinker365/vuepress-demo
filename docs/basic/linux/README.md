@@ -17,6 +17,6 @@
 1. 复制：ctrl+insert
 2. 粘贴：shift+insert
 ## 文件以单位显示大小--block-size（K、M、G）
-ls -l nginx-access.log --block-size=M
-ls -lh
+1. ls -l nginx-access.log --block-size=M
+2. ls -lh
 
