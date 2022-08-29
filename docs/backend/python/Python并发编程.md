@@ -48,3 +48,116 @@
 	- 一个线程可以多个协程，一个进程也可以单独拥有多个协程，这样python中则能使用多核CPU。
 	- 线程进程都是同步机制，而协程则是异步
 	- 协程能保留上一次调用时的状态，每次过程重入时，就相当于进入上一次调用的状态。
+## 线程池
+当任务量多的时候，首先会想到多线程处理，但并不是线程越多效率就越高，线程越多越消耗资源，另外上下文切换也是很大的开销
+### 方式一
+```
+import time
+import random
+import multiprocessing
+
+cpu_count = multiprocessing.cpu_count()
+from concurrent.futures import ThreadPoolExecutor
+from concurrent.futures._base import Future
+
+# 理论上将线程的数量设置为 CPU 核数就是最合适的，这样可以将每个 CPU 核心的性能压榨到极致
+# 不过在工程上，线程的数量一般会设置为 CPU 核数 + 1
+# 这样在某个线程因为未知原因阻塞时多余的那个线程完全可以顶上
+pool = ThreadPoolExecutor(max_workers=cpu_count + 1)
+
+tasks = [f'task_{item}' for item in range(1, 20)]
+
+
+def handle(task):
+    time.sleep(random.randint(1, 5))
+    print(f'执行任务：{task}')
+    return f'返回{task}结果'
+
+
+def result(res: Future):
+    print(f'result:{res.result()}')
+
+
+if __name__ == '__main__':
+    for task in tasks:
+        """
+        submit会将所有任务都提交到一个地方
+        然后线程池里面的每个线程会来取任务,
+        比如:线程池有3个线程,但是有5个任务
+        会先取走三个任务,每个线程去处理
+        其中一个线程处理完自己的任务之后,会再来提交过的任务区再拿走一个任务
+        """
+        pool.submit(handle, task)
+        # print(type(pool.submit(handle, task)))
+        future = pool.submit(handle, task)
+        future.add_done_callback(result)
+    pool.shutdown()
+    print('主程序执行完成')
+```
+### 方式二
+```
+pip install threadpool
+```
+```
+此模式未研究，写法不是很清晰
+import time
+import threading
+from concurrent.futures import ThreadPoolExecutor, as_completed
+
+def sayhello(name):
+    print("%s say Hello to %s" % (threading.current_thread().getName(), name));
+    time.sleep(1)
+    return name
+
+name_list =['admin','root','scott','tiger']
+start_time = time.time()
+with ThreadPoolExecutor(2) as executor: # 创建 ThreadPoolExecutor 
+    future_list = [executor.submit(sayhello, name) for name in name_list] # 提交任务
+
+for future in as_completed(future_list):
+    result = future.result() # 获取任务结果
+    print("%s get result : %s" % (threading.current_thread().getName(), result))
+
+print('%s cost %d second' % (threading.current_thread().getName(), time.time()-start_time))
+```
+## 进程池
+```
+import time
+import random
+import multiprocessing
+
+cpu_count = multiprocessing.cpu_count()
+from concurrent.futures import ProcessPoolExecutor
+from concurrent.futures._base import Future
+
+pool = ProcessPoolExecutor(max_workers=cpu_count + 1)
+
+tasks = [f'task_{item}' for item in range(1, 20)]
+
+
+def handle(task):
+    time.sleep(random.randint(1, 5))
+    print(f'执行任务：{task}')
+    return f'返回{task}结果'
+
+
+def result(res: Future):
+    print(f'result:{res.result()}')
+
+
+if __name__ == '__main__':
+    for task in tasks:
+        """
+        submit会将所有任务都提交到一个地方
+        然后进程池里面的每个进程会来取任务,
+        比如:进程池有3个进程,但是有5个任务
+        会先取走三个任务,每个进程去处理
+        其中一个进程处理完自己的任务之后,会再来提交过的任务区再拿走一个任务
+        """
+        pool.submit(handle, task)
+        # print(type(pool.submit(handle, task)))
+        future = pool.submit(handle, task)
+        future.add_done_callback(result)
+    pool.shutdown()
+    print('主程序执行完成')
+```
