@@ -254,6 +254,7 @@ module.exports = {
                     title: 'MYSQL',
                     children: [
                         ['', 'Mysql'],
+                        ['Mysql基本操作', 'Mysql基本操作'],
                         ['三范式', '三范式'],
                         ['数据备份', '数据备份'],
                     ]
