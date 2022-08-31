@@ -305,6 +305,7 @@ module.exports = {
                     title: 'Docker',
                     children: [
                         ['', 'Docker基础知识点'],
+                        ['k8s基础', 'k8s基础'],
                     ]
                 },
             ],
