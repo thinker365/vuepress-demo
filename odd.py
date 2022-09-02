@@ -64,7 +64,7 @@ if __name__ == '__main__':
                     print(f'该赛事赔率无相同时间')
     '''
 
-    tmp_id = '2225845'
+    tmp_id = '2231864'
     tmp = get_bet_id(tmp_id)
     tmp_list = []
 
