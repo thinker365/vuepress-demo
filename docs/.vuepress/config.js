@@ -274,13 +274,14 @@ module.exports = {
                     title: 'Elasticsearch',
                     children: [
                         ['', 'Elasticsearch基础知识'],
+                        ['ES基本操作', 'ES基本操作'],
                     ]
                 },
             ],
             '/backend/mongodb/': [
                 {
                     title: 'MongoDB',
-                    children: []
+                    children: ['MongoDB基本操作','MongoDB基本操作']
                 },
             ],
             '/backend/uwsgi/': [
