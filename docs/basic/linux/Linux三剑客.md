@@ -1,8 +1,8 @@
 [[toc]]
 ## 简介
 1. grep 相当于 SQL 的 select *from table，它可以进行数据的查找与定位
-2. awk 相当于 SQL 的 select field from table，它可以进行数据切片
-3. sed 相当于 SQL 的 update table set field=new where field=old，它可以对数据进行修改
+2. awk 相当于 SQL 的 select field from table，它可以进行数据切片，擅长取列
+3. sed 相当于 SQL 的 update table set field=new where field=old，它可以对数据进行修改，擅长取行和替换
 ## grep：数据定位查找
 - grep 是一种强大的文本搜索工具，它能使用正则表达式搜索文本，并把匹配的行打印出来
 ```shell script

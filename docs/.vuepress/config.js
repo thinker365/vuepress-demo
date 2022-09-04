@@ -64,6 +64,12 @@ module.exports = {
 			    },
 			],
             '/qa/security/': [
+				{
+				    title: '安全测试流程',
+				    children: [
+				        ['安全测试流程', '安全测试流程'],
+				    ]
+				},
                 {
                     title: '安全测试工具',
                     children: [

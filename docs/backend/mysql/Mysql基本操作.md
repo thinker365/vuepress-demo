@@ -17,3 +17,6 @@ mysql> CREATE TABLE EMP (EMPNO int(4) not null,ENAME VARCHAR(10),JOB VARCHAR(9),
 mysql> CREATE TABLE SALGRADE (GRADE INT, LOSAL INT, HISAL INT );
 mysql> show tables;
 ```
+## 基本概念
+### 主键外键
+1. 主键
