@@ -34,7 +34,7 @@ module.exports = {
                 {
                     title: '自动化测试',
                     children: [
-                        ['', '自动化测试需要知道的事'],
+                        ['', '基本概念'],
                         ['Selenium', 'Selenium'],
                         ['Cypress', 'Cypress'],
                         ['Playwright', 'Playwright'],
