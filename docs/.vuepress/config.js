@@ -60,6 +60,7 @@ module.exports = {
 			    {
 			        title: '专项测试',
 			        children: [
+						['大数据测试', '大数据测试'],
 			        ]
 			    },
 			],
@@ -378,6 +379,7 @@ module.exports = {
                         ['', '令人惊艳的链接'],
                         ['help', 'MarkDown文档使用示例'],
                         ['vuepress搭建', 'Vuepress搭建步骤'],
+                        ['todo', '待办事项'],
                     ]
                 },
             ],
