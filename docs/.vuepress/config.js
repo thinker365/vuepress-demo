@@ -34,7 +34,7 @@ module.exports = {
                 {
                     title: '自动化测试',
                     children: [
-                        ['', '自动化测试需要知道的事'],
+                        ['', '基本概念'],
                         ['Selenium', 'Selenium'],
                         ['Cypress', 'Cypress'],
                         ['Playwright', 'Playwright'],
@@ -64,6 +64,12 @@ module.exports = {
 			    },
 			],
             '/qa/security/': [
+				{
+				    title: '安全测试流程',
+				    children: [
+				        ['安全测试流程', '安全测试流程'],
+				    ]
+				},
                 {
                     title: '安全测试工具',
                     children: [

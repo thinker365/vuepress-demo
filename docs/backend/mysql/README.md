@@ -1,10 +1,12 @@
 [[toc]]
 
-## 第1篇：MySQL的一些基础知识
+## MySQL的一些基础知识
 1. 数据库常见的概念
 	- DB：数据库，存储数据的容器。
 	- DBMS：数据库管理系统，又称为数据库软件或数据库产品，用于创建或管理DB。
 	- SQL：结构化查询语言，用于和数据库通信的语言，不是某个数据库软件持有的，而是几乎所有的主流数据库软件通用的语言。中国人之间交流需要说汉语，和美国人之间交流需要说英语，和数据库沟通需要说SQL语言。
+	- 主键：一张表中可以唯一标识一条记录的字段，唯一且不为空
+	- 外键：用于和另一张表建立关联，是另一张表的主键，可以多个、重复、为空
 1. 数据库存储数据的一些特点
 	- 数据存放在表中，然后表存放在数据库中
 	- 一个库中可以有多张表，每张表具有唯一的名称（表名）来标识自己
@@ -55,7 +57,7 @@
 	- DML（Data Manipulate Language）：数据操作语言 insert 、update、delete 语句
 	- DDL（Data Define Languge）：数据定义语言 create、drop、alter 语句
 	- TCL（Transaction Control Language）：事务控制语言 set autocommit=0、starttransaction、savepoint、commit、rollback
-## 第2篇：MySQL中数据类型介绍
+## MySQL中数据类型介绍
 1. MySQL的数据类型
 	- 整数类型： bit 、 bool 、 tinyint 、 smallint 、 mediumint 、 int 、 bigint
 	- 浮点数类型： float 、 double 、 decimal
@@ -91,7 +93,7 @@
 	- 尽量避免NULL：尽量制定列为NOT NULL，除非真的需要NULL类型的值，有NULL的列值会使得索引、索引统计和值比较更加复杂。
 	- 浮点类型的建议统一选择decimal
 	- 记录时间的建议使用int或者bigint类型，将时间转换为时间戳格式，如将时间转换为秒、毫秒，进行存储，方便走索引
-## 第3篇：MySQL管理员常用的一些命令
+## MySQL管理员常用的一些命令
 1. Mysql权限工作原理
 	- mysql为了安全性考虑，采用 主机名+用户名 来判断一个用户的身份，因为在互联网中很难通过用户名来判断一个用户的身份，但是我们可以通过ip或者主机名判断一台机器，某个用户通过这个机器过来的，我们可以识别为一个用户，所以mysql中采用用户名+主机名来识别用户的身份。当一个用户对mysql发送指令的时候，mysql就是通过用户名和来源（主机）来断定用户的权限。
 	- Mysql权限验证分为2个阶段：

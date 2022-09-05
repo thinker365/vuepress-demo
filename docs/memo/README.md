@@ -13,7 +13,9 @@
 1. gitee测试平台合集
 	- [https://gitee.com/explore/testing?lang=Python](https://gitee.com/explore/testing?lang=Python)
 ## 编程
-1. 设计模式
+1. 算法珠玑
+	- [https://algorithm-essentials.soulmachine.me/](https://algorithm-essentials.soulmachine.me/)
+2. 设计模式
 	- [https://refactoringguru.cn/design-patterns](https://refactoringguru.cn/design-patterns)
 1. Java全栈知识点
 	- [https://www.pdai.tech/](https://www.pdai.tech/)
