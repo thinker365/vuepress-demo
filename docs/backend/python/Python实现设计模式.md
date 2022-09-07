@@ -297,7 +297,48 @@ class PizzaStore:
 ```
 ```
 ## 单例模式
-单例模式的目标是「创建独一无二全局对象」，确保一个类只有唯一实例，并提供一个全局访问点。
+单例模式的目标是「创建独一无二全局对象」，确保一个类只有唯一实例，并提供一个全局访问点，减少内存资源消耗。
+### 使用模块
+Python 的模块就是天然的单例模式，因为模块在第一次导入时，会生成 .pyc 文件，当第二次导入时，就会直接加载 .pyc 文件，而不会再次执行模块代码
+```python
+class Singleton:
+    def func(self):
+        pass
+
+singleton = Singleton()
+```
+将上面的代码保存在文件 mysingleton.py 中，要使用时，直接在其他文件中导入此文件中的对象，这个对象即是单例模式的对象
+```python
+from mysingleton import singleton
+```
+### 基于类
+```python
+import time
+import threading
+
+class Singleton(object):
+    _instance_lock = threading.Lock()
+
+    def __init__(self):
+        time.sleep(1)
+
+    @classmethod
+    def instance(cls, *args, **kwargs):
+        if not hasattr(Singleton, '_instance'):
+            with Singleton._instance_lock:
+                if not hasattr(Singleton, '_instance'):
+                    Singleton._instance = Singleton(*args, **kwargs)
+        return Singleton._instance
+
+def task():
+    obj = Singleton.instance()
+    print(obj)
+
+for i in range(20):
+    t = threading.Thread(target=task)
+    t.start()
+print('end task')
+```
 ### 基于装饰器
 ```python
 class Singleton:
@@ -322,6 +363,7 @@ if __name__ == "__main__":
     cls2 = MyClass()
     assert id(cls1) == id(cls2)
 ```
+一般情况，大家以为这样就完成了单例模式，但是当使用多线程时会存在问题
 ### 多线程异常
 ```python
 class Singleton:
@@ -364,6 +406,7 @@ if __name__ == "__main__":
     print(results)
     assert results[0] == results[1]
 ```
+解决办法：加锁！未加锁部分并发执行，加锁部分串行执行，速度降低，但是保证了数据安全。
 ### 线程加锁
 ```python
 import threading
@@ -411,7 +454,7 @@ if __name__ == "__main__":
     assert results[0] == results[1]
 ```
 ### 线程加锁优化
-- 我们只有在第一次执行此方法时，才需要进程锁进行同步。也就是说，一但设置好self._instance变量，就不再需要进程锁了，之后的进程锁是一种累赘。而「进程锁同步效率很低，很可能降低程序性能」。
+我们只有在第一次执行此方法时，才需要进程锁进行同步。也就是说，一但设置好self._instance变量，就不再需要进程锁了，之后的进程锁是一种累赘。而「进程锁同步效率很低，很可能降低程序性能」。
 ```
 import threading
 
@@ -458,5 +501,37 @@ if __name__ == "__main__":
     print(results)
     assert results[0] == results[1]
 ```
+### 基于New方法
+```python
+import threading
+
+class Singleton(object):
+    _instance_lock = threading.Lock()
+
+    def __init__(self):
+        pass
+
+    def __new__(cls, *args, **kwargs):
+        if not hasattr(Singleton, "_instance"):
+            with Singleton._instance_lock:
+                if not hasattr(Singleton, "_instance"):
+                    Singleton._instance = object.__new__(cls)
+        return Singleton._instance
+
+# obj1 = Singleton()
+# obj2 = Singleton()
+# print(obj1, obj2)
+
+def task():
+    obj = Singleton()
+    print(obj)
+
+for i in range(20):
+    t = threading.Thread(target=task)
+    t.start()
+print('end task')
+```
+
 ## 参考
 - [https://mp.weixin.qq.com/s/ax52_Rr2cNRtstXF80dOBg](https://mp.weixin.qq.com/s/ax52_Rr2cNRtstXF80dOBg)
+- [https://mp.weixin.qq.com/s/NmWS-h7OXmIQVX6ylh-PRg](https://mp.weixin.qq.com/s/NmWS-h7OXmIQVX6ylh-PRg)
