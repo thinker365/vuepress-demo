@@ -10,7 +10,7 @@
 7. 社区生态丰富强大
 ## 基础架构
 ![](~@img/appium.png)
-说明：客户端脚本（如python脚本）通过webdriver协议发送HTTP请求到appium server，appium server统一处理后再将请求转发给各平台对应的驱动（如Android的uiautomator2），驱动API调用被测设备执行动作
+- 说明：客户端脚本（如python脚本）通过webdriver协议发送HTTP请求到appium server，appium server统一处理后再将请求转发给各平台对应的驱动（如Android的uiautomator2），驱动API调用被测设备执行动作
 ## 生态工具
 ### ADB
 adb是Android SDK下的一个工具，用来访问Android设备

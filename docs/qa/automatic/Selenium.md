@@ -1,8 +1,8 @@
-[[doc]]
+[[toc]]
 ## 简介
 1. selenium与驱动进行http通信的协议：Json Wire Protocol
 2. 每一步操作指令都是一个HTTP请求，selenium库中存储了所有指令的名称、HTTP请求类型、请求url
-![](~@img/Selenium基础架构.png)
+![](~@img/Selenium_framework.png)
 ## 原理
 简单脚本
 ```python
