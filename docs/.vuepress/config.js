@@ -39,6 +39,7 @@ module.exports = {
                         ['Cypress', 'Cypress'],
                         ['Playwright', 'Playwright'],
                         ['Appium', 'Appium'],
+                        ['Mock', 'Mock'],
                     ]
                 },
             ],
