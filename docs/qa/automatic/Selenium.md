@@ -1,4 +1,173 @@
 [[doc]]
+## 简介
+1. selenium与驱动进行http通信的协议：Json Wire Protocol
+2. 每一步操作指令都是一个HTTP请求，selenium库中存储了所有指令的名称、HTTP请求类型、请求url
+![](~@img/Selenium基础架构.png)
+## 原理
+简单脚本
+```python
+from selenium import webdriver
+driver = webdriver.Chrome()
+driver.get('http://www.baidu.com')
+driver.quit()
+```
+初始化一个servece服务，创建进程，启动浏览器驱动，绑定端口
+```python
+driver = webdriver.Chrome()
+```
+点击Chrome()，源码68行，实例化Service类，并调用了start()方法
+```python
+# D:/Python36/Lib/site-packages/selenium/webdriver/chrome/webdriver.py:68
+self.service = Service(
+	executable_path,
+	port=port,
+	service_args=service_args,
+	log_path=service_log_path)
+self.service.start()
+```
+点击start()
+```python
+# D:/Python36/Lib/site-packages/selenium/webdriver/common/service.py:61
+def start(self):
+	"""
+	Starts the Service.
+
+	:Exceptions:
+	 - WebDriverException : Raised either when it can't start the service
+	   or when it can't connect to the service
+	"""
+	try:
+		cmd = [self.path]
+		cmd.extend(self.command_line_args())
+		self.process = subprocess.Popen(cmd, env=self.env,
+										close_fds=platform.system() != 'Windows',
+										stdout=self.log_file,
+										stderr=self.log_file,
+										stdin=PIPE)
+	except TypeError:
+		raise
+	......
+```
+- try位置打断点，subprocess相当于帮我们启动了chromedriver
+![](~@img/1662561754641.jpg)
+- 执行脚本webdriver.Chrome()会执行chromedirver.exe驱动程序，启动一个服务，随机端口53487，地址：http://localhost:53487
+- 继续看后面的源码，查看父类RemoteWebDriver
+```
+# D:/Python36/Lib/site-packages/selenium/webdriver/chrome/webdriver.py:75
+try:
+	**RemoteWebDriver**.__init__(
+		self,
+		command_executor=ChromeRemoteConnection(
+			remote_server_addr=self.service.service_url,
+			keep_alive=keep_alive),
+		desired_capabilities=desired_capabilities)
+except Exception:
+	...
+```
+创建会话
+```python
+# D:/Python36/Lib/site-packages/selenium/webdriver/remote/webdriver.py:157
+self.**start_session**(capabilities, browser_profile)
+```
+进入start_session
+```python
+# D:/Python36/Lib/site-packages/selenium/webdriver/remote/webdriver.py:252
+response = self.**execute**(Command.NEW_SESSION, parameters)
+```
+进入execute
+```python
+# D:/Python36/Lib/site-packages/selenium/webdriver/remote/webdriver.py:319
+response = self.command_executor.**execute**(driver_command, params)
+```
+进入execute，返回了一个封装的_request方法，此处打断点
+```python
+D:/Python36/Lib/site-packages/selenium/webdriver/remote/remote_connection.py:374
+return self._request(command_info[0], url, body=data)
+```
+![](~@img/1662603570815.jpg)
+接口调用http://127.0.0.1:53487/session，将会打开chrome浏览器
+```shell script
+curl --location --request POST 'http://127.0.0.1:55626/session' \
+--header 'Content-Type: application/json' \
+--data-raw '
+{
+    "capabilities": {
+        "firstMatch": [{}],
+        "alwaysMatch": {
+            "browserName": "chrome",
+            "acceptInsecureCerts": true
+        }
+    },
+    "desiredCapabilities": {
+        "browserName": "chrome",
+        "acceptInsecureCerts": true,
+        "marionette": true
+    }
+}'
+```
+返回响应
+```json
+{
+    "sessionId": "c7b62f0a7d258ef7cc2569e6f06b7e6b",
+    "status": 0,
+    "value": {
+        "acceptInsecureCerts": true,
+        "acceptSslCerts": true,
+        "applicationCacheEnabled": false,
+        "browserConnectionEnabled": false,
+        "browserName": "chrome",
+        "chrome": {
+            "chromedriverVersion": "2.38.552522 (437e6fbedfa8762dec75e2c5b3ddb86763dc9dcb)",
+            "userDataDir": "C:\\Users\\Admin\\AppData\\Local\\Temp\\scoped_dir2088_20436"
+        },
+        "cssSelectorsEnabled": true,
+        "databaseEnabled": false,
+        "handlesAlerts": true,
+        "hasTouchScreen": false,
+        "javascriptEnabled": true,
+        "locationContextEnabled": true,
+        "mobileEmulationEnabled": false,
+        "nativeEvents": true,
+        "networkConnectionEnabled": false,
+        "pageLoadStrategy": "normal",
+        "platform": "Windows NT",
+        "rotatable": false,
+        "setWindowRect": true,
+        "takesHeapSnapshot": true,
+        "takesScreenshot": true,
+        "unexpectedAlertBehaviour": "",
+        "version": "105.0.5195.102",
+        "webStorageEnabled": true
+    }
+}
+```
+通过RemoteWebDriver向浏览器驱动程序下发指令(GET)，发送HTTP请求，浏览器驱动程序解析请求，访问URL
+```python
+# D:/Python36/Lib/site-packages/selenium/webdriver/remote/webdriver.py:329
+def get(self, url):
+	"""
+	Loads a web page in the current browser session.
+	"""
+	self.execute(Command.GET, {'url': url})
+```
+打断点
+![](~@img/1662604884215.jpg)
+```shell script
+curl --location --request POST 'http://127.0.0.1:55626/session/c7b62f0a7d258ef7cc2569e6f06b7e6b/url' \
+--header 'Content-Type: application/json' \
+--data-raw '
+{
+    "url": "http://www.baidu.com"
+}'
+```
+响应，可以看到打开了百度页面
+```json
+{
+    "sessionId": "c7b62f0a7d258ef7cc2569e6f06b7e6b",
+    "status": 0,
+    "value": null
+}
+```
 ## 准备工作
 1. 安装selenium库
  ```shell script
@@ -122,7 +291,7 @@
 	```
 
 1. 前进后退
-	 - 前进后退也是我们在使用浏览器时非常常见的操作，这里forward()方法可以用来实现前进，back()可以用来实现后退。
+	- 前进后退也是我们在使用浏览器时非常常见的操作，这里forward()方法可以用来实现前进，back()可以用来实现后退。
 	```python
 	from selenium import webdriver
 	import time  

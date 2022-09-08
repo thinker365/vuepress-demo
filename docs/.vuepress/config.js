@@ -38,6 +38,7 @@ module.exports = {
                         ['Selenium', 'Selenium'],
                         ['Cypress', 'Cypress'],
                         ['Playwright', 'Playwright'],
+                        ['Appium', 'Appium'],
                     ]
                 },
             ],
