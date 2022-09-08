@@ -148,6 +148,7 @@ module.exports = {
                         ['Cookie、Session、Token、JWT', 'Cookie、Session、Token、JWT'],
                         ['pdf', 'PDF测试'],
                         ['HTTP、RPC', '关于HTTP和RPC'],
+                        ['WebSocket', 'WebSocket'],
                     ]
                 },
             ],
