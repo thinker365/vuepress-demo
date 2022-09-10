@@ -40,6 +40,8 @@ module.exports = {
                         ['Playwright', 'Playwright'],
                         ['Appium', 'Appium'],
                         ['Mock', 'Mock'],
+						['框架命令行参数定制化', '框架命令行参数定制化'],
+						
                     ]
                 },
             ],

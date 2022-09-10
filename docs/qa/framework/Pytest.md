@@ -88,32 +88,34 @@ class TestXxx:
 ```
 ## pytest.ini
 pytest的主配置文件，可破除默认pattern，灵活命名测试文件，位于项目根目录
-:::
+::: tip
+```
 [pytest]
 python_classes = *
 python_files= *
 python_functions = test*
+```
+- *表示匹配所有
+- python_files，表示要匹配的测试文件
+- python_classes，表示要匹配的测试类
+- python_functions，表示要匹配的测试方法
+- pytest底层是使用的时glob库，可以参考[这里](https://docs.python.org/zh-cn/3/library/glob.html)
 
-*表示匹配所有
-python_files，表示要匹配的测试文件
-python_classes，表示要匹配的测试类
-python_functions，表示要匹配的测试方法
-pytest底层是使用的时glob库，可以参考[这里](https://docs.python.org/zh-cn/3/library/glob.html)
-===========================================
+```
 [pytest]
 markers = 
     smoke: run smoke test
     sanity: run sanity test
+```
+- pytest.ini里注册标签，统一管理
+- 用例里面仍需要打标签
 
-pytest.ini里注册标签，统一管理
-用例里面仍需要打标签
-===========================================
+```
 [pytest]
 testpaths=tests
-
-执行pytest时，会自动查询testpaths文件夹，如果没有设置testpaths，则会自动从当前文件夹找起
-===========================================
-pytest.ini还有更改默认命令行参数、指定pytest最低版本、指定忽略某目录、禁用XPASS等功能，backlog！！！
+```
+- 执行pytest时，会自动查询testpaths文件夹，如果没有设置testpaths，则会自动从当前文件夹找起
+- pytest.ini还有更改默认命令行参数、指定pytest最低版本、指定忽略某目录、禁用XPASS等功能，backlog！！！
 :::
 
 ## 多线程、多进程执行用例

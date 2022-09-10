@@ -915,79 +915,76 @@
 		- user 当前连接用户
 		- password 返回字符串密码形式
 		- md5 返回字符串的md5数据
-## 第11篇：深入了解连接查询及原理
-1. 笛卡尔积
-	笛卡尔积简单点理解：有两个集合A和B，笛卡尔积表示A集合中的元素和B集合中的元素任意相互关联产生的所有可能的结果。
-	假如A中有m个元素，B中有n个元素，A、B笛卡尔积产生的结果有m*n个结果，相当于循环遍历两个集合中的元素，任意组合。
-	sql中笛卡尔积语法
-	```
-	select 字段 from 表1,表2[,表N]; 
-	或者
-	select 字段 from 表1 join 表2 [join 表N];
-	```
-1. 内连接
-	- 语法：
-	```
-	select 字段 from 表1 inner join 表2 on 连接条件; 
-	或
-	select 字段 from 表1 join 表2 on 连接条件; 
-	或
-	select 字段 from 表1, 表2 [where 关联条件];
-	```
-	- 内连接相当于在笛卡尔积的基础上加上了连接的条件。
-	- 当没有连接条件的时候，内连接上升为笛卡尔积。
-	- 示例1：有连接条件
-	```
-	select t1.emp_name,t2.team_name from t_employee t1 inner join t_team t2 on t1.team_id = t2.id;
-	```
-	- 示例2：无连接条件
-	```
-	select t1.emp_name,t2.team_name from t_employee t1 inner join t_team t2
-	```
-	- 示例3：组合条件进行查询
-	```
-	select t1.emp_name,t2.team_name from t_employee t1 inner join t_team t2 on t1.team_id = t2.id and t2.team_name = '架构组';
-	```
-	- 总结
-	- 内连接建议使用如下语法：
-	```
-	select 字段 from 表1, 表2 [where 关联条件];
-	```
-1. 外连接
-	- 外连接涉及到2个表，分为：主表和从表，要查询的信息主要来自于哪个表，谁就是主表。
-	- 外连接查询结果为主表中所有记录。如果从表中有和它匹配的，则显示匹配的值，这部分相当于内连接查询出来的结果；如果从表中没有和它匹配的，则显示null。
-	- 最终：外连接查询结果 = 内连接的结果 + 主表中有的而内连接结果中没有的记录。
-	- 外连接分为2种：
+## 深入了解连接查询及原理
+### 笛卡尔积
+1. 笛卡尔积简单点理解：有两个集合A和B，笛卡尔积表示A集合中的元素和B集合中的元素任意相互关联产生的所有可能的结果。
+2. 假如A中有m个元素，B中有n个元素，A、B笛卡尔积产生的结果有m*n个结果，相当于循环遍历两个集合中的元素，任意组合。
+3. sql中笛卡尔积语法
+```
+select 字段 from 表1,表2[,表N]; 
+或者
+select 字段 from 表1 join 表2 [join 表N];
+```
+### 内连接
+语法：
+```
+select 字段 from 表1 inner join 表2 on 连接条件; 
+或
+select 字段 from 表1 join 表2 on 连接条件; 
+或
+select 字段 from 表1, 表2 [where 关联条件];
+```
+- 内连接相当于在笛卡尔积的基础上加上了连接的条件。
+- 当没有连接条件的时候，内连接上升为笛卡尔积。
+- 示例1：有连接条件
+```
+select t1.emp_name,t2.team_name from t_employee t1 inner join t_team t2 on t1.team_id = t2.id;
+```
+- 示例2：无连接条件
+```
+select t1.emp_name,t2.team_name from t_employee t1 inner join t_team t2
+```
+- 示例3：组合条件进行查询
+```
+select t1.emp_name,t2.team_name from t_employee t1 inner join t_team t2 on t1.team_id = t2.id and t2.team_name = '架构组';
+```
+- 内连接建议使用如下语法：
+```
+select 字段 from 表1, 表2 [where 关联条件];
+```
+### 外连接
+1. 外连接涉及到2个表，分为：主表和从表，要查询的信息主要来自于哪个表，谁就是主表。
+2. 外连接查询结果为主表中所有记录。如果从表中有和它匹配的，则显示匹配的值，这部分相当于内连接查询出来的结果；如果从表中没有和它匹配的，则显示null。
+3. 最终：外连接查询结果 = 内连接的结果 + 主表中有的而内连接结果中没有的记录。
+4. 外连接分为2种：
 	- 左外链接：使用left join关键字，left join左边的是主表。
 	- 右外连接：使用right join关键字，right join右边的是主表。
 	- 左连接
-	- 语法
 	```
 	select 列 from 主表 left join 从表 on 连接条件;
 	SELECT t1.emp_name, t2.team_name FROMt_employee t1 LEFT JOIN t_team t2 ON t1.team_id = t2.id;
 	```
 	- 右连接
-	- 语法
 	```
 	select 列 from 从表 right join 主表 on 连接条件
 	SELECT t2.team_name, t1.emp_name FROMt_team t2 RIGHT JOIN t_employee t1 ON t1.team_id = t2.id;
 	```
 
-## 第12篇：子查询
-1. 子查询
-	- 出现在select语句中的select语句，称为子查询或内查询。
-	- 外部的select查询语句，称为主查询或外查询。
-1. 子查询分类
-	- 标量子查询（结果集只有一行一列）
-	- 列子查询（结果集只有一列多行）
-	- 行子查询（结果集有一行多列）
-	- 表子查询（结果集一般为多行多列）
-1. 按子查询出现在主查询中的不同位置分类
-	- select后面：仅仅支持标量子查询。
-	- from后面：支持表子查询。
-	- where或having后面：支持标量子查询（单列单行）、列子查询（单列多行）、行子查询（多列多行）
-	- exists后面（即相关子查询）：表子查询（多行、多列）
-1. select后面的子查询
+## 子查询
+### 子查询
+1. 出现在select语句中的select语句，称为子查询或内查询。
+2. 外部的select查询语句，称为主查询或外查询。
+### 子查询分类
+1. 标量子查询（结果集只有一行一列）
+2. 列子查询（结果集只有一列多行）
+3. 行子查询（结果集有一行多列）
+4. 表子查询（结果集一般为多行多列）
+### 按子查询出现在主查询中的不同位置分类
+1. select后面：仅仅支持标量子查询。
+2. from后面：支持表子查询。
+3. where或having后面：支持标量子查询（单列单行）、列子查询（单列多行）、行子查询（多列多行）
+4. exists后面（即相关子查询）：表子查询（多行、多列）
+- 1. select后面的子查询
 	- 子查询位于select后面的，仅仅支持标量子查询。
 	```
 	SELECT 
