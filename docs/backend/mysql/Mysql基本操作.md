@@ -16,7 +16,13 @@ mysql> CREATE TABLE EMP (EMPNO int(4) not null,ENAME VARCHAR(10),JOB VARCHAR(9),
 薪水表
 mysql> CREATE TABLE SALGRADE (GRADE INT, LOSAL INT, HISAL INT );
 mysql> show tables;
+创建用户
+mysql> create user 'liuly2'@'%' identified by '123456';
+
+GRANT ALL PRIVILEGES ON *.* To 'root'@'%' IDENTIFIED BY '123456' WITH GRANT OPTION;
 ```
 ## 基本概念
 ### 主键外键
 1. 主键
+## python操作数据库
+参考：[这里](https://pymysql.readthedocs.io/en/latest/index.html)

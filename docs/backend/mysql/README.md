@@ -1,5 +1,5 @@
 [[toc]]
-
+博主：[所有专题](http://www.itsoku.com/)，[Mysql专题](http://www.itsoku.com/course/3)
 ## MySQL的一些基础知识
 1. 数据库常见的概念
 	- DB：数据库，存储数据的容器。
