@@ -19,7 +19,7 @@ mysql> show tables;
 创建用户
 mysql> create user 'liuly2'@'%' identified by '123456';
 
-GRANT ALL PRIVILEGES ON *.* To 'root'@'%' IDENTIFIED BY '123456' WITH GRANT OPTION;
+GRANT ALL PRIVILEGES ON *.* To 'root'@'10.255.252.143' IDENTIFIED BY '123456' WITH GRANT OPTION;
 ```
 ## 基本概念
 ### 主键外键
