@@ -85,6 +85,28 @@ if __name__ == '__main__':
     print(s.pre_order_traversal(root))
 ```
 ## 堆
+## 冒泡排序
+```python
+def bubble_sorted(array):
+    """
+    :param 输入乱序数组
+    :return 已排序数组
+    """
+    length = len(array)
+    for i in range(length - 1):
+        flag = False
+        for j in range(length - 1 - i):
+            if array[j] > array[j + 1]:
+                flag = True
+                array[j], array[j + 1] = array[j + 1], array[j]
+        if not flag:
+            break
+    return array
+
+
+if __name__ == '__main__':
+    print(bubble_sorted([1, 2, 2, 7, 3, 9, 4, 6, 5]))
+```
 ## 快速排序
 ## 归并排序
 ## 堆排序
