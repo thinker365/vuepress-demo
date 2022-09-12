@@ -86,6 +86,7 @@ if __name__ == '__main__':
 ```
 ## 堆
 ## 冒泡排序
+时间复杂度O(n²)
 ```python
 def bubble_sorted(array):
     """
@@ -108,6 +109,63 @@ if __name__ == '__main__':
     print(bubble_sorted([1, 2, 2, 7, 3, 9, 4, 6, 5]))
 ```
 ## 快速排序
+```python
+def quick_sorted(array):
+    """
+    :param 输入乱序数组
+    :return 已排序数组
+    """
+    length = len(array)
+    if length < 2:
+        return array
+    pivot = array.pop()
+    greater = []
+    lesser = []
+    for element in array:
+        (greater if element > pivot else lesser).append(element)
+    return quick_sorted(lesser) + [pivot] + quick_sorted(greater)
+
+
+if __name__ == '__main__':
+    print(quick_sorted([1, 2, 2, 7, 3, 9, 4, 6, 5]))
+    print(quick_sorted([1]))
+    print(quick_sorted([1, 2]))
+    print(quick_sorted([2, 1]))
+```
 ## 归并排序
+```python
+def merge_sorted(array):
+    def merge(left, right):
+        def _merge():
+            while left and right:
+                yield (left if left[0] < right[0] else right).pop(0)
+            yield from left
+            yield from right
+
+        return list(_merge())
+
+    if len(array) <= 1:
+        return array
+    mid = len(array) // 2
+    return merge(merge_sorted(array[:mid]), merge_sorted(array[mid:]))
+if __name__ == '__main__':
+    print(merge_sorted([1, 2, 2, 7, 3, 9, 4, 6, 5]))
+```
 ## 堆排序
 ## 二分查找
+```python
+def binary_search(array, target) -> int:
+    left, right = 0, len(array) - 1
+    while left <= right:
+        mid = (right - left) // 2 + left
+        num = array[mid]
+        if num == target:
+            return mid
+        elif num > target:
+            right = mid - 1
+        else:
+            left = mid + 1
+    return -1
+if __name__ == '__main__':
+    print(binary_search([item for item in range(10)], 6))
+```
