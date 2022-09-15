@@ -161,3 +161,216 @@ if __name__ == '__main__':
     pool.shutdown()
     print('主程序执行完成')
 ```
+## 协程asyncio
+### 协程及asyncio基础知识
+- 协程(coroutine)也叫微线程，是实现多任务的另一种方式，是比线程更小的执行单元，一般运行在单进程和单线程上。因为它自带CPU的上下文，它可以通过简单的事件循环切换任务，比进程和线程的切换效率更高，这是因为进程和线程的切换由操作系统进行。
+- Python实现协程的两个库：asyncio和gevent，asyncio 是从Python3.4引入的标准库，内置了对协程异步IO的支持
+- asyncio 的编程模型本质是一个**事件循环**，我们一般先定义一个协程函数, 从 asyncio 模块中获取事件循环loop，然后把需要执行的协程任务(或任务列表)扔到 loop中执行，就实现了异步IO。
+### 事件循环
+事件循环是asyncio的核心，把一些异步函数注册到事件循环中，事件循环就会循环执行这些函数，当执行某个函数，它处于IO等待时，事件循环会暂停它去执行其他函数，当函数IO恢复时，下次循环到它时会继续执行。
+### 创建协程函数方式演进
+#### python3.4之前实现方式
+通过@asyncio.coroutine 和 yeild from 实现
+```python
+import asyncio
+
+# 定义协程函数
+@asyncio.coroutine
+def func():
+    print('start')
+    yield from asyncio.sleep(1)
+    print('end')
+
+if __name__ == '__main__':
+    # 获取事件循环
+    loop = asyncio.get_event_loop()
+    # 执行协程任务
+    loop.run_until_complete(func())
+    # 关闭事件循环
+    loop.close()
+```
+#### python3.5之后实现方式
+```python
+import asyncio
+
+async def func():
+    print("start")
+    await asyncio.sleep(1) #耗时的代码或函数使用await声明，表示碰到等待时挂起，以切换到其它任务
+    print("end")
+
+if __name__ == '__main__':
+    loop = asyncio.get_event_loop()
+    loop.run_until_complete(func())
+    loop.close()
+```
+#### python3.7之后优化
+```python
+import asyncio
+
+async def func():
+    print("start")
+    await asyncio.sleep(1)
+    print("end")
+
+if __name__ == '__main__':
+    asyncio.run(func())
+```
+### 创建协程任务方式演进
+上面案例，只执行了单个协程任务(函数)，根据协程函数创建协程任务有多种方法，Python 3.7提供asyncio.create_task，如下：
+```python
+# 方法1：使用ensure_future方法。future代表一个对象，未执行的任务
+task1 = asyncio.ensure_future(foo())
+task2 = asyncio.ensure_future(bar())
+
+# 方法2：使用loop.create_task方法
+loop = asyncio.get_event_loop()
+task3 = loop.create_task(foo())
+task4 = loop.create_task(bar())
+
+# 使用Python 3.7提供的asyncio.create_task方法
+task5 = asyncio.create_task(foo())
+task6 = asyncio.create_task(bar())
+```
+创建多个协程任务列表后，我们还要使用asyncio.wait方法收集协程任务，并交由事件循环处理执行
+```python
+import asyncio
+
+async def foo():
+    print("start-foo")
+    await asyncio.sleep(1)
+    print("end-foo")
+
+async def main():
+    tasks = []
+	# 构造多个协程任务
+    for _ in range(5):
+        tasks.append(asyncio.create_task(foo()))
+    await asyncio.wait(tasks)
+
+if __name__ == '__main__':
+    asyncio.run(main())
+```
+收集多个协程任务，Python还提供了新的asyncio.gather方法，它的作用与asyncio.wait方法类似，但更强大。如果列表中传入的不是create_task方法创建的协程任务，它会自动将函数封装成协程任务
+```python
+import asyncio
+
+async def foo():
+    print("start-foo")
+    await asyncio.sleep(1)
+    print("end-foo")
+
+async def main():
+    tasks = []
+    for _ in range(5):
+        tasks.append(foo())  # 这里并没有由协程函数创建协程任务
+    await asyncio.gather(*tasks)  # 注意此处的*号
+
+if __name__ == '__main__':
+    asyncio.run(main())
+```
+### 获取协程任务结果
+- 以上可知，gather方法有将函数封装成协程任务的能力，但两者更大的区别在**所有**协程任务执行完毕后对于返回结果的处理
+- asyncio.wait 会返回两个值：done 和 pending，done 为已完成的协程任务列表，pending 为超时未完成的协程任务类别，需通过task.result()方法可以获取每个协程任务返回的结果。可以定义函数返回的时机，比如可以是FIRST_COMPLETED(第一个结束的), FIRST_EXCEPTION(第一个出现异常的), ALL_COMPLETED(全部执行完，默认的)
+- asyncio.gather 返回的是所有已完成协程任务的 result，不需要再进行调用或其他操作，就可以得到全部结果，如果某一个协程崩溃了，会抛出异常，不会有结果
+#### wait
+```python
+import asyncio
+
+async def foo(index):
+    print("start-foo")
+    await asyncio.sleep(1)
+    print("end-foo")
+    return f'foo-{index}'
+
+async def main():
+    tasks = []
+    for index in range(5):
+        tasks.append(asyncio.create_task(foo(index)))
+    # 获取任务执行结果
+    done, pending = await asyncio.wait(tasks)
+    for result in done:
+        print(result.result())
+
+if __name__ == '__main__':
+    asyncio.run(main())
+```
+```python
+import asyncio
+
+async def foo(index):
+    print("start-foo")
+    await asyncio.sleep(1)
+    print("end-foo")
+    print(1 / 0)
+    return f'foo-{index}'
+
+async def main():
+    tasks = []
+    for index in range(5):
+        tasks.append(asyncio.create_task(foo(index)))
+    # 出现第一个异常的时候就结果，函数整体不会崩溃，只是如果这里想要获取结果的话它是一个异常对象。
+    done, pending = await asyncio.wait(tasks, return_when=asyncio.tasks.FIRST_EXCEPTION)
+    for result in done:
+        print(result.result())
+
+if __name__ == '__main__':
+    asyncio.run(main())
+```
+#### gather
+```python
+import asyncio
+
+async def foo(index):
+    print("start-foo")
+    await asyncio.sleep(1)
+    print("end-foo")
+    return f'foo-{index}'
+
+async def main():
+    tasks = []
+    for index in range(5):
+        tasks.append(foo(index))
+    # 获取任务执行结果
+    results = await asyncio.gather(*tasks)
+    for result in results:
+        print(result)
+
+if __name__ == '__main__':
+    asyncio.run(main())
+```
+### asyncio高级用法
+#### 给任务添加回调函数
+可以给每个协程任务通过add_done_callback方法给单个协程任务添加回调函数
+```python
+import asyncio
+
+async def foo(index):
+    print("start-foo")
+    await asyncio.sleep(1)
+    print("end-foo")
+    return f'foo-{index}'
+
+# 定义回调函数
+def callback(future):
+    print(f"callback：{future.result()}")
+
+async def main():
+    tasks = []
+    for index in range(5):
+        task = asyncio.create_task(foo(index))
+        # 增加回调函数
+        task.add_done_callback(callback)
+        tasks.append(task)
+    await asyncio.wait(tasks)
+
+if __name__ == '__main__':
+    asyncio.run(main())
+```
+#### 设置任务超时
+很多协程任务都是很耗时的，当你使用wait方法收集协程任务时，可通过timeout选项设置任务切换前单个任务最大等待时间长度
+```python
+done, pending = await asyncio.wait(tasks, timeout=10)
+```
+#### 自省
+1. asyncio.current_task: 返回当前运行的Task实例，如果没有正在运行的任务则返回 None。如果 loop 为 None 则会使用 get_running_loop()获取当前事件循环。
+2. asyncio.all_tasks: 返回事件循环所运行的未完成的Task对象的集合。
