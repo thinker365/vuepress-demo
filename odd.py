@@ -16,6 +16,7 @@ def get_bet_id(game_id):
     sts = re.findall(r'"60(.*?)STS', res)
     bet_at_home = re.findall(r'"173(.*?)Bet-at-home', res)
     nordicbet = re.findall(r'"4(.*?)Nordicbet', res)
+    # dafa = re.findall(r'"798(.*?)Dafabet', res)
     if not all([sts, bet_at_home, nordicbet]):
         print(f'该赛事无开赔公司')
         return []
@@ -23,6 +24,7 @@ def get_bet_id(game_id):
         sts_id = sts[0].split(',')[-1].split('|')[1]
         bet_at_home_id = bet_at_home[0].split(',')[-1].split('|')[1]
         nordicbet_id = nordicbet[0].split(',')[-1].split('|')[1]
+        # dafa_id = dafa[0].split(',')[-1].split('|')[1]
         return [(60, sts_id), (173, bet_at_home_id), (4, nordicbet_id)]
 
 
@@ -45,29 +47,9 @@ def get_common_data(sts, bet_at_home, nordicbet):
 
 
 if __name__ == '__main__':
-    '''
-    game_id_list = get_game_id_list()
-    print(f'赛事数据合计：{len(game_id_list)}场')
-    for game_id in game_id_list:
-        print(f'\n赛事编号：{game_id}')
-        bet_list = get_bet_id(game_id)
-        if bet_list:
-            data_list = []
-            for item in bet_list:
-                data_list.append(get_bet_time_data(item[1], game_id, item[0]))
-            if any([data_list]):
-                common_time = sorted(get_common_data(data_list[0], data_list[1], data_list[2]),reverse=True)
-                if common_time:
-                    print(f'相同时间：{common_time}')
-                    print(f'赛事链接：http://op1.win007.com/oddslist/{game_id}.htm')
-                else:
-                    print(f'该赛事赔率无相同时间')
-    '''
-
-    tmp_id = '2154373'
+    tmp_id = '2148709'
     tmp = get_bet_id(tmp_id)
     tmp_list = []
-
     for item in tmp:
         tmp_list.append(get_bet_time_data(item[1], tmp_id, item[0]))
     common_time = sorted(get_common_data(tmp_list[0], tmp_list[1], tmp_list[2]))

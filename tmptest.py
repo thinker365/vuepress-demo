@@ -497,11 +497,119 @@
 #
 # print(list(map(lambda x: x , [1, 2, 3])))
 
+#
+# from websocket import WebSocket
+#
+# ws = WebSocket('ws://echo.websocket.org')
+# print('send')
+# ws.send('hello')
+# result = ws.recv()
+# print('return-->', result)
 
-from websocket import WebSocket
+# class Node:
+#     def __init__(self, data, next_node=None):
+#         self.data = data
+#         self.next_node = next_node
+#
+#
+# class SingleLinkedList:
+#     def __init__(self):
+#         self.head = None
+#
+#     def find_by_value(self, value):
+#         p = self.head
+#         while p and p.data != value:
+#             p = p.next_node
+#         return p
+from requests import head
 
-ws = WebSocket('ws://echo.websocket.org')
-print('send')
-ws.send('hello')
-result = ws.recv()
-print('return-->', result)
+
+def sequential_search(array, value):
+    for index, item in enumerate(array):
+        if item == value:
+            return index
+    return -1
+
+
+def binary_search(array, value):
+    left = 0
+    right = len(array) - 1
+    while left <= right:
+        mid = (left + right) // 2
+        if array[mid] == value:
+            return mid
+        elif array[mid] > value:
+            right = mid - 1
+        else:
+            left = mid + 1
+    return -1
+
+
+# # 缺点，会开辟新空间
+# def select_sort(array):
+#     tmp_list = []
+#     for _ in range(len(array)):
+#         min_item = min(array)  # 非O(1)复杂度，也是需要遍历
+#         tmp_list.append(min_item)
+#         array.remove(min_item)  # 非O(1)复杂度，也是需要遍历
+#     return tmp_list
+
+def select_sort(array):
+    for i in range(len(array) - 1):
+        min_index = i
+        for j in range(i + 1, len(array)):
+            if array[j] < array[min_index]:
+                min_index = j
+        array[i], array[min_index] = array[min_index], array[i]
+    return array
+
+
+class Node:
+    def __init__(self, item):
+        self.item = item
+        self.next = None
+        self.prev = None
+
+
+def create_node_by_head(array):
+    head = Node(array[0])
+    for item in array[1:]:
+        node = Node(item)
+        node.next = head
+        head = node
+    return head
+
+
+def create_node_by_tail(array):
+    head = Node(array[0])
+    tail = head
+    for item in array[1:]:
+        node = Node(item)
+        tail.next = node
+        tail = node
+    return head
+
+
+def traverse_linked_list(node):
+    while node:
+        print(node.item, end='\t')
+        node = node.next
+
+
+def insert_node(item):
+    node = Node(item)
+    node.next = node.next.next
+    return node
+
+
+class BinaryTreeNode:
+    def __init__(self, data):
+        self.data = data
+        self.left = None
+        self.right = None
+
+
+if __name__ == '__main__':
+    array = [1, 7, 2, 3, 9, 4, 5]
+    node = create_node_by_tail(array)
+    traverse_linked_list(node)
