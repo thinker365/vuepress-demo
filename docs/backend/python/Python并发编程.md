@@ -94,6 +94,29 @@ if __name__ == '__main__':
     pool.shutdown()
     print('主程序执行完成')
 ```
+```python
+import time
+import random
+import multiprocessing
+
+cpu_count = multiprocessing.cpu_count()
+from concurrent.futures import ThreadPoolExecutor
+
+pool = ThreadPoolExecutor(max_workers=cpu_count + 1)
+tasks = [f'task_{item}' for item in range(1, 20)]
+
+def handle(task):
+    time.sleep(random.randint(1, 5))
+    print(f'执行任务：{task}')
+    return f'返回{task}结果'
+
+def run():
+    with pool:
+        pool.map(handle, tasks)
+
+if __name__ == '__main__':
+    run()
+```
 ### 方式二
 ```
 pip install threadpool
@@ -160,6 +183,29 @@ if __name__ == '__main__':
         future.add_done_callback(result)
     pool.shutdown()
     print('主程序执行完成')
+```
+```python
+import time
+import random
+import multiprocessing
+
+cpu_count = multiprocessing.cpu_count()
+from concurrent.futures import ProcessPoolExecutor
+
+pool = ProcessPoolExecutor(max_workers=cpu_count + 1)
+tasks = [f'task_{item}' for item in range(1, 20)]
+
+def handle(task):
+    time.sleep(random.randint(1, 5))
+    print(f'执行任务：{task}')
+    return f'返回{task}结果'
+
+def run():
+    with pool:
+        pool.map(handle, tasks)
+
+if __name__ == '__main__':
+    run()
 ```
 ## 协程asyncio
 ### 协程及asyncio基础知识
