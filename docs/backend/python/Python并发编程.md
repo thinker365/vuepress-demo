@@ -420,3 +420,11 @@ done, pending = await asyncio.wait(tasks, timeout=10)
 #### 自省
 1. asyncio.current_task: 返回当前运行的Task实例，如果没有正在运行的任务则返回 None。如果 loop 为 None 则会使用 get_running_loop()获取当前事件循环。
 2. asyncio.all_tasks: 返回事件循环所运行的未完成的Task对象的集合。
+## 备注
+1. asyncio有局限性，不支持requests，只支持aiohttp
+2. 如果需要await一系列的操作，就得使用 asyncio.gather()；如果只是单个的future，用 asyncio.wait() 就可以
+3. 开启事件循环有两种方法，一种是调用run_until_complete，另一种是调用run_forever。run_until_complete内置add_done_callback，使用run_forever的好处是可以通过自己自定义add_done_callback
+## asyncio和多线程选择
+1. 如果是IO密集型，且IO操作很慢，需要多任务，多线程协同实现，选择asyncio
+2. 如果是IO密集型，且IO操作很快，需要有限的任务，线程，选择多线程
+3. 如果是CPU密集型，选择多进程
