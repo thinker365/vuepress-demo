@@ -84,6 +84,17 @@ if __name__ == '__main__':
     node = create_node_by_tail(array)
     traverse_linked_list(node)
 ```
+#### 反转链表
+```python
+def reverse_linked_list(head):
+    dummy = ListNode()
+    while head:
+        tmp = head.next  # 暂存
+        head.next = dummy.next
+        dummy.next = head
+        head = tmp  # 移动
+    return dummy.next
+```
 ### 双链表
 #### 定义链表
 ```python
