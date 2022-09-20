@@ -86,13 +86,19 @@ if __name__ == '__main__':
 ```
 #### 反转链表
 ```python
+# 头插法
 def reverse_linked_list(head):
-    dummy = ListNode()
+    # 设置新链表头，a=b理解为a指向b
+    dummy = Node()
     while head:
-        tmp = head.next  # 暂存
+        # 将原链表下一个节点暂存
+        tmp = head.next
+        # 将原链表下一个节点指向新链表头节点
         head.next = dummy.next
+        # 将原来指向新链表的头节点继续指向新链表的头节点
         dummy.next = head
-        head = tmp  # 移动
+        # 原链表向后移动指向旧链表头部
+        head = tmp
     return dummy.next
 ```
 ### 双链表

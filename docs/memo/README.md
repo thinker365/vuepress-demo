@@ -15,6 +15,8 @@
 ## 编程
 1. 算法珠玑
 	- [https://algorithm-essentials.soulmachine.me/](https://algorithm-essentials.soulmachine.me/)
+1.  leetcode 题解
+	- [https://algorithm.yuanbin.me/zh-hans/](https://algorithm.yuanbin.me/zh-hans/)
 2. 设计模式
 	- [https://refactoringguru.cn/design-patterns](https://refactoringguru.cn/design-patterns)
 1. Java全栈知识点
@@ -107,7 +109,9 @@
 3. 不愿透露姓名的大佬（DRF、Django）
 	- [http://drf.jiuyou.info/#/](http://drf.jiuyou.info/#/)
 ## 综合
-1. API HUB
+1. 阿秀圈子
+	- [https://interviewguide.cn/](https://interviewguide.cn/)
+2. API HUB
 	- [https://www.apifox.cn/apihub/](https://www.apifox.cn/apihub/)
 1. 开源库检索
 	- [https://opensourcelibs.com/](https://opensourcelibs.com/)
