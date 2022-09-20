@@ -83,6 +83,19 @@ python manage.py startapp app
 	- views.py 文件用于编写Web应用视图。
 1. 注册子应用
 注册安装一个子应用的方法，即是将子应用的配置信息文件apps.py中的Config类添加到项目配置文件settings.py中INSTALLED_APPS列表中。
+```python
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'rest_framework', # 新增
+    'blog', # 新增
+]
+```
+如果django版本较低，或者避免自定义app名与第三方库存在冲突，可以使用应用.apps.类名这样的写法，比如blog.apps.BlogConfig
 
 ### 创建视图
 1. 进入创建的应用模块，在views.py中编写视图
@@ -1359,6 +1372,7 @@ class HeroInfo(models.Model):
 	- db_index：若值为True, 则在表中会为此字段创建索引，默认值是False								
 	- default：默认																				
 	- primary_key：若为True，则该字段会成为模型的主键字段，默认值是False，一般作为AutoField的选项使用	
+	- related_name：指定外键的名称
 	- unique：如果为True, 这个字段在表中必须有唯一值，默认值是False
 	- verbose_name：用于指定名称
 	- choices：配置字段的choices后，在admin页面上就可以看到对应的选项展示，choice显示中文可以使用 "get_字段名_display()"
