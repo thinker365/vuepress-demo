@@ -17,7 +17,7 @@
 2. 扫描单个url -u
 	- python36 xsstrike.py -u "http://10.11.33.60:8080/contributeVul/vulDetail?id=99324"
 	- python36 xsstrike.py -u "http://10.11.33.60:8080/?<body onbeforeprint=alert(4)>" --path 
-	- python36 xsstrike.py -u "https://confluence.intra.knownsec.com/pages/viewpage.action?pageId=77972136"
+	- python36 xsstrike.py -u "https://xxx.com/pages/viewpage.action?pageId=77972136"
 	- python36 xsstrike.py -u "http://xss.tesla-space.com/level1.php?name=test"
 7. 提供POST数据 --data
 	- python36 xsstrike.py -u "http://10.11.33.60:8080/contributeVul/vulDetail" --data "id=99324"
@@ -29,34 +29,34 @@
 14. 爬虫  --crawl
 	- python36 xsstrike.py -u "https://10.8.250.87/login?redirect=/app/mica/home" --crawl
 15. 爬虫深度 -l 默认2
-	- python36 xsstrike.py -u "https://confluence.intra.knownsec.com/pages/viewpage.action?pageId=77972136" --crawl -l 10
+	- python36 xsstrike.py -u "https://xxx.com/pages/viewpage.action?pageId=77972136" --crawl -l 10
 17. 从文件中测试/抓取url  --seeds
 	- python36 xsstrike.py --seeds urls.txt
 19. 来自文件的压力负载 -f
-	- python36 xsstrike.py -u "https://confluence.intra.knownsec.com/pages/viewpage.action?pageId=77972136" -f ./testfile/file.txt
+	- python36 xsstrike.py -u "https://xxx.com/pages/viewpage.action?pageId=77972136" -f ./testfile/file.txt
 21. 查找隐藏参数  --params
-	- python36 xsstrike.py -u "https://confluence.intra.knownsec.com/pages/viewpage.action?pageId=77972136" --params
+	- python36 xsstrike.py -u "https://xxx.com/pages/viewpage.action?pageId=77972136" --params
 23. 线程数 -t 默认值2
-	- python36 xsstrike.py -u "https://confluence.intra.knownsec.com/pages/viewpage.action?pageId=77972136" -t 10 --crawl -l 3
+	- python36 xsstrike.py -u "https://xxx.com/pages/viewpage.action?pageId=77972136" -t 10 --crawl -l 3
 25. 超时设置  --timeout 默认值7s
-	- python36 xsstrike.py -u "https://confluence.intra.knownsec.com/pages/viewpage.action?pageId=77972136" --timeout=4
+	- python36 xsstrike.py -u "https://xxx.com/pages/viewpage.action?pageId=77972136" --timeout=4
 27. 延迟  -d 默认值0
-	- python36 xsstrike.py -u "https://confluence.intra.knownsec.com/pages/viewpage.action?pageId=77972136" -d 2
+	- python36 xsstrike.py -u "https://xxx.com/pages/viewpage.action?pageId=77972136" -d 2
 29. 提供HTTP标头  --headers 可以使用\n换行
-	- python36 xsstrike.py -u "https://confluence.intra.knownsec.com/pages/viewpage.action?pageId=77972136" --headers "user-agent:Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36 Edg/93.0.961.52\nx-requested-with:XMLHttpRequest"
+	- python36 xsstrike.py -u "https://xxx.com/pages/viewpage.action?pageId=77972136" --headers "user-agent:Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36 Edg/93.0.961.52\nx-requested-with:XMLHttpRequest"
 31. blind xss  --blind  在core/config.py里的xss payload，可以自定义更多
-	- python36 xsstrike.py -u "https://confluence.intra.knownsec.com/pages/viewpage.action?pageId=77972136" --crawl --blind
+	- python36 xsstrike.py -u "https://xxx.com/pages/viewpage.action?pageId=77972136" --crawl --blind
 33. 有效载荷编码 -e --encode，目前支持base64
-	- python36 xsstrike.py -u "https://confluence.intra.knownsec.com/pages/viewpage.action?pageId=77972136" -e base64
+	- python36 xsstrike.py -u "https://xxx.com/pages/viewpage.action?pageId=77972136" -e base64
 35. 模糊测试 --fuzzer
-	- python36 xsstrike.py -u "https://confluence.intra.knownsec.com/pages/viewpage.action?pageId=77972136" --fuzzer
+	- python36 xsstrike.py -u "https://xxx.com/pages/viewpage.action?pageId=77972136" --fuzzer
 	- python36 xsstrike.py -u "http://10.11.33.60:8080" --fuzzer  -l 10
 39. 日志记录  
 	-console-log-level 默认值级别：info
 	- python36 xsstrike.py -u "http://10.11.33.60:8080/contributeVul/vulDetail?id=99324" --crawl --console-log-level WARNING
 	- python36 xsstrike.py -u "http://10.11.33.60:8080/contributeVul/vulDetail?id=99324" --crawl --console-log-level DEBUG		
 	-log-file  默认值：xsstrike.log
-	- python36 xsstrike.py -u "https://confluence.intra.knownsec.com/pages/viewpage.action?pageId=77972136" --file-log-level INFO --log-file output.log
+	- python36 xsstrike.py -u "https://xxx.com/pages/viewpage.action?pageId=77972136" --file-log-level INFO --log-file output.log
 	- 注意：如果未指定 --file-log-level ，则此选项将不起作用
 46. 使用代理 --proxy |默认 0.0.0.0:8080，在core/config.py中设置您的代理
 	- python36 xsstrike.py -u "http://example.com/search.php?q=query" --proxy
