@@ -126,7 +126,7 @@ module.exports = {
                         ['', 'Charles'],
                         ['BurpSuite', 'BurpSuite'],
                         ['Wireshark', 'Wireshark'],
-                  
+						['SQLMAP实战','SQLMAP实战']
                         ['XSStrike实战', 'XSStrike实战'],
                         ['Fapro', 'Fapro网络协议服务端模拟器'],
                         ['Vim编辑器', 'Vim编辑器'],
