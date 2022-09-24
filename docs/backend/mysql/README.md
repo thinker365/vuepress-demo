@@ -1,5 +1,6 @@
 [[toc]]
-博主：[所有专题](http://www.itsoku.com/)，[Mysql专题](http://www.itsoku.com/course/3)
+博主：[所有专题](http://www.itsoku.com/)，[Mysql专题](
+)
 ## MySQL的一些基础知识
 1. 数据库常见的概念
 	- DB：数据库，存储数据的容器。
@@ -225,7 +226,7 @@
 	- mysql识别用户身份的方式是：用户名+主机
 	- 本文中讲到的一些指令中带主机的，主机都可以省略，默认值为%，表示所有机器
 	- mysql中用户和权限的信息在库名为mysql的库中
-## 第4篇：DDL常见操作汇总
+## DDL（数据定义语言）常见操作汇总
 1. 库的管理
 	- 创建库
 	```
@@ -372,9 +373,10 @@
 	```
 	alter table 表名 drop column 列名;
 	```
-## 第5篇：DML常见操作
-1. 插入操作
-	- 方式1 
+## DML（数据操作语言）常见操作
+### 插入操作
+1. 插入单行
+	- 方式一
 	```
 	insert into 表名[(字段,字段)] values (值,值);
 	```
@@ -384,384 +386,452 @@
 		- 字段和值的个数必须一致，位置对应
 		- 字段如果不能为空，则必须插入值
 		- 可以为空的字段可以不用插入值，但需要注意：字段和值都不写；或字段写上，值用null代替
-		- 表名后面的字段可以省略不写，此时表示所有字段，顺序和表中字段顺序一致。
-	- 方式2（不常用）
+		- 表名后面的字段可以省略不写，此时表示所有字段，顺序和表中字段顺序一致
+	- 方式二
 	```
 	insert into 表名 set 字段 = 值,字段 = 值;
 	```
-	- 批量插入2种方式
-		- 方式1
-		```
-		insert into 表名 [(字段,字段)] values (值,值),(值,值),(值,值);
-		```
-		- 方式2
-		```
-		insert into 表 [(字段,字段)] 数据来源select语句;
-		```
-		- 说明：
-		- 数据来源select语句可以有很多种写法，需要注意：select返回的结果和插入数据的字段数量、顺序、类型需要一致。
-1. 数据更新
-	- 单表更新
+1. 批量插入
+	- 方式一
 	```
-	update 表名 [[as] 别名] set [别名.]字段 = 值,[别名.]字段 = 值 [where条件];
+	insert into 表名 [(字段,字段)] values (值,值),(值,值),(值,值);
+	```
+	- 方式二
+	```
+	insert into 表 [(字段,字段)] 数据来源select语句;
+	```
+	- 数据来源select语句可以有很多种写法，需要注意：select返回的结果和插入数据的字段数量、顺序、类型需要一致。
+### 数据更新
+1. 单表更新
+	```
+	update 表名 [[as] 别名] set [别名.]字段 = 值,[别名.]字段 = 值 [where条件]; # 别名是为了方便操作
+	update test1 t set t.a = 3;
 	update test1 as t set t.a = 3;
+	update test1 set a = 1,b=2
 	```
-	- 多表更新
+1. 多表更新
 	```
-	update 表1 [[as] 别名1],表名2 [[as] 别名2] set [别名.]字段 = 值,[别名.]字段 = 值 [where条件]
+	update 表1 [[as] 别名1],表名2 [[as] 别名2] 
+	set [别名.]字段 = 值,[别名.]字段 = 值 
+	[where条件]
+	
+	-- 无别名方式
+	update test1,test2 set test1.a = 2 ,test1.b = 2, test2.c1 = 10;
+	-- 无别名方式
+	update test1,test2 set test1.a = 2 ,test1.b = 2, test2.c1 = 10 where test1.a = test2.c1;
+	-- 别名方式更新
 	update test1 t1,test2 t2 set t1.a = 2 ,t1.b = 2, t2.c1 = 10 where t1.a = t2.c1;
+	-- 别名的方式更新多个表的多个字段
+	update test1 as t1,test2 t2 set t1.a = 2 ,t1.b = 2, t2.c1 = 10 where t1.a = t2.c1;
 	```
-	- 建议采用单表方式更新，方便维护。
-1. 删除数据操作
-	- delete单表删除
-		```
-		delete [别名] from 表名 [[as] 别名] [where条件];
-		```
-		- 注意：
-		- 如果无别名的时候，表名就是别名
-		- 如果有别名，delete后面必须写别名
-		- 如果没有别名，delete后面的别名可以省略不写。
-		- 多表删除
-		```
-		delete [别名1,别名2] from 表1 [[as] 别名1],表2 [[as] 别名2] [where条件];
-		delete t1 from test1 t1,test2 t2 where t1.a=t2.c2;
-		```
-		- 别名可以省略不写，但是需要在delete后面跟上表名，多个表名之间用逗号隔开。
-		- 平时我们用的比较多的方式是 delete from 表名 这种语法，上面我们介绍了再delete后面跟上表名的用法，大家可以在回顾一下，加深记忆。
-	- 使用truncate删除
-		```
-		truncate 表名;
-		```
-	- drop，truncate，delete区别
-		- drop (删除表)：删除内容和定义，释放空间，简单来说就是把整个表去掉，以后要新增数据是不可能的，除非新增一个表。
-		- drop语句将删除表的结构被依赖的约束（constrain），触发器（trigger）索引（index），依赖于该表的存储过程/函数将被保留，但其状态会变为：invalid。
-		- 如果要删除表定义及其数据，请使用 drop table 语句。
-		- truncate (清空表中的数据)：删除内容、释放空间但不删除定义(保留表的数据结构)，与drop不同的是，只是清空表数据而已。
-		- 注意：truncate不能删除具体行数据，要删就要把整个表清空了。
-		- delete (删除表中的数据)：delete 语句用于删除表中的行。delete语句执行删除的过程是每次从表中删除一行，并且同时将该行的删除操作作为事务记录在日志中保存，以便进行进行回滚操作。
-		- truncate与不带where的delete ：只删除数据，而不删除表的结构（定义）
-		- truncate table 删除表中的所有行，但表结构及其列、约束、索引等保持不变。
-		- 对于由foreign key约束引用的表，不能使用truncate table ，而应使用不带where子句的delete语句。由于truncate table 记录在日志中，所以它不能激活触发器。
-		- delete语句是数据库操作语言(dml)，这个操作会放到 rollback segement 中，事务提交之后才生效；如果有相应的 trigger，执行的时候将被触发。
-		- truncate、drop 是数据库定义语言(ddl)，操作立即生效，原数据不放到 rollback segment 中，不能回滚，操作不触发 trigger。
-		- 如果有自增列，truncate方式删除之后，自增列的值会被初始化，delete方式要分情况（如果数据库被重启了，自增列值也会被初始化，数据库未被重启，则不变）
-		- 如果要删除表定义及其数据，请使用 drop table 语句
-		- 安全性：小心使用 drop 和 truncate，尤其没有备份的时候，否则哭都来不及
-		- 删除速度，一般来说: drop> truncate > delete
-## 第6篇：select查询基础篇
-1. 基本语法
+建议采用单表方式更新，方便维护。
+### 删除数据操作
+1. delete单表删除
 	```
-	select 查询的列 from 表名
+	delete [别名] from 表名 [[as] 别名] [where条件];
+	
+	-- 删除test1表所有记录
+	delete from test1;
+	-- 删除test1表所有记录
+	delete test1 from test1;
+	-- 有别名的方式，删除test1表所有记录
+	delete t1 from test1 t1;
+	-- 有别名的方式删除满足条件的记录
+	delete t1 from test1 t1 where t1.a>100;
 	```
 	- 注意：
-	- select语句中不区分大小写，SELECT和select、FROM和from效果一样。
-	- 查询的结果放在一个表格中，表格的第1行称为列头，第2行开始是数据，类属于一个二维数组。
-1. 查询常量
+	- 如果无别名的时候，表名就是别名
+	- 如果有别名，delete后面必须写别名
+	- 如果没有别名，delete后面的别名可以省略不写。
+1. delete多表删除
 	```
-	select 常量值1,常量值2,常量值3;
-	select 1,'b';
+	delete [别名1,别名2] from 表1 [[as] 别名1],表2 [[as] 别名2] [where条件];
+	delete t1 from test1 t1,test2 t2 where t1.a=t2.c2;
 	```
-1. 查询表达式
+	- 别名可以省略不写，但是需要在delete后面跟上表名，多个表名之间用逗号隔开。
+	- 平时我们用的比较多的方式是 delete from 表名 这种语法，上面我们介绍了在delete后面跟上表名的用法
+1. 使用truncate删除
 	```
-	select 表达式;
-	select 1+2,3*10,10/3;
+	truncate 表名;
 	```
-1. 查询函数
-	```
-	select 函数;
-	select mod(10,4),isnull(null),ifnull(null,'第一个参数为空返回这个 值'),ifnull(1,'第一个参数为空返回这个值，否知返回第一个参数');
-	```
-	- 说明一下：
-	- mod函数，对两个参数取模运算。
-	- isnull函数，判断参数是否为空，若为空返回1，否则返回0。
-	- ifnull函数，2个参数，判断第一个参数是否为空，如果为空返回第2个参数的值，否则返回第1个参数的值。
-1. 查询指定的字段
-	```
-	select 字段1,字段2,字段3 from 表名;
-	```
-1. 列别名
-	```
-	select 列 [as] 别名 from 表;
-	```
-1. 表别名
-	```
-	select 别名.字段,别名.* from 表名 [as] 别名;
-	```
-## 第7篇：select条件查询
-1. 条件查询
-	- 语法：
-	```
-	select 列名 from 表名 where 列 运算符 值
-	```
-1. 条件查询运算符
-	- 等于（=）
-	```
-	select 列名 from 表名 where 列 = 值;
-	```
-	- 不等于（<>、!=）
-	```
-	select 列名 from 表名 where 列 <> 值; 
-	或者
-	select 列名 from 表名 where 列 != 值;
-	```
-	- 大于（>）
-	```
-	select 列名 from 表名 where 列 > 值
-	```
-	- 其他几个运算符（<、<=、>=）在此就不介绍了，用法和上面类似
-1. 逻辑运算符
-	- AND（并且）
-	```
-	select 列名 from 表名 where 条件1 and 条件2;
-	```
-	- OR（或者）
-	```
-	select 列名 from 表名 where 条件1 or 条件2;
-	```
-1. like（模糊查询）
-	```
-	select 列名 from 表名 where 列 like pattern;
-	```
-	- pattern中可以包含通配符，有以下通配符：
-	- %：表示匹配任意一个或多个字符
-	- _：表示匹配任意一个字符。
-1. BETWEEN AND(区间查询)
-	```
-	selec 列名 from 表名 where 列名 between 值1 and 值2;
-	```
-	- 操作符 BETWEEN ... AND 会选取介于两个值之间的数据范围，这些值可以是数值、文本或者日期，属于一个闭区间查询。
-1. IN查询
-	```
-	select 列名 from 表名 where 字段 in (值1,值2,值3,值4);
-	```
-	- in 后面括号中可以包含多个值，对应记录的字段满足in中任意一个都会被返回
-	- in列表的值类型必须一致或兼容
-	- in列表中不支持通配符。
-1. NOT IN查询
-	```
-	select 列名 from 表名 where 字段 not in (值1,值2,值3,值4);
-	```
-1. NULL存在的坑
-	- 结论：查询运算符、like、between and、in、not in对NULL值查询不起效。即存在NULL值的数据查不出来。
-1. IS NULL/IS NOT NULL
-	- IS NULL（返回值为空的记录）
-	```
-	select 列名 from 表名 where 列 is null;
-	```
-	- IS NOT NULL（返回值不为空的记录）
-	```
-	select 列名 from 表名 where 列 is not null;
-	```
-1. <=>（安全等于）
-	- <=>：既可以判断NULL值，又可以判断普通的数值，可读性较低，用得较少
-1. 总结
-	- like中的%可以匹配一个到多个任意的字符，_可以匹配任意一个字符
-	- 空值查询需要使用IS NULL或者IS NOT NULL，其他查询运算符对NULL值无效
-	- 建议创建表的时候，尽量设置表的字段不能为空，给字段设置一个默认值
-	- <=>（安全等于）玩玩可以，建议少使用
+1. drop，truncate，delete区别
+	- drop (删除表)：删除内容和定义，释放空间，简单来说就是把整个表去掉，以后要新增数据是不可能的，除非新增一个表。
+	- drop语句将删除表的结构被依赖的约束（constrain），触发器（trigger）索引（index），依赖于该表的存储过程/函数将被保留，但其状态会变为：invalid。
+	- 如果要删除表定义及其数据，请使用 drop table 语句。
+	
+	- truncate (清空表中的数据)：删除内容、释放空间但不删除定义(保留表的数据结构)，与drop不同的是，只是清空表数据而已。
+	- 注意：truncate不能删除具体行数据，要删就要把整个表清空了。
+	
+	- delete (删除表中的数据)：delete 语句用于删除表中的行。delete语句执行删除的过程是每次从表中删除一行，并且同时将该行的删除操作作为事务记录在日志中保存，以便进行进行回滚操作。
+	- truncate与不带where的delete ：只删除数据，而不删除表的结构（定义）
+	- truncate table 删除表中的所有行，但表结构及其列、约束、索引等保持不变。
+	- 对于由foreign key约束引用的表，不能使用truncate table ，而应使用不带where子句的delete语句。由于truncate table 记录在日志中，所以它不能激活触发器。
+	- delete语句是数据库操作语言(dml)，这个操作会放到 rollback segement 中，事务提交之后才生效；如果有相应的 trigger，执行的时候将被触发。
+	- truncate、drop 是数据库定义语言(ddl)，操作立即生效，原数据不放到 rollback segment 中，不能回滚，操作不触发 trigger。
+	- 如果有自增列，truncate方式删除之后，自增列的值会被初始化，delete方式要分情况（如果数据库被重启了，自增列值也会被初始化，数据库未被重启，则不变）
+	
+	- 如果要删除表定义及其数据，请使用 drop table 语句
+	
+	- 安全性：小心使用 drop 和 truncate，尤其没有备份的时候
+	
+	- 删除速度，一般来说: drop> truncate > delete
+## select查询基础篇
+### 基本语法
+```
+select 查询的列 from 表名
+```
+- select语句中不区分大小写，SELECT和select、FROM和from效果一样。
+- 查询的结果放在一个表格中，表格的第1行称为列头，第2行开始是数据，类属于一个二维数组。
+### 查询常量
+```
+select 常量值1,常量值2,常量值3;
+select 1,'b';
+```
+### 查询表达式
+```
+select 表达式;
+select 1+2,3*10,10/3;
+```
+### 查询函数
+```
+select 函数;
+select mod(10,4),isnull(null),ifnull(null,'第一个参数为空返回这个值'),ifnull(1,'第一个参数为空返回这个值，否知返回第一个参数');
+```
+- mod函数，对两个参数取模运算。
+- isnull函数，判断参数是否为空，若为空返回1，否则返回0。
+- ifnull函数，2个参数，判断第一个参数是否为空，如果为空返回第2个参数的值，否则返回第1个参数的值。
+### 查询指定的字段
+```
+select 字段1,字段2,字段3 from 表名;
+```
+### 列别名
+```
+select 列 [as] 别名 from 表;
+select a "列1",b "列2" from test1;
+```
+### 表别名
+```
+select 别名.字段,别名.* from 表名 [as] 别名;
+select t.a,t.b from test1 as t;
+```
+## select条件查询
+### 条件查询
+```
+select 列名 from 表名 where 列 运算符 值
+```
+### 条件查询运算符
+|操作符		|描述		|
+| --------- |:---------:|
+|=			|等于		|
+|<> 或者 !=	|不等于		|
+|>			|大于		|
+|<			|小于		|
+|>=			|大于等于	|
+|<=			|小于等于	|
+```
+select 列名 from 表名 where 列 = 值;
+值如果是字符串类型，需要用单引号或者双引号引起来
 
-## 第8篇：排序和分页（order by 、limit）
-1. 排序查询（order by）
-	```
-	select 字段名 from 表名 order by 字段1 [asc|desc],字段2 [asc|desc];
-	```
-	- 排序语法：
-	- 需要排序的字段跟在 order by 之后；
-	- asc|desc表示排序的规则，asc：升序，desc：降序，默认为asc；
-	- 支持多个字段进行排序，多字段排序之间用逗号隔开。
-	- 单字段排序
+select 列名 from 表名 where 列 <> 值;
+select 列名 from 表名 where 列 != 值;
+<> 这个是最早的用法，!=是后来才加上的，两者意义相同，在可移植性上前者优于后者
+故而sql语句中尽量使用<>来做不等判断
+
+select * from test1 where b>'ac';
+数值按照大小比较
+字符按照ASCII码对应的值进行比较，比较时按照字符对应的位置一个字符一个字符的比较
+```
+
+### 逻辑运算符
+|逻辑运算符	|描述				|
+| --------- |:-----------------:|
+|AND		|多个条件都成立		|
+|OR			|多个条件中满足一个	|
+```
+select 列名 from 表名 where 条件1 and 条件2;
+```
+```
+select 列名 from 表名 where 条件1 or 条件2;
+```
+### like（模糊查询）
+```
+select 列名 from 表名 where 列 like pattern;
+```
+- %：表示匹配任意一个或多个字符
+- _：表示匹配任意一个字符。
+### BETWEEN AND(区间查询)
+```
+selec 列名 from 表名 where 列名 between 值1 and 值2;
+```
+- 操作符 BETWEEN ... AND 会选取介于两个值之间的数据范围，这些值可以是数值、文本或者日期，属于一个闭区间查询
+- 使用between and可以提高语句的简洁度，两个临界值不要调换位置，只能是大于等于左边的值，并且小于等于右边的值
+### IN查询
+```
+IN操作符允许我们在 WHERE子句中规定多个值
+select 列名 from 表名 where 字段 in (值1,值2,值3,值4);
+```
+- in 后面括号中可以包含多个值，对应记录的字段满足in中任意一个都会被返回
+- in列表的值类型必须一致或兼容
+- in列表中不支持通配符
+### NOT IN查询
+```
+select 列名 from 表名 where 字段 not in (值1,值2,值3,值4);
+```
+### NULL存在的坑
+查询运算符、like、between and、in、not in对NULL值查询不起效
+### IS NULL/IS NOT NULL
+- IS NULL（返回值为空的记录）
+```
+select 列名 from 表名 where 列 is null;
+```
+- IS NOT NULL（返回值不为空的记录）
+```
+select 列名 from 表名 where 列 is not null;
+```
+### <=>（安全等于）
+<=>：既可以判断NULL值，又可以判断普通的数值，可读性较低，用得较少
+### 面试题
+```
+select * from students;
+select * from students where name like '%';
+2个sql查询结果一样么？
+当name没有NULL值时，返回的结果一样
+当name有NULL值时，第2个sql查询不出name为NULL的记录
+```
+### 总结
+1. like中的%可以匹配一个到多个任意的字符，_可以匹配任意一个字符
+2. 空值查询需要使用IS NULL或者IS NOT NULL，其他查询运算符对NULL值无效
+3. 建议创建表的时候，尽量设置表的字段不能为空，给字段设置一个默认值
+4. <=>（安全等于）玩玩可以，建议少使用
+## 排序和分页（order by 、limit）
+### 排序查询（order by）
+```
+select 字段名 from 表名 order by 字段1 [asc|desc],字段2 [asc|desc];
+```
+- 需要排序的字段跟在 order by 之后；
+- asc：升序，desc：降序，默认为asc；
+- 支持多个字段进行排序，多字段排序之间用逗号隔开。
+
+1. 单字段排序
 	```
 	select * from test2 order by a asc;
 	```
-	- 多字段排序
+1. 多字段排序
 	```
 	select * from stu order by age desc,id asc;
 	```
-	- 按别名排序
+1. 按别名排序
 	```
 	select age '年龄',id as '学号' from stu order by 年龄 asc,学号 desc;
 	```
-	- 按函数排序
+1. 按函数排序
 	```
 	SELECT id 编号,birth 出生日期,year(birth) 出生年份,name 姓名 from student ORDER BY year(birth) asc,id asc;
 	```
-	- where之后进行排序
+1. where之后进行排序
 	```
 	select a.id 订单编号,a.price 订单金额 from t_order a where a.price>=100 order by a.price desc;
 	```
-1. limit介绍
-	- limit用来限制select查询返回的行数，常用于分页等操作。
-	- 语法：
-	```
-	select 列 from 表 limit [offset,] count;
-	```
-	- offset：表示偏移量，通俗点讲就是跳过多少行，offset可以省略，默认为0，表示跳过0行；范围：[0,+∞)。
-	- count：跳过offset行之后开始取数据，取count行记录；范围：[0,+∞)。
-	- limit中offset和count的值不能用表达式。
-	- 获取前n行记录
+### limit介绍
+limit用来限制select查询返回的行数，常用于分页等操作。
+```
+select 列 from 表 limit [offset,] count;
+```
+- offset：表示偏移量，通俗点讲就是跳过多少行，offset可以省略，默认为0，表示跳过0行；范围：[0,+∞)。
+- count：跳过offset行之后开始取数据，取count行记录；范围：[0,+∞)。
+- limit中offset和count的值不能用表达式。
+1. 获取前n行记录
 	```
 	select 列 from 表 limit 0,n; 
 	或者
 	select 列 from 表 limit n;
 	```
-	- 获取最大的一条记录
+1. 获取最大的一条记录
 	```
 	select a.id 订单编号,a.price 订单金额 from t_order a order by a.price desc limit 1;
 	select a.id 订单编号,a.price 订单金额 from t_order a order by a.price desc limit 0,1;
 	```
-	- 获取排名第n到m的记录
-	- 我们需要先跳过n-1条记录，然后取m-n+1条记录，如下：
+1. 获取排名第n到m的记录
+	我们需要先跳过n-1条记录，然后取m-n+1条记录
 	```
 	select 列 from 表 limit n-1,m-n+1;
 	```
-	- 分页查询
-	- 开发过程中，分页我们经常使用，分页一般有2个参数：
+1. 分页查询
 	- page：表示第几页，从1开始，范围[1,+∞)
 	- pageSize：每页显示多少条记录，范围[1,+∞)
 	- 如：page = 2，pageSize = 10，表示获取第2页10条数据。
-	- 我们使用limit实现分页，语法如下：
 	```
 	select 列 from 表名 limit (page - 1) * pageSize,pageSize;
 	```
-1. 避免踩坑
-	- limit中不能使用表达式，limit后面只能够跟明确的数字。
-	- limit后面的2个数字不能为负数
-	- 排序分页存在的坑
-		- 问题1：看一下第2个sql和第3个sql，分别是第2页和第3页的数据，结果出现了相同的数据，是不是懵逼了。
-		- 问题2：整个表只有8条记录，怎么会出现第5页的数据呢，又懵逼了。
-		- 我们来分析一下上面的原因：主要是b字段存在相同的值，当排序过程中存在相同的值时，没有其他排序规则时，mysql懵逼了，不知道怎么排序了。
-		- 建议：排序中存在相同的值时，需要再指定一个排序规则，通过这种排序规则不存在二义性，比如上面可以再加上a降序
-1. 总结
-	- order by ... [asc|desc]用于对查询结果排序，asc：升序，desc：降序，asc|desc可以省略，默认为asc
-	- limit用来限制查询结果返回的行数，有2个参数（offset，count），offset：表示跳过多少行，count：表示跳过offset行之后取count行
-	- limit中offset可以省略，默认值为0
-	- limit中offset 和 count都必须大于等于0
-	- limit中offset和count的值不能用表达式
-	- 分页排序时，排序不要有二义性，二义性情况下可能会导致分页结果乱序，可以在后面追加一个主键排序
-## 第9篇：分组查询（group by、having）
-1. 分组查询
-	- 语法：
-	```
-	SELECT column, group_function,... FROM table 
-	[WHERE condition] 
-	GROUP BY group_by_expression 
-	[HAVING group_condition];
-	```
-	- 说明：
-	- group_function：聚合函数。
-	- group_by_expression：分组表达式，多个之间用逗号隔开。
-	- group_condition：分组之后对数据进行过滤。
-	- 分组中，select后面只能有两种类型的列：
-		- 出现在group by后的列
-		- 或者使用聚合函数的列
-1. 聚合函数
-	- ![](Snipaste_2022-05-03_17-52-20.png)
-1. 单字段分组
-	```
-	SELECTuser_id 用户id, COUNT(id) 下单数量 FROMt_order GROUP BY user_id;
-	```
-1. 多字段分组
-	```
-	 SELECTuser_id 用户id, the_year 年份, COUNT(id) 下单数量 FROMt_order GROUP BY user_id , the_year;
-	```
-1. 分组前筛选数据
-	```
-	SELECTuser_id 用户id, COUNT(id) 下单数量 FROMt_order t WHEREt.the_year = 2018 GROUP BY user_id;
-	```
-	- 分组前对数据进行筛选，使用where关键字
+### 避免踩坑
+1. limit中不能使用表达式，limit后面只能够跟明确的数字
+2. limit后面的2个数字不能为负数
+3. 排序分页存在的坑
+	- 当排序过程中存在相同的值时，没有其他排序规则时，mysql懵逼了，不知道怎么排序了
+	- 建议：排序中存在相同的值时，需要再指定一个排序规则，通过这种排序规则不存在二义性
+### 总结
+1. order by ... [asc|desc]用于对查询结果排序，asc：升序，desc：降序，asc|desc可以省略，默认为asc
+2. limit用来限制查询结果返回的行数，有2个参数（offset，count），offset：表示跳过多少行，count：表示跳过offset行之后取count行
+3. limit中offset可以省略，默认值为0
+4. limit中offset 和 count都必须大于等于0
+5. limit中offset和count的值不能用表达式
+6. 分页排序时，排序不要有二义性，二义性情况下可能会导致分页结果乱序，可以在后面追加一个主键排序
+## 分组查询（group by、having）
+### 分组查询
+```
+SELECT column, group_function,... FROM table 
+[WHERE condition] 
+GROUP BY group_by_expression 
+[HAVING group_condition];
+```
+1. group_function：聚合函数。
+2. group_by_expression：分组表达式，多个之间用逗号隔开。
+3. group_condition：分组之后对数据进行过滤。
+4. 分组中，select后面只能有两种类型的列：
+	- 出现在group by后的列
+	- 使用聚合函数的列
+### 聚合函数
+|函数名称	|作用								|
+| --------- |:---------------------------------:|
+|max		|查询指定列的最大值					|
+|min		|查询指定列的最小值					|
+|count		|统计查询结果的行数					|
+|sum		|求和，返回指定列的总和				|
+|avg		|求平均值，返回指定列数据的平均值	    |
+### 单字段分组
+```
+SELECT user_id 用户id, COUNT(id) 下单数量 FROM t_order GROUP BY user_id;
+```
+### 多字段分组
+```
+ SELECT user_id 用户id, the_year 年份, COUNT(id) 下单数量 FROM t_order GROUP BY user_id , the_year;
+```
+### 分组前筛选数据
+分组前对数据进行筛选，使用where关键字
+```
+SELECT user_id 用户id, COUNT(id) 下单数量 FROM t_order t WHERE t.the_year = 2018 GROUP BY user_id;
+```
+### 分组后筛选数据
+分组后对数据筛选，使用having关键字
+```
+SELECT user_id 用户id, COUNT(id) 下单数量 FROM t_order t WHERE t.the_year = 2018 GROUP BY user_id HAVING count(id)>=2;
+```
+### where和having的区别
+1. where是在分组（聚合）前对记录进行筛选，而having是在分组结束后的结果里筛选，最后返回整个sql的查询结果。
+2. 可以把having理解为两级查询，即含having的查询操作先获得不含having子句时的sql查询结果表，然后在这个结果表上使用having条件筛选出符合的记录，最后返回这些记录，因此having后是可以跟聚合函数的，并且这个聚集函数不必与select后面的聚集函数相同。
+### 分组后排序
+```
+SELECT user_id 用户id, max(price) 最大金额 FROM t_order t GROUP BY user_id ORDER BY 最大金额 desc;
+```
+### where & group by & having & order by & limit
+where、group by、having、order by、limit这些关键字一起使用时，先后顺序有明确的限制，语法如下：
+```
+select 列 from 
+表名
+where [查询条件] 
+group by [分组表达式] 
+having [分组过滤条件] 
+order by [排序条件] 
+limit [offset,] count;
+```
+```
+SELECT user_id 用户id, COUNT(id) 下单数量
+FROM t_order t 
+WHERE t.the_year = 2018 
+GROUP BY user_id 
+HAVING count(id)>=2 
+ORDER BY 下单数量 DESC 
+LIMIT 1;
+```
+### mysql分组中的坑
+1. 本文开头有介绍，分组中select后面的列只能有2种：
+	- 出现在group by后面的列
+	- 使用聚合函数的列
+4. oracle、sqlserver、db2中也是按照这种规范来的。
+5. 文中使用的是5.7版本，默认是按照这种规范来的。
+6. mysql早期的一些版本，没有上面这些要求，select后面可以跟任何合法的列。
 
-1. 分组后筛选数据
-	```
-	SELECT user_id 用户id, COUNT(id) 下单数量 FROMt_order t WHERE t.the_year = 2018 GROUP BY user_id HAVING count(id)>=2;
-	```
-	- 分组后对数据筛选，使用having关键字
-1. where和having的区别
-	- where是在分组（聚合）前对记录进行筛选，而having是在分组结束后的结果里筛选，最后返回整个sql的查询结果。
-	- 可以把having理解为两级查询，即含having的查询操作先获得不含having子句时的sql查询结果表，然后在这个结果表上使用having条件筛选出符合的记录，最后返回这些记录，因此，having后是可以跟聚合函数的，并且这个聚集函数不必与select后面的聚集函数相同。
-1. 分组后排序
-	```
-	SELECT user_id 用户id, max(price) 最大金额 FROMt_order t GROUP BY user_id ORDER BY 最大金额 desc;
-	```
-1. where & group by & having & order by & limit 一起协作
-	- where、group by、having、order by、limit这些关键字一起使用时，先后顺序有明确的限制，语法如下：
-	```
-	select 列 from 
-	表名
-	where [查询条件] 
-	group by [分组表达式] 
-	having [分组过滤条件] 
-	order by [排序条件] 
-	limit [offset,] count;
-	```
-	- 注意：写法上面必须按照上面的顺序来写。
-	```
-	SELECT user_id 用户id, COUNT(id) 下单数量
-	FROM t_order t 
-	WHERE t.the_year = 2018 
-	GROUP BY user_id 
-	HAVING count(id)>=2 
-	ORDER BY 下单数量 DESC 
-	LIMIT 1;
-	```
-1. mysql分组中的坑
-	- 本文开头有介绍，分组中select后面的列只能有2种：
-		- 出现在group by后面的列
-		- 使用聚合函数的列
-	- oracle、sqlserver、db2中也是按照这种规范来的。
-	- 文中使用的是5.7版本，默认是按照这种规范来的。
-	- mysql早期的一些版本，没有上面这些要求，select后面可以跟任何合法的列。
-1. 总结
-	- 在写分组查询的时候，最好按照标准的规范来写，select后面出现的列必须在group by中或者必须使用聚合函数。 
-	- select语法顺序：select、from、where、group by、having、order by、limit，顺序不能搞错了，否则报错。
-	- in多列查询的使用，下去可以试试
-## 第10篇：mysql常用函数汇总
-1. MySQL 数值型函数
-	- abs:求绝对值
-	- 函数 ABS(x) 返回 x 的绝对值。正数的绝对值是其本身，负数的绝对值为其相反数，0 的绝对值是0。
-	- sqrt:求二次方跟（开方）
-	- 函数 SQRT(x) 返回非负数 x 的二次方根。负数没有平方根，返回结果为 NULL。
-	- mod:求余数
+## mysql常用函数汇总
+### MySQL 数值型函数
+|函数名称		|作 用														|
+| ------------- |:---------------------------------------------------------:|
+|abs			|求绝对值													|
+|sqrt			|求二次方根													|
+|mod			|求余数														|
+|ceil 和 ceiling|两个函数功能相同，都是返回不小于参数的最小整数，即向上取整	    |
+|floor			|向下取整，返回值转化为一个BIGINT							    |
+|rand			|生成一个0~1之间的随机数，传入整数参数是，用来产生重复序列	    |
+|round			|对所传参数进行四舍五入										|
+|sign			|返回参数的符号												|
+|pow 和 power	|两个函数的功能相同，都是所传参数的次方的结果值				    |
+|sin			|求正弦值													|
+|asin			|求反正弦值，与函数 SIN 互为反函数							    |
+|cos			|求余弦值													|
+|acos			|求反余弦值，与函数 COS 互为反函数							    |
+|tan			|求正切值													|
+|atan			|求反正切值，与函数 TAN 互为反函数							    |
+|cot			|求余切值													|
+1. abs:求绝对值
+	- ABS(x) 返回 x 的绝对值。正数的绝对值是其本身，负数的绝对值为其相反数，0 的绝对值是0。
+3. sqrt:求二次方跟（开方）
+	- 函数 SQRT(x) 返回非负数 x 的二次方根。
+	- 负数没有平方根，返回结果为 NULL。
+5. mod:求余数
 	- 函数 MOD(x,y) 返回 x 被 y 除后的余数，MOD() 对于带有小数部分的数值也起作用，它返回除法运算后的余数。
-	- ceil和ceiling:向上取整
+7. ceil和ceiling:向上取整
 	- 函数 CEIL(x) 和 CEILING(x) 的意义相同，返回不小于 x 的最小整数值，返回值转化为一个BIGINT。
-	- floor:向下取整
+9. floor:向下取整
 	- floor(x) 函数返回小于 x 的最大整数值。
-	- rand:生成一个随机数
+11. rand:生成一个随机数
 	- 生成一个0~1之间的随机数，传入整数参数是，用来产生重复序列
-	- round:四舍五入函数
+13. round:四舍五入函数
 	- 返回最接近于参数 x 的整数；ROUND(x,y) 函数对参数x进行四舍五入的操作，返回值保留小数点后面指定的y位。
-	- sign:返回参数的符号
+15. sign:返回参数的符号
+	- select sign(-6),sign(0),sign(34);
 	- 返回参数的符号，x 的值为负、零和正时返回结果依次为 -1、0 和 1。
-	- pow 和 power:次方函数
+17. pow 和 power:次方函数
 	- POW(x,y) 函数和 POWER(x,y) 函数用于计算 x 的 y 次方
-	- sin:正弦函数
+19. sin:正弦函数
 	- SIN(x) 返回 x 的正弦值，其中 x 为弧度值。
 	- 注：PI() 函数返回圆周率（3.141593）
-	- 其他几个三角函数在此就不说了，有兴趣的可以自己去练习一下。
-1. MySQL 字符串函数
-	- length:返回字符串直接长度
+
+### MySQL 字符串函数
+|函数名称			|作 用																	|
+| ----------------- |:---------------------------------------------------------------------:| 
+|length				|计算字符串长度函数，返回字符串的字节长度					     			|
+|concat				|合并字符串函数，返回结果为连接参数产生的字符串，参数可以使一个或多个	        |
+|insert				|替换字符串函数															|
+|lower				|将字符串中的字母转换为小写												|
+|upper				|将字符串中的字母转换为大写												|
+|left				|从左侧字截取符串，返回字符串左边的若干个字符							    |
+|right				|从右侧字截取符串，返回字符串右边的若干个字符							    |
+|trim				|删除字符串左右两侧的空格												    |
+|replace			|字符串替换函数，返回替换后的新字符串									    |
+|substr 和 substring|截取字符串，返回从指定位置开始的指定长度的字符换						        |
+|reverse			|字符串反转（逆序）函数，返回与原始字符串顺序相反的字符串				        |
+1. length:返回字符串直接长度
 	- 返回值为字符串的字节长度，使用 uft8（UNICODE 的一种变长字符编码，又称万国码）编码字符集时，一个汉字是 3 个字节，一个数字或字母是一个字节。
-	- concat:合并字符串
+3. concat:合并字符串
 	- CONCAT(sl，s2，...) 函数返回结果为连接参数产生的字符串，或许有一个或多个参数。
 	- 若有任何一个参数为 NULL，则返回值为 NULL。若所有参数均为非二进制字符串，则结果为非二进制字符串。若自变量中含有任一二进制字符串，则结果为一个二进制字符串。
-	- insert:替换字符串
+6. insert:替换字符串
 	- INSERT(s1，x，len，s2) 返回字符串 s1，子字符串起始于 x 位置，并且用 len 个字符长的字符串代替 s2。 
 	- x的值从1开始，第一个字符的x=1，若 x 超过字符串长度，则返回值为原始字符串。
 	- 假如 len 的长度大于其他字符串的长度，则从位置 x 开始替换。
 	- 若任何一个参数为 NULL，则返回值为 NULL。
-	- lower:将字母转换成小写
+lower:将字母转换成小写
 	- LOWER(str) 可以将字符串 str 中的字母字符全部转换成小写。
-	- upper:将字母转换成大写
+13. upper:将字母转换成大写
 	- UPPER(str) 可以将字符串 str 中的字母字符全部转换成大写。
-	- left:从左侧截取字符串
+15. left:从左侧截取字符串
 	- LEFT(s，n) 函数返回字符串 s 最左边的 n 个字符，s=1表示第一个字符。
-	- right:从右侧截取字符串
+17. right:从右侧截取字符串
 	- RIGHT(s，n) 函数返回字符串 s 最右边的 n 个字符。
-	- trim:删除字符串两侧空格
+19. trim:删除字符串两侧空格
 	- TRIM(s) 删除字符串 s 两侧的空格。
-	- replace:字符串替换
+21. replace:字符串替换
 	- REPLACE(s，s1，s2) 使用字符串 s2 替换字符串 s 中所有的字符串 s1。
-	- substr 和 substring:截取字符串
+23. substr 和 substring:截取字符串
 	- substr(str,pos)
 	- substr(str from pos)
 	- substr(str,pos,len)
@@ -772,161 +842,193 @@
 	- 使用FROM的形式是标准的SQL语法。
 	- 也可以对pos使用负值，在这种情况下，子字符串的开头是字符串末尾的pos字符，而不是开头。在这个函数的任何形式中pos可以使用负值
 	- 对于所有形式的substring()，从中提取子串的字符串中第一个字符的位置被认为是1。 
-	- reverse:反转字符串
+1. reverse:反转字符串
 	- REVERSE(s) 可以将字符串 s 反转，返回的字符串的顺序和 s 字符串的顺序相反。
-1. MySQL 日期和时间函数
-	- curdate 和 current_date:两个函数作用相同，返回当前系统的日期值
+### MySQL 日期和时间函数
+|函数名称				|作 用														|
+| --------------------- |:---------------------------------------------------------:|
+|curdate 和 current_date|两个函数作用相同，返回当前系统的日期值							|
+|curtime 和 current_time|两个函数作用相同，返回当前系统的时间值							|
+|now 和 sysdate			|两个函数作用相同，返回当前系统的日期和时间值					|
+|unix_timestamp			|获取UNIX时间戳函数，返回一个以 UNIX 时间戳为基础的无符号整数	    |
+|from_unixtime			|将 UNIX 时间戳转换为时间格式，与UNIX_TIMESTAMP互为反函数		|
+|month					|获取指定日期中的月份											|
+|monthname				|获取指定日期中的月份英文名称									|
+|dayname				|获取指定曰期对应的星期几的英文名称								|
+|dayofweek				|获取指定日期是一周中是第几天，返回值范围是1~7,1=周日			|
+|week					|获取指定日期是一年中的第几周，返回值的范围是否为 0〜52 或 1〜53  |
+|dayofyear				|获取指定曰期是一年中的第几天，返回值范围是1~366				    |
+|dayofmonth				|获取指定日期是一个月中是第几天，返回值范围是1~31				|
+|year					|获取年份，返回值范围是 1970〜2069								|
+|time_to_sec			|将时间参数转换为秒数											|
+|sec_to_time			|将秒数转换为时间，与TIME_TO_SEC 互为反函数						|
+|date_add 和 adddate	|两个函数功能相同，都是向日期添加指定的时间间隔					|
+|date_sub 和 subdate	|两个函数功能相同，都是向日期减去指定的时间间隔					|
+|addtime				|时间加法运算，在原始时间上添加指定的时间						|
+|subtime				|时间减法运算，在原始时间上减去指定的时间						|
+|datediff				|获取两个日期之间间隔，返回参数 1 减去参数 2 的值				|
+|date_format			|格式化指定的日期，根据参数返回指定格式的值						|
+|weekday				|获取指定日期在一周内的对应的工作日索引							|
+1. curdate 和 current_date:两个函数作用相同，返回当前系统的日期值
 	- CURDATE() 和 CURRENT_DATE() 函数的作用相同，将当前日期按照“YYYY-MM-DD”或 “YYYYMMDD”格式的值返回，具体格式根据函数用在字符串或数字语境中而定，返回的 date 类型。
-	- curtime 和 current_time:获取系统当前时间
+3. curtime 和 current_time:获取系统当前时间
 	- CURTIME() 和 CURRENT_TIME() 函数的作用相同，将当前时间以“HH：MM：SS”或“HHMMSS”格式返回，具体格式根据函数用在字符串或数字语境中而定，返回 time 类型。
-	- now 和 sysdate:获取当前时间日期
+5. now 和 sysdate:获取当前时间日期
 	- NOW() 和 SYSDATE() 函数的作用相同，都是返回当前日期和时间值，格式为“YYYY-MM-DD HH：MM：SS”或“YYYYMMDDHHMMSS”，具体格式根据函数用在字符串或数字语境中而定，返回datetime 类型。
-	- unix_timestamp:获取UNIX时间戳
+7. unix_timestamp:获取UNIX时间戳
 	- UNIX_TIMESTAMP(date) 若无参数调用，返回一个无符号整数类型的 UNIX 时间戳（'1970-01-0100:00:00'GMT之后的秒数）。
-	- from_unixtime:时间戳转日期
+9. from_unixtime:时间戳转日期
 	- FROM_UNIXTIME(unix_timestamp[,format]) 函数把 UNIX 时间戳转换为普通格式的日期时间值，与 UNIX_TIMESTAMP () 函数互为反函数。
-	- 有2个参数：
 	- unix_timestamp：时间戳（秒）
-	- format：要转化的格式 比如“”%Y-%m-%d“” 这样格式化之后的时间就是 2017-11-30可以有的形式：
-		- %M 月名字(January～December)
-		- %W 星期名字(Sunday～Saturday)
-		- %D 有英语前缀的月份的日期(1st, 2nd, 3rd, 等等）
-		- %Y 年, 数字, 4 位
-		- %y 年, 数字, 2 位
-		- %a 缩写的星期名字(Sun～Sat)
-		- %d 月份中的天数, 数字(00～31)
-		- %e 月份中的天数, 数字(0～31)
-		- %m 月, 数字(01～12)
-		- %c 月, 数字(1～12)
-		- %b 缩写的月份名字(Jan～Dec)
-		- %j 一年中的天数(001～366)
-		- %H 小时(00～23)
-		- %k 小时(0～23)
-		- %h 小时(01～12)
-		- %I（i的大写） 小时(01～12)
-		- %l（L的小写） 小时(1～12)
-		- %i 分钟, 数字(00～59)
-		- %r 时间,12 小时(hh:mm:ss [AP]M)
-		- %T 时间,24 小时(hh:mm:ss)
-		- %S 秒(00～59)
-		- %s 秒(00～59)
-		- %p AM或PM
-		- %W 一个星期中的天数英文名称(Sunday~Saturday）
-		- %w 一个星期中的天数(0=Sunday ～6=Saturday）
-		- %U 星期(0～52), 这里星期天是星期的第一天
-		- %u 星期(0～52), 这里星期一是星期的第一天
-		- %% 输出%
-	- month:获取指定日期的月份
+	- format：要转化的格式 比如“”%Y-%m-%d“” 这样格式化之后的时间就是 2017-11-30，可以有的形式：
+	|格式			|说明											|
+	| ------------- |:---------------------------------------------:|
+	|%M				|月名字(January～December)						|
+	|%W				|星期名字(Sunday～Saturday)						|
+	|%D				|有英语前缀的月份的日期(1st, 2nd, 3rd, 等等）	    |
+	|%Y				|年, 数字, 4 位									|
+	|%y				|年, 数字, 2 位									|
+	|%a				|缩写的星期名字(Sun～Sat)						    |
+	|%d				|月份中的天数, 数字(00～31)						|
+	|%e				|月份中的天数, 数字(0～31)						|
+	|%m				|月, 数字(01～12)								|
+	|%c				|月, 数字(1～12)								    |
+	|%b				|缩写的月份名字(Jan～Dec)						    |
+	|%j				|一年中的天数(001～366)							|
+	|%H				|小时(00～23)									|
+	|%k				|小时(0～23)									    |
+	|%h				|小时(01～12)									|
+	|%I（i的大写）	|小时(01～12)									|
+	|%l（L的小写）	|小时(1～12)									    |
+	|%i				|分钟, 数字(00～59)								|
+	|%r				|时间,12 小时(hh:mm:ss [AP]M)					|
+	|%T				|时间,24 小时(hh:mm:ss)							|
+	|%S				|秒(00～59)										|
+	|%s				|秒(00～59)										|
+	|%p				|AM或PM											|
+	|%W				|一个星期中的天数英文名称(Sunday~Saturday）		|
+	|%w				|一个星期中的天数(0=Sunday ～6=Saturday）		    |
+	|%U				|星期(0～52), 这里星期天是星期的第一天			    |
+	|%u				|星期(0～52), 这里星期一是星期的第一天			    |
+	|%%				|输出%											|
+42. month:获取指定日期的月份
 	- MONTH(date) 函数返回指定 date 对应的月份，范围为 1～12。
-	- monthname:获取指定日期月份的英文名称
+44. monthname:获取指定日期月份的英文名称
 	- MONTHNAME(date) 函数返回日期 date 对应月份的英文全名。
-	- dayname:获取指定日期的星期名称
+46. dayname:获取指定日期的星期名称
 	- DAYNAME(date) 函数返回 date 对应的工作日英文名称，例如 Sunday、Monday 等。
-	- dayofweek:获取日期对应的周索引
+48. dayofweek:获取日期对应的周索引
 	- DAYOFWEEK(d) 函数返回 d 对应的一周中的索引（位置）。1 表示周日，2 表示周一，……，7 表示周六。这些索引值对应于ODBC标准。
-	- week:获取指定日期是一年中的第几周
+50. week:获取指定日期是一年中的第几周
 	- WEEK(date[,mode]) 函数计算日期 date 是一年中的第几周。WEEK(date,mode) 函数允许指定星期是否起始于周日或周一，以及返回值的范围是否为 0～52 或 1～53。
 	- WEEK函数接受两个参数：
 		- date 是要获取周数的日期。
 		- mode 是一个可选参数，用于确定周数计算的逻辑。它允许您指定本周是从星期一还是星期日开始，返回的周数应在 0 到 52 之间或 0 到 53 之间。
 	- 如果忽略 mode 参数，默认情况下 WEEK 函数将使用 default_week_format 系统变量的值。
 	- 要获取 default_week_format 变量的当前值，请使用 SHOW VARIABLES 语句如下：
-	- ```
-	- SHOW VARIABLES LIKE 'default_week_format'
-	- ```
+	```
+	SHOW VARIABLES LIKE 'default_week_format'
+	```
 	- 在我们的服务器中， default_week_format 的默认值为 0 ，下表格说明了 mode 参数如何影响 WEEK 函数：
-	- ![](Snipaste_2022-05-03_18-19-25.png)
+	|模式|一周的第一天|范围	|
+	| - |:---------:| -----:|
+	|0	|星期日	    |0-53	|
+	|1	|星期一	    |0-53	|
+	|2	|星期日	    |1-53	|
+	|3	|星期一	    |1-53	|
+	|4	|星期日	    |0-53	|
+	|5	|星期一	    |0-53	|
+	|6	|星期日	    |1-53	|
+	|7	|星期一	    |1-53	|
 	- 上表中“今年有4天以上”表示：
 		- 如果星期包含1月1日，并且在新的一年中有 4 天或更多天，那么这周是第 1 周。
 		- 否则，这一周的数字是前一年的最后一周，下周是第1周。
-	- dayofyear:获取指定日期在一年中的位置
+65. dayofyear:获取指定日期在一年中的位置
 	- DAYOFYEAR(d) 函数返回 d 是一年中的第几天，范围为 1～366。
-	- dayofmonth:获取指定日期在一个月的位置
-	- DAYOFMONTH(d) 函数返回 d 是一个月中的第几天，范围为 1～31。
-	- year:获取年份
-	- YEAR() 函数可以从指定日期值中来获取年份值。
-	- time_to_sec:将时间转换为秒值
-	- TIME_TO_SEC(time) 函数返回将参数 time 转换为秒数的时间值，转换公式为“小时 ×3600+ 分钟×60+ 秒”。
-	- sec_to_time:将秒值转换为时间格式
-	- SEC_TO_TIME(seconds) 函数返回将参数 seconds 转换为小时、分钟和秒数的时间值。
-	- date_add和adddate:向日期添加指定时间间隔
-		- DATE_ADD(date,INTERVAL expr type)
-		- date：参数是合法的日期表达式。expr 参数是您希望添加的时间间隔。
-		- type：参数可以是下列值
-			- MICROSECOND
-			- SECOND
-			- MINUTE
-			- HOUR
-			- DAY
-			- WEEK
-			- MONTH
-			- QUARTER
-			- YEAR
-			- SECOND_MICROSECOND
-			- MINUTE_MICROSECOND
-			- MINUTE_SECOND
-			- HOUR_MICROSECOND
-			- HOUR_SECOND
-			- HOUR_MINUTE
-			- DAY_MICROSECOND
-			- DAY_SECOND
-			- DAY_MINUTE
-			- DAY_HOUR
-			- YEAR_MONTH
-	- date_sub和subdate:日期减法运算
-		- DATE_SUB(date,INTERVAL expr type)
-		- date：参数是合法的日期表达式。expr 参数是您希望添加的时间间隔。
-		- type的类型和date_add中的type一样。
-	- addtime:时间加法运算
-	- ADDTIME(time,expr) 函数用于执行时间的加法运算。添加 expr 到 time 并返回结果。
-	- 其中：time 是一个时间或日期时间表达式，expr 是一个时间表达式。
-	- subtime:时间减法运算
-	- SUBTIME(time,expr) 函数用于执行时间的减法运算。
-	- 函数返回 time。expr 表示的值和格式 time 相同。time 是一个时间或日期时间表达式， expr 是一个时间。
-	- datediff:获取两个日期的时间间隔
-	- DATEDIFF(date1，date2) 返回起始时间 date1 和结束时间 date2 之间的天数。date1 和 date2为日期或 date-and-time 表达式。计算时只用到这些值的日期部分。
-	- date_format:格式化指定的日期
-	- DATE_FORMAT(date，format) 函数是根据 format 指定的格式显示 date 值。
-	- DATE_FORMAT() 函数接受两个参数：
-	- date：是要格式化的有效日期值format：是由预定义的说明符组成的格式字符串，每个说明符前面都有一个百分比字符(%)。
-	- format：格式和上面的函数 from_unixtime 中的format一样，可以参考上面的。
-	- weekday:获取指定日期在一周内的索引位置
-	- WEEKDAY(date) 返回date的星期索引(0=星期一，1=星期二, ……6= 星期天)。
-	- MySQL 聚合函数
-		- max 查询指定列的最大值
-		- min 查询指定列的最小值
-		- count 统计查询结果的行数
-		- sum 求和，返回指定列的总和
-		- avg 求平均值，返回指定列数据的平均值
-	- MySQL 流程控制函数
-		- if 判断，流程控制
-		- ifnull 判断是否为空
-		- case 搜索语句
-		- if:判断
-		- IF(expr,v1,v2)
-		- 当 expr 为真是返回 v1 的值，否则返回 v2
-		- ifnull:判断是否为空
-		- IFNULL(v1,v2)：v1为空返回v2，否则返回v1。
-		- case:搜索语句,类似于java中的if..else if..else
-		- 类似于java中的if..else if..else
-	- 其他函数
-		- version 数据库版本号
-		- database 当前的数据库
-		- user 当前连接用户
-		- password 返回字符串密码形式
-		- md5 返回字符串的md5数据
+67. dayofmonth:获取指定日期在一个月的位置
+68. DAYOFMONTH(d) 函数返回 d 是一个月中的第几天，范围为 1～31。
+69. year:获取年份
+70. YEAR() 函数可以从指定日期值中来获取年份值。
+71. time_to_sec:将时间转换为秒值
+72. TIME_TO_SEC(time) 函数返回将参数 time 转换为秒数的时间值，转换公式为“小时 ×3600+ 分钟×60+ 秒”。
+73. sec_to_time:将秒值转换为时间格式
+74. SEC_TO_TIME(seconds) 函数返回将参数 seconds 转换为小时、分钟和秒数的时间值。
+75. date_add和adddate:向日期添加指定时间间隔
+	76. DATE_ADD(date,INTERVAL expr type)
+	77. date：参数是合法的日期表达式。expr 参数是您希望添加的时间间隔。
+	78. type：参数可以是下列值
+		79. MICROSECOND
+		80. SECOND
+		81. MINUTE
+		82. HOUR
+		83. DAY
+		84. WEEK
+		85. MONTH
+		86. QUARTER
+		87. YEAR
+		88. SECOND_MICROSECOND
+		89. MINUTE_MICROSECOND
+		90. MINUTE_SECOND
+		91. HOUR_MICROSECOND
+		92. HOUR_SECOND
+		93. HOUR_MINUTE
+		94. DAY_MICROSECOND
+		95. DAY_SECOND
+		96. DAY_MINUTE
+		97. DAY_HOUR
+		98. YEAR_MONTH
+99. date_sub和subdate:日期减法运算
+	100. DATE_SUB(date,INTERVAL expr type)
+	101. date：参数是合法的日期表达式。expr 参数是您希望添加的时间间隔。
+	102. type的类型和date_add中的type一样。
+103. addtime:时间加法运算
+104. ADDTIME(time,expr) 函数用于执行时间的加法运算。添加 expr 到 time 并返回结果。
+105. 其中：time 是一个时间或日期时间表达式，expr 是一个时间表达式。
+106. subtime:时间减法运算
+107. SUBTIME(time,expr) 函数用于执行时间的减法运算。
+108. 函数返回 time。expr 表示的值和格式 time 相同。time 是一个时间或日期时间表达式， expr 是一个时间。
+109. datediff:获取两个日期的时间间隔
+110. DATEDIFF(date1，date2) 返回起始时间 date1 和结束时间 date2 之间的天数。date1 和 date2为日期或 date-and-time 表达式。计算时只用到这些值的日期部分。
+111. date_format:格式化指定的日期
+112. DATE_FORMAT(date，format) 函数是根据 format 指定的格式显示 date 值。
+113. DATE_FORMAT() 函数接受两个参数：
+114. date：是要格式化的有效日期值format：是由预定义的说明符组成的格式字符串，每个说明符前面都有一个百分比字符(%)。
+115. format：格式和上面的函数 from_unixtime 中的format一样，可以参考上面的。
+116. weekday:获取指定日期在一周内的索引位置
+117. WEEKDAY(date) 返回date的星期索引(0=星期一，1=星期二, ……6= 星期天)。
+118. MySQL 聚合函数
+	119. max 查询指定列的最大值
+	120. min 查询指定列的最小值
+	121. count 统计查询结果的行数
+	122. sum 求和，返回指定列的总和
+	123. avg 求平均值，返回指定列数据的平均值
+124. MySQL 流程控制函数
+	125. if 判断，流程控制
+	126. ifnull 判断是否为空
+	127. case 搜索语句
+	128. if:判断
+	129. IF(expr,v1,v2)
+	130. 当 expr 为真是返回 v1 的值，否则返回 v2
+	131. ifnull:判断是否为空
+	132. IFNULL(v1,v2)：v1为空返回v2，否则返回v1。
+	133. case:搜索语句,类似于java中的if..else if..else
+	134. 类似于java中的if..else if..else
+135. 其他函数
+	136. version 数据库版本号
+	137. database 当前的数据库
+	138. user 当前连接用户
+	139. password 返回字符串密码形式
+	140. md5 返回字符串的md5数据
 ## 深入了解连接查询及原理
 ### 笛卡尔积
 1. 笛卡尔积简单点理解：有两个集合A和B，笛卡尔积表示A集合中的元素和B集合中的元素任意相互关联产生的所有可能的结果。
 2. 假如A中有m个元素，B中有n个元素，A、B笛卡尔积产生的结果有m*n个结果，相当于循环遍历两个集合中的元素，任意组合。
-3. sql中笛卡尔积语法
 ```
 select 字段 from 表1,表2[,表N]; 
 或者
 select 字段 from 表1 join 表2 [join 表N];
 ```
 ### 内连接
-语法：
 ```
 select 字段 from 表1 inner join 表2 on 连接条件; 
 或
