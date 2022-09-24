@@ -47,7 +47,7 @@ def get_common_data(sts, bet_at_home, nordicbet):
 
 
 if __name__ == '__main__':
-    tmp_id = '2148709'
+    tmp_id = '2220163'
     tmp = get_bet_id(tmp_id)
     tmp_list = []
     for item in tmp:

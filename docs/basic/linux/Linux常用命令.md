@@ -11,10 +11,48 @@
 	```shell script
 	 find $ANDROID_HOME -name "*.jar"
 	```
+2. tail
+	```shell script
+	tail -f nginx_access.log # 循环查看文件内容
+	tail -fn 10 nginx_access.log # 循环查看文件后10行内容
+	tail -n 10 nginx_access.log # 查看文件后10行内容
+	tail -n +51460 nginx_access.log # 查看文件第51460行到最后的内容
+	```
+3. cat
+	```shell script
+	cat xx.log yy.log > tmp.log # 将xx.log和yy.log合并到tmp.log
+	```
+4. more
+5. less
 ## 网络
 1. netstat
-## 性能
+## 进程
+### ps
+```shell script
+ps -a # 显示全部进程
+ps -aux # 显示全部进程
+ps -ef | grep python # 显示python进程
+```
+### kill
+```shell script
+kill -9 pid # 强制杀死进程
+kill pid # 杀死进程
+```
+## 端口
+### lsof（list open file）
+```shell script
+lsof -i:8000 # 查看占用8000端口的进程
+```
+### netstat
+```shell script
+netstat -tunlp | grep 8000 # 查看占用8000端口的进程
+```
+## 性能（监控）
 1. top
+2. free
+3. iostat
+4. netstat
+5. vmstat（全）
 ## 数据分析
 数据：[https://gitee.com/thinker006/data-source.git](https://gitee.com/thinker006/data-source.git)
 ```
