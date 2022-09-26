@@ -1,59 +1,78 @@
-"""
-作者: liulinyuan
-时间: 2022/7/27/0027 22:00
-文件: tmp.py
-"""
-
-
-class People:
+class Array:
     """
-    python魔术方法
+    数组的操作
     """
 
-    def __new__(cls, *args, **kwargs):
-        """
-        创建对象
-        :param args:
-        :param kwargs:
-        """
-        print('调用父类的__new__()方法创建对象，开辟内存空间')
-        instance = super().__new__(cls)
-        print('将创建的地址空间对象返回，交给__init__方法接收')
-        return instance
+    def __init__(self, capacity):
+        self.data = []
+        self.capacity = capacity
 
-    def __init__(self, name):
-        """
-        实例化对象
-        """
-        print('在__new__方法返回的内存空间地址中放置name属性')
-        self.name = name
+    def __getitem__(self, index):
+        return self.data[index]
 
-    def __call__(self, *args, **kwargs):
+    def __setitem__(self, index, value):
+        return self.data[index] == value
+
+    def __len__(self):
+        return len(self.data)
+
+    def __iter__(self):
+        for item in self.data:
+            yield item
+
+    def search(self, index):
         """
-        对象作为函数调用时的逻辑
-        :param args:
-        :param kwargs:
+        查找元素
+        :param index:
         :return:
         """
-        print(f'__call__方法，接受到的参数：{args, kwargs}')
+        try:
+            return self.data[index]
+        except IndexError:
+            return -1
 
-    def __del__(self):
+    def delete(self, index):
         """
-        删除对象
+        删除元素，pop默认索引是-1，即默认删除最后一个元素，remove是按值删除
+        :param index:
         :return:
         """
-        print('__del__析构方法，删除对象，释放内存空间')
+        try:
+            self.data.pop(index)
+            return True
+        except IndexError:
+            return False
 
-    def __str__(self):
+    def insert(self, index, value):
         """
-        自定义print(对象名)时的输出内容
+        插入数据
+        :param index:
+        :param value:
         :return:
         """
-        return f'对象的name是：{self.name}'
+        if len(self) >= self.capacity:
+            return False
+        else:
+            return self.data.insert(index, value)
+
+    def traverse(self):
+        """
+        遍历数组
+        :return:
+        """
+        for item in self:
+            print(item)
 
 
 if __name__ == '__main__':
-    p = People('thinker365')
-    p('a', b=1)
-    print(p)
-
+    array = Array(5)
+    array.insert(0, 3)
+    array.insert(0, 4)
+    array.insert(1, 5)
+    array.insert(3, 9)
+    array.insert(3, 10)
+    assert array.insert(0, 100) is False
+    assert len(array) == 5
+    assert array.search(1) == 5
+    assert array.delete(4) is True
+    print(array.traverse())
