@@ -1,7 +1,10 @@
 [[toc]]
 
-## 格式
-1. #!/bin/bash开头(指定解析器)
+## 基本介绍
+### 解释器 
+1. #!/bin/bash
+### 父子shell
+打开终端，即开启一个shell，可以通过ps查看，在当前shell控制台输入bash，进入子shell，exit可退出
 ## 执行方式
 1. bash/sh 脚本的绝对路径或相对路径（不用赋予脚本+x权限）
 	```shell script
@@ -27,8 +30,6 @@
 	```shell script
 	source shells/xxx.sh
 	```
-## 父子shell
-打开终端，即开启一个shell，可以通过ps查看，在当前shell控制台输入bash，进入子shell，exit可退出
 ## 变量
 ### 系统变量
 如$HOME、$PWD、$SHELL、$USER
@@ -36,7 +37,7 @@
 1. 变量名称=变量值，=左右不能有空格，变量名称可以有字母、数字和下划线组成，不能以数字开头，环境变量建议大写，变量值有空格，需单/双引号括起来
 2. 撤销使用unset 变量名
 3. 静态变量readonly 变量名，这种不能unset
-4. 访问变量$变量名、$(变量名)
+4. 访问变量$变量名、${变量名}
 5. export将变量提升为全局环境变量，所有子shell都可以访问
 ### 特殊变量
 1. $n来访问参数，n为数字，$0代表该脚本名称，$1-$9代表第1到到9个参数，十以上的参数需要用大括号包含，如${10}
@@ -44,7 +45,9 @@
 3. 当 $* 和 $@ 不被双引号""包围时，它们之间没有任何区别，都是将接收到的每个参数看做一份数据，彼此之间以空格来分隔；当它们被双引号" "包含时，"$*"会将所有的参数从整体上看做一份数据，"$@"仍然将每个参数都看作一份数据
 4. $？最后一次执行的命令的返回状态， 如果这个变量的值为 0， 证明上一个命令正确执行； 如果这个变量的值为非 0（具体是哪个数， 由命令自己来决定） ， 则证明上一个命令执行不正确
 5. $$当前Shell进程ID，对于Shell脚本，就是这些脚本所在的进程ID
-## 字符串拼接
+6. $!后台运行的最后一个进程的ID号
+## 字符串
+字符串拼接
 ```shell script
 name="articles"
 url="http://itsoku.com"
@@ -54,6 +57,30 @@ str3=$name": "$url  #中间可以出现别的字符串
 str4="$name: $url"  #这样写也可以
 str5="${name}: ${url}/articles"  #这个时候需要给变量名加上大括号
 str6='${name}: ${url}/articles' #单引号括包裹起来的不会被替换
+```
+字符串长度
+```shell script
+str=abcd
+echo ${#str}
+```
+提取子字符串
+```shell script
+str=abcd
+echo ${str:2:3}
+```
+查找子字符串
+```shell script
+str=abcd
+echo `expr index "$str" b`
+```
+## 数组
+```shell script
+ubuntu@ubuntu:~$ array=(1 2 3 4)
+ubuntu@ubuntu:~$ echo ${array[2]}
+ubuntu@ubuntu:~$ echo ${#array[@]} # 获取数组长度
+ubuntu@ubuntu:~$ echo ${#array[*]} # 获取数组长度
+ubuntu@ubuntu:~$ array=(abc def ghi)
+ubuntu@ubuntu:~$ echo ${#array[def]} # 获取某个元素长度
 ```
 ## 运算符
 $((运算式))或$[运算式]
