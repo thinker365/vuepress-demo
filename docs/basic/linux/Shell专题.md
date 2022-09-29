@@ -154,5 +154,104 @@ read 选项 变量名
 |-p		|指定读取时的提示符									|
 |-t		|指定读取值时等待的时间（秒）如果-t不加表示一直等待	    |
 ## 函数
-## 参考
+### 系统函数
+1. basename：打印目录或者文件的基本名称
+	```shell script
+	basename 文件名称 [后缀]
+	basename 选项... 文件名称...
+	```
+	|选项|作用									|
+	| - |:-------------------------------------:|
+	|-a	|支持多个参数并将每个参数视为一个名称	    |
+	|-s	|指定需要剔除的后缀						|
+	```shell script
+	[root@test001 shells]# basename /root/shells/while.sh 
+	while.sh
+	[root@test001 shells]# basename /root/shells/while.sh .sh
+	while
+	[root@test001 shells]# basename -s .sh -a case.sh while.sh 
+	case
+	while
+	```
+2. dirname：获取文件的目录名称
+	```shell script
+	dirname 文件名称
+	```
+	```shell script
+	[root@test001 shells]# dirname /usr/bin/
+	/usr
+	[root@test001 shells]# dirname /usr/bin/1.sh
+	/usr/bin
+	[root@test001 shells]# dirname /usr/bin/1.sh /a/b/2.sh
+	/usr/bin
+	/a/b
+	[root@test001 shells]# dirname 1.sh
+	.
+	```
+### 自定义函数
+```shell script
+[ function ] funname[()]
+{
+    Action;
+    [return int;]
+}
+```
+1. []包裹部分可选
+2. 必须在调用函数地方之前， 先声明函数， shell 脚本是逐行运行
+3. 函数返回值只能通过\$?系统变量获得，可以显示加return返回，如果不加将以最后一条命令运行结果作为返回值，return 后跟数值 n(0-255)
+## 命令替换
+$(cmd)和`cmd`的作用是相同的，在执行一条命令时，会先将其中的``或者是$() 中的语句当作命令执行一遍，再将结果加入到原命令中重新执行
+```shell script
+known@virtual-machine:~/data$ date=`date -d '1 day ago' "+%Y-%m-%d"`
+known@virtual-machine:~/data$ echo $date
+2022-09-28
+known@virtual-machine:~/data$ echo date=`date -d '1 day ago' "+%Y-%m-%d"`
+date=2022-09-28
+known@virtual-machine:~/data$ echo date=$(date -d '1 day ago' "+%Y-%m-%d")
+date=2022-09-28
+```
+## 正则表达式
+grep，sed， awk 等文本处理工具都支持通过正则表达式
+### 常规匹配
+```shell script
+known@virtual-machine:~$ ps -aux | grep update-notifier
+```
+### 特殊字符
+1. ^匹配一行的开头
+2. $匹配一行的结尾
+3. .匹配一个任意字符
+4. *不单独使用，和前一个字符连用，表示匹配前一个字符0次或多次
+5. []表示匹配某个范围内的一个字符
+	|[6,8]		|匹配6或者8						|
+	| --------- |:-----------------------------:|
+	|[0-9]		|匹配1个0-9的数字					|
+	|[0-9]*		|匹配任意长度的数字字符串			|
+	|[a-z]		|匹配1个a-z之间的字符				|
+	|[a-z]*		|匹配任意长度的字母字符串			|
+	|[a-ce-f]	|匹配a-z或者e-f之间的任意一个字符	|
+6. \表示转义，并不会单独使用，由于所有特殊字符都有其特定的匹配模式，当匹配某一特殊字符本身时就要将转义字符和特殊字符连用，来表示特殊字符本身
+7. 有些语言中支持正则表达式的扩展语法，如{n,m}等等，对于这种，使用grep匹配的时候，需要添加-E选项
+	```shell script
+	[root@test001 ~]# echo "ab,cdre" | grep -E "[a-z]{2,3}"
+	ab,cdre
+	```
+## cut命令
+cut命令从文件的每一行按照指定的分隔符进行分割，每行会被分成多个列
+```shell script
+cut [选项] filename
+```
+|选项	|功能											|
+| ----- |:---------------------------------------------:|
+|-f		|列号，提取第几列									|
+|-d		|分隔符，按照指定分隔符分割行，默认是制表符“\t”		|
+|-c		|以字符为单位进行分割								|
+-f选项
+|语法		|说明													|
+| --------- |:-----------------------------------------------------:|
+|-f N		|从第1 个开始数的第N 个字节、字符或域						|
+|-f N-		|从第N 个开始到所在行结束的所有字符、字节或域				|
+|-f N-M		|从第N 个开始到第M 个之间(包括第M 个)的所有字符、字节或域		|
+|f -M		|从第1 个开始到第M 个之间(包括第M 个)的所有字符、字节或域		|
+|f N,M,…	|取第N、第M个字节、字符或域								|
+### 参考
 [http://www.itsoku.com/course/17](http://www.itsoku.com/course/17)
