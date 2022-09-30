@@ -59,13 +59,6 @@ print(d)
 ```
 ## 用字典实现switch...case语句
 ```python
-keys = {'a', 'e', 'i', 'o', 'u'}
-value = ['wa']
-d = dict.fromkeys(keys, value)
-print(d)
-```
-## 用字典实现switch...case语句
-```python
 data = {
     0: "zero",
     1: "one",
