@@ -334,6 +334,14 @@ module.exports = {
                     ]
                 },
             ],
+			'/devops/jenkins/': [
+			    {
+			        title: 'Jenkins',
+			        children: [
+			            ['Jenkins专题', 'Jenkins专题'],
+			        ]
+			    },
+			],
             '/devops/notes/': [
                 {
                     title: 'DevOps笔记',
