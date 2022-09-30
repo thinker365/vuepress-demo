@@ -10648,357 +10648,223 @@ return self
 最后这样的方案就已经足够好了。缓存和其他构造模式还可以使用 9.13 小节中的
 元类实现的更优雅一点 (使用了更高级的技术)。
 ## 第九章：元编程
-软件开发领域中最经典的口头禅就是“don’t repeat yourself”。也就是说，任何时
-候当你的程序中存在高度重复 (或者是通过剪切复制) 的代码时，都应该想想是否有更
-好的解决方案。在 Python 当中，通常都可以通过元编程来解决这类问题。简而言之，
-元编程就是关于创建操作源代码 (比如修改、生成或包装原来的代码) 的函数和类。主
-要技术是使用装饰器、类装饰器和元类。不过还有一些其他技术，包括签名对象、使用
-exec() 执行代码以及对内部函数和类的反射技术等。本章的主要目的是向大家介绍这
-些元编程技术，并且给出实例来演示它们是怎样定制化你的源代码行为的。
-9.1 在函数上添加包装器
-问题
-你想在函数上添加一个包装器，增加额外的操作处理 (比如日志、计时等)。
-解决方案
-如果你想使用额外的代码包装一个函数，可以定义一个装饰器函数，例如：
+软件开发领域中最经典的口头禅就是“don’t repeat yourself”。也就是说，任何时候当你的程序中存在高度重复 (或者是通过剪切复制) 的代码时，都应该想想是否有更好的解决方案。在 Python 当中，通常都可以通过元编程来解决这类问题。简而言之，元编程就是关于创建操作源代码 (比如修改、生成或包装原来的代码) 的函数和类。主要技术是使用装饰器、类装饰器和元类。不过还有一些其他技术，包括签名对象、使用exec() 执行代码以及对内部函数和类的反射技术等。本章的主要目的是向大家介绍这些元编程技术，并且给出实例来演示它们是怎样定制化你的源代码行为的。
+### 9.1 在函数上添加包装器
+- 问题：你想在函数上添加一个包装器，增加额外的操作处理 (比如日志、计时等)。
+- 解决方案：如果你想使用额外的代码包装一个函数，可以定义一个装饰器函数，例如：
+```python
 import time
 from functools import wraps
+
 def timethis(func):
-'''
-Decorator that reports the execution time.
-'''
-@wraps(func)
-def wrapper(*args, **kwargs):
-start = time.time()
-result = func(*args, **kwargs)
-end = time.time()
-print(func.__name__, end-start)
-return result
-return wrapper
-下面是使用装饰器的例子：
->>> @timethis
-... def countdown(n):
-... '''
-... Counts down
-... '''
-... while n > 0:
-... n -= 1
-...
->>> countdown(100000)
-countdown 0.008917808532714844
->>> countdown(10000000)
-countdown 0.87188299392912
->>>
-讨论
-一个装饰器就是一个函数，它接受一个函数作为参数并返回一个新的函数。当你像
-下面这样写：
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+        start = time.time()
+        result = func(*args, **kwargs)
+        end = time.time()
+        print(func.__name__, func.__doc__,func.__annotations__,end - start)
+        return result
+
+    return wrapper
+
+@timethis
+def func(n):
+    """这里是doc"""
+    while n > 1:
+        n -= 1
+
+if __name__ == '__main__':
+    func(10000000)
+```
+讨论：一个装饰器就是一个函数，它接受一个函数作为参数并返回一个新的函数。当你像下面这样写：
+```python
 @timethis
 def countdown(n):
-pass
+	pass
+```
 跟像下面这样写其实效果是一样的：
+```python
 def countdown(n):
-pass
+	pass
 countdown = timethis(countdown)
-顺便说一下，内置的装饰器比如 @staticmethod, @classmethod,@property 原理
-也是一样的。例如，下面这两个代码片段是等价的：
+```
+顺便说一下，内置的装饰器比如 @staticmethod, @classmethod,@property 原理也是一样的。例如，下面这两个代码片段是等价的：
+```python
 class A:
-@classmethod
-def method(cls):
-pass
+	@classmethod
+	def method(cls):
+		pass
 class B:
-# Equivalent definition of a class method
-def method(cls):
-pass
-method = classmethod(method)
-在上面的 wrapper() 函数中，装饰器内部定义了一个使用 *args 和 **kwargs 来
-接受任意参数的函数。在这个函数里面调用了原始函数并将其结果返回，不过你还可以
-添加其他额外的代码 (比如计时)。然后这个新的函数包装器被作为结果返回来代替原
-始函数。
-需要强调的是装饰器并不会修改原始函数的参数签名以及返回值。使用 *args
-和 **kwargs 目的就是确保任何参数都能适用。而返回结果值基本都是调用原始函数
-func(*args, **kwargs) 的返回结果，其中 func 就是原始函数。
-刚开始学习装饰器的时候，会使用一些简单的例子来说明，比如上面演示的这个。
-不过实际场景使用时，还是有一些细节问题要注意的。比如上面使用 @wraps(func) 注
-解是很重要的，它能保留原始函数的元数据 (下一小节会讲到)，新手经常会忽略这个
-细节。接下来的几个小节我们会更加深入的讲解装饰器函数的细节问题，如果你想构造
-你自己的装饰器函数，需要认真看一下。
-9.2 创建装饰器时保留函数元信息
-问题
-你写了一个装饰器作用在某个函数上，但是这个函数的重要的元信息比如名字、文
-档字符串、注解和参数签名都丢失了。
-解决方案
-任何时候你定义装饰器的时候，都应该使用 functools 库中的 @wraps 装饰器来
-注解底层包装函数。例如：
+	# Equivalent definition of a class method
+	def method(cls):
+		pass
+	method = classmethod(method)
+```
+- 在上面的 wrapper() 函数中，装饰器内部定义了一个使用 *args 和 **kwargs 来接受任意参数的函数。在这个函数里面调用了原始函数并将其结果返回，不过你还可以添加其他额外的代码 (比如计时)。然后这个新的函数包装器被作为结果返回来代替原始函数。
+- 需要强调的是装饰器并不会修改原始函数的参数签名以及返回值。使用 *args和 **kwargs 目的就是确保任何参数都能适用。而返回结果值基本都是调用原始函数func(*args, **kwargs) 的返回结果，其中 func 就是原始函数。
+- 刚开始学习装饰器的时候，会使用一些简单的例子来说明，比如上面演示的这个。不过实际场景使用时，还是有一些细节问题要注意的。比如上面使用 @wraps(func) 注解是很重要的，它能保留原始函数的元数据 (下一小节会讲到)，新手经常会忽略这个细节。接下来的几个小节我们会更加深入的讲解装饰器函数的细节问题，如果你想构造你自己的装饰器函数，需要认真看一下。
+### 9.2 创建装饰器时保留函数元信息
+- 问题：你写了一个装饰器作用在某个函数上，但是这个函数的重要的元信息比如名字、文档字符串、注解和参数签名都丢失了。
+- 解决方案：任何时候你定义装饰器的时候，都应该使用 functools 库中的 @wraps 装饰器来注解底层包装函数，参考9.1
+- 讨论：在编写装饰器的时候复制元信息是一个非常重要的部分。如果你忘记了使用 @wraps，那么你会发现被装饰函数丢失了所有有用的信息。
+- @wraps 有一个重要特征是它能让你通过属性 __wrapped__ 直接访问被包装函数。
+```python
+countdown.__wrapped__(100000)
+```
+__wrapped__ 属性还能让被装饰函数正确暴露底层的参数签名信息。例如：
+```python
+from inspect import signature
+print(signature(countdown))
+(n:int)
+```
+### 9.3 解除一个装饰器
+- 问题：一个装饰器已经作用在一个函数上，你想撤销它，直接访问原始的未包装的那个函数。
+- 解决方案：假设装饰器是通过 @wraps (参考 9.2 小节) 来实现的，那么你可以通过访问__wrapped__ 属性来访问原始函数：
+```python
 import time
 from functools import wraps
+
 def timethis(func):
-'''
-Decorator that reports the execution time.
-'''
-@wraps(func)
-def wrapper(*args, **kwargs):
-start = time.time()
-result = func(*args, **kwargs)
-end = time.time()
-print(func.__name__, end-start)
-return result
-return wrapper
-下面我们使用这个被包装后的函数并检查它的元信息：
->>> @timethis
-... def countdown(n):
-... '''
-... Counts down
-... '''
-... while n > 0:
-... n -= 1
-...
->>> countdown(100000)
-countdown 0.008917808532714844
->>> countdown.__name__
-'countdown'
->>> countdown.__doc__
-'\n\tCounts down\n\t'
->>> countdown.__annotations__
-{'n': <class 'int'>}
->>>
-讨论
-在编写装饰器的时候复制元信息是一个非常重要的部分。如果你忘记了使用 @wraps
-，那么你会发现被装饰函数丢失了所有有用的信息。比如如果忽略 @wraps 后的效果是
-下面这样的：
->>> countdown.__name__
-'wrapper'
->>> countdown.__doc__
->>> countdown.__annotations__
-{}
->>>
-@wraps 有一个重要特征是它能让你通过属性 __wrapped__ 直接访问被包装函数。
-例如:
->>> countdown.__wrapped__(100000)
->>>
-__wrapped__ 属性还能让被装饰函数正确暴露底层的参数签名信息。例如：
->>> from inspect import signature
->>> print(signature(countdown))
-(n:int)
->>>
-一个很普遍的问题是怎样让装饰器去直接复制原始函数的参数签名信息，如果想
-自己手动实现的话需要做大量的工作，最好就简单的使用 @wraps 装饰器。通过底层的
-__wrapped__ 属性访问到函数签名信息。更多关于签名的内容可以参考 9.16 小节。
-9.3 解除一个装饰器
-问题
-一个装饰器已经作用在一个函数上，你想撤销它，直接访问原始的未包装的那个函
-数。
-解决方案
-假设装饰器是通过 @wraps (参考 9.2 小节) 来实现的，那么你可以通过访问
-__wrapped__ 属性来访问原始函数：
->>> @somedecorator
->>> def add(x, y):
-... return x + y
-...
->>> orig_add = add.__wrapped__
->>> orig_add(3, 4)
-7
->>>
-讨论
-直接访问未包装的原始函数在调试、内省和其他函数操作时是很有用的。但是我
-们这里的方案仅仅适用于在包装器中正确使用了 @wraps 或者直接设置了 __wrapped__
-属性的情况。
-如果有多个包装器，那么访问 __wrapped__ 属性的行为是不可预知的，应该避免
-这样做。在 Python3.3 中，它会略过所有的包装层，比如，假如你有如下的代码：
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+        start = time.time()
+        result = func(*args, **kwargs)
+        end = time.time()
+        print(func.__name__, func.__doc__, func.__annotations__, end - start)
+        return result
+    return wrapper
+
+@timethis
+def add(x, y):
+    return x + y
+
+if __name__ == '__main__':
+    func(100000)
+    orig_func = add.__wrapped__
+    print(orig_func(3, 4))
+```
+如果有多个包装器，那么访问 __wrapped__ 属性的行为是不可预知的，应该避免这样做。在 Python3.3 中，它会略过所有的包装层，比如，假如你有如下的代码：
+```python
 from functools import wraps
 def decorator1(func):
-@wraps(func)
-def wrapper(*args, **kwargs):
-print('Decorator 1')
-return func(*args, **kwargs)
-return wrapper
+	@wraps(func)
+	def wrapper(*args, **kwargs):
+		print('Decorator 1')
+		return func(*args, **kwargs)
+	return wrapper
 def decorator2(func):
-@wraps(func)
-def wrapper(*args, **kwargs):
-print('Decorator 2')
-return func(*args, **kwargs)
-return wrapper
+	@wraps(func)
+	def wrapper(*args, **kwargs):
+		print('Decorator 2')
+		return func(*args, **kwargs)
+	return wrapper
+	
 @decorator1
 @decorator2
 def add(x, y):
-return x + y
+	return x + y
+```
 下面我们在 Python3.3 下测试：
->>> add(2, 3)
+```python
+add(2, 3)
 Decorator 1
 Decorator 2
 5
->>> add.__wrapped__(2, 3) 5
->>>
+
+add.__wrapped__(2, 3)
+5
+```
 下面我们在 Python3.4 下测试：
->>> add(2, 3)
+```python
+add(2, 3)
 Decorator 1
 Decorator 2
 5
->>> add.__wrapped__(2, 3)
+
+add.__wrapped__(2, 3)
 Decorator 2
 5
->>>
-最后要说的是，并不是所有的装饰器都使用了 @wraps ，因此这里的方案并不全部
-适用。特别的，内置的装饰器 @staticmethod 和 @classmethod 就没有遵循这个约定
-(它们把原始函数存储在属性 __func__ 中)。
-9.4 定义一个带参数的装饰器
-问题
-你想定义一个可以接受参数的装饰器
-解决方案
-我们用一个例子详细阐述下接受参数的处理过程。假设你想写一个装饰器，给函数
-添加日志功能，同时允许用户指定日志的级别和其他的选项。下面是这个装饰器的定义
-和使用示例：
+```
+最后要说的是，并不是所有的装饰器都使用了 @wraps ，因此这里的方案并不全部适用。特别的，内置的装饰器 @staticmethod 和 @classmethod 就没有遵循这个约定(它们把原始函数存储在属性 __func__ 中)。
+### 9.4 定义一个带参数的装饰器
+- 问题：你想定义一个可以接受参数的装饰器
+- 解决方案：我们用一个例子详细阐述下接受参数的处理过程。假设你想写一个装饰器，给函数添加日志功能，同时允许用户指定日志的级别和其他的选项。下面是这个装饰器的定义和使用示例：
+```python
+import logging
 from functools import wraps
-import logging
+
 def logged(level, name=None, message=None):
-"""
-Add logging to a function. level is the logging
-level, name is the logger name, and message is the
-log message. If name and message aren't specified,
-they default to the function's module and name.
-"""
-def decorate(func):
-logname = name if name else func.__module__
-log = logging.getLogger(logname)
-logmsg = message if message else func.__name__
-@wraps(func)
-def wrapper(*args, **kwargs):
-log.log(level, logmsg)
-return func(*args, **kwargs)
-return wrapper
-return decorate
-# Example use
-@logged(logging.DEBUG)
+    def decorate(func):
+        logname = name if name else func.__module__
+        log = logging.getLogger(logname)
+        logmsg = message if message else func.__name__
+        @wraps(func)
+        def wrapper(*args, **kwargs):
+            log.log(level, logmsg)
+            return func(*args, **kwargs)
+        return wrapper
+    return decorate
+
+@logged(level=logging.DEBUG)
 def add(x, y):
-return x + y
-@logged(logging.CRITICAL, 'example')
-def spam():
-print('Spam!')
-初看起来，这种实现看上去很复杂，但是核心思想很简单。最外层的函数 logged()
-接受参数并将它们作用在内部的装饰器函数上面。内层的函数 decorate() 接受一个函
-数作为参数，然后在函数上面放置一个包装器。这里的关键点是包装器是可以使用传递
-给 logged() 的参数的。
-讨论
-定义一个接受参数的包装器看上去比较复杂主要是因为底层的调用序列。特别的，
-如果你有下面这个代码：
-@decorator(x, y, z)
-def func(a, b):
-pass
-装饰器处理过程跟下面的调用是等效的;
-def func(a, b):
-pass
-func = decorator(x, y, z)(func)
-decorator(x, y, z) 的返回结果必须是一个可调用对象，它接受一个函数作为参
-数并包装它，可以参考 9.7 小节中另外一个可接受参数的包装器例子。
-9.5 可自定义属性的装饰器
-问题
-你想写一个装饰器来包装一个函数，并且允许用户提供参数在运行时控制装饰器
-行为。
-解决方案
-引入一个访问函数，使用 nonlocal 来修改内部变量。然后这个访问函数被作为一
-个属性赋值给包装函数。
+    return x + y
+
+@logged(level=logging.INFO, name='example')
+def example():
+    print('example')
+
+if __name__ == '__main__':
+    add(3, 5)
+    example()
+```
+初看起来，这种实现看上去很复杂，但是核心思想很简单。最外层的函数 logged()接受参数并将它们作用在内部的装饰器函数上面。内层的函数 decorate() 接受一个函数作为参数，然后在函数上面放置一个包装器。这里的关键点是包装器是可以使用传递给 logged() 的参数的。
+### 9.5 可自定义属性的装饰器
+- 问题：你想写一个装饰器来包装一个函数，并且允许用户提供参数在运行时控制装饰器行为。
+- 解决方案：引入一个访问函数，使用 nonlocal 来修改内部变量。然后这个访问函数被作为一个属性赋值给包装函数。
+```python
+import logging
 from functools import wraps, partial
-import logging
-# Utility decorator to attach a function as an attribute of obj
+
 def attach_wrapper(obj, func=None):
-if func is None:
-return partial(attach_wrapper, obj)
-setattr(obj, func.__name__, func)
-return func
+    if func is None:
+        return partial(attach_wrapper, obj)
+    setattr(obj, func.__name__, func)
+    return func
+
 def logged(level, name=None, message=None):
-'''
-Add logging to a function. level is the logging
-level, name is the logger name, and message is the
-log message. If name and message aren't specified,
-they default to the function's module and name.
-'''
-def decorate(func):
-logname = name if name else func.__module__
-log = logging.getLogger(logname)
-logmsg = message if message else func.__name__
-@wraps(func)
-def wrapper(*args, **kwargs):
-log.log(level, logmsg)
-return func(*args, **kwargs)
-# Attach setter functions
-@attach_wrapper(wrapper)
-def set_level(newlevel):
-nonlocal level
-level = newlevel
-@attach_wrapper(wrapper)
-def set_message(newmsg):
-nonlocal logmsg
-logmsg = newmsg
-return wrapper
-return decorate
-# Example use
-@logged(logging.DEBUG)
+    def decorate(func):
+        logname = name if name else func.__module__
+        log = logging.getLogger(logname)
+        logmsg = message if message else func.__name__
+        @wraps(func)
+        def wrapper(*args, **kwargs):
+            log.log(level, logmsg)
+            return func(*args, **kwargs)
+        @attach_wrapper(wrapper)
+        def set_level(new_level):
+            nonlocal level
+            level = new_level
+        @attach_wrapper(wrapper)
+        def set_message(newmsg):
+            nonlocal logmsg
+            logmsg = newmsg
+        return wrapper
+    return decorate
+
+@logged(level=logging.DEBUG)
 def add(x, y):
-return x + y
-@logged(logging.CRITICAL, 'example')
-def spam():
-print('Spam!')
-下面是交互环境下的使用例子：
->>> import logging
->>> logging.basicConfig(level=logging.DEBUG)
->>> add(2, 3)
-DEBUG:__main__:add
-5
->>> # Change the log message
->>> add.set_message('Add called')
->>> add(2, 3)
-DEBUG:__main__:Add called
-5
->>> # Change the log level
->>> add.set_level(logging.WARNING)
->>> add(2, 3)
-WARNING:__main__:Add called
-5
->>>
-讨论
-这一小节的关键点在于访问函数 (如 set_message() 和 set_level() )，它们被作
-为属性赋给包装器。每个访问函数允许使用 nonlocal 来修改函数内部的变量。
-还有一个令人吃惊的地方是访问函数会在多层装饰器间传播 (如果你的装饰器都使
-用了 @functools.wraps 注解)。例如，假设你引入另外一个装饰器，比如 9.2 小节中的
-@timethis ，像下面这样：
-@timethis
-@logged(logging.DEBUG)
-def countdown(n):
-while n > 0: n -= 1
-你会发现访问函数依旧有效：
->>> countdown(10000000)
-DEBUG:__main__:countdown
-countdown 0.8198461532592773
->>> countdown.set_level(logging.WARNING)
->>> countdown.set_message("Counting down to zero")
->>> countdown(10000000)
-WARNING:__main__:Counting down to zero
-countdown 0.8225970268249512
->>>
-你还会发现即使装饰器像下面这样以相反的方向排放，效果也是一样的：
-@logged(logging.DEBUG)
-@timethis
-def countdown(n):
-while n > 0: n -= 1
-还能通过使用 lambda 表达式代码来让访问函数的返回不同的设定值：
-@attach_wrapper(wrapper)
-def get_level():
-return level
-# Alternative
-wrapper.get_level = lambda: level
-一个比较难理解的地方就是对于访问函数的首次使用。例如，你可能会考虑另外一
-个方法直接访问函数的属性，如下：
-@wraps(func)
-def wrapper(*args, **kwargs):
-wrapper.log.log(wrapper.level, wrapper.logmsg)
-return func(*args, **kwargs)
-# Attach adjustable attributes
-wrapper.level = level
-wrapper.logmsg = logmsg
-wrapper.log = log
-这个方法也可能正常工作，但前提是它必须是最外层的装饰器才行。如果它的上面
-还有另外的装饰器 (比如上面提到的 @timethis 例子)，那么它会隐藏底层属性，使得
-修改它们没有任何作用。而通过使用访问函数就能避免这样的局限性。
-最后提一点，这一小节的方案也可以作为 9.9 小节中装饰器类的另一种实现方法。
-9.6 带可选参数的装饰器
+    return x + y
+
+@logged(level=logging.INFO, name='example')
+def example():
+    print('example')
+
+if __name__ == '__main__':
+    add(3, 5)
+    example()
+```
+讨论：这一小节的关键点在于访问函数 (如 set_message() 和 set_level() )，它们被作为属性赋给包装器。每个访问函数允许使用 nonlocal 来修改函数内部的变量。
+### 9.6 带可选参数的装饰器
 问题
 你想写一个装饰器，既可以不传参数给它，比如 @decorator ，也可以传递可选参
 数给它，比如 @decorator(x,y,z) 。
