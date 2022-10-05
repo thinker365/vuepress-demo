@@ -42,18 +42,26 @@ def get_bet_time_data(bet_id, game_id, uuid):
 
 
 # 求相同时间点
-def get_common_data(sts, bet_at_home, nordicbet):
-    return list(set(sts).intersection(bet_at_home, nordicbet))
+def get_common_data(sts, company):
+    sts = [ele[:11] for ele in sts]
+    company = [ele[:11] for ele in company]
+    return list(set(sts).intersection(company))
 
 
 if __name__ == '__main__':
-    tmp_id = '2220163'
+    tmp_id = '2277860'
     tmp = get_bet_id(tmp_id)
     tmp_list = []
     for item in tmp:
         tmp_list.append(get_bet_time_data(item[1], tmp_id, item[0]))
-    common_time = sorted(get_common_data(tmp_list[0], tmp_list[1], tmp_list[2]))
-    if common_time:
-        print(f'相同时间：{common_time}')
+    common_time2 = sorted(get_common_data(tmp_list[0], tmp_list[1]), reverse=True)
+    common_time3 = sorted(get_common_data(tmp_list[0], tmp_list[2]), reverse=True)
+    if common_time2:
+        print(f'betAtHome相同时间：{common_time2}')
     else:
         print(f'该赛事赔率无相同时间')
+    if common_time3:
+        print(f'NordicBet相同时间：{common_time3}')
+    else:
+        print(f'该赛事赔率无相同时间')
+    print(f'***三家公司相同时间:{sorted(list(set(common_time2) & set(common_time3)), reverse=True)}')

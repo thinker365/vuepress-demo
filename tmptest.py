@@ -523,7 +523,6 @@
 #         return p
 from requests import head
 
-
 #
 #
 # def sequential_search(array, value):
@@ -612,40 +611,60 @@ from requests import head
 #     traverse_linked_list(node)
 
 
-class ListNode:
-    def __init__(self, data=0, next=None):
-        self.data = data
-        self.next = next
+# class ListNode:
+#     def __init__(self, data=0, next=None):
+#         self.data = data
+#         self.next = next
 
 
-def create_node_by_tail(array):
-    head = ListNode(array[0])
-    tail = head
-    for item in array[1:]:
-        node = ListNode(item)
-        tail.next = node
-        tail = node
-    return head
+# def create_node_by_tail(array):
+#     head = ListNode(array[0])
+#     tail = head
+#     for item in array[1:]:
+#         node = ListNode(item)
+#         tail.next = node
+#         tail = node
+#     return head
+#
+#
+# # 通过定义假头和新链表
+# def reverse_linked_list(head):
+#     dummy = ListNode()
+#     while head:
+#         tmp = head.next  # 暂存
+#         head.next = dummy.next
+#         dummy.next = head
+#         head = tmp  # 移动
+#     return dummy.next
+#
+#
+# def traverse_linked_list(node):
+#     while node:
+#         print(node.data, end='\t')
+#         node = node.next
+#
+#
+# if __name__ == '__main__':
+#     head = create_node_by_tail([item for item in range(10)])
+#     node = reverse_linked_list(head)
+#     traverse_linked_list(node)
 
+#
+# a = [item for item in range(100)]
+# import sys
+# for item in a:
+#     c = item
+#     print(sys.getrefcount(c))
 
-# 通过定义假头和新链表
-def reverse_linked_list(head):
-    dummy = ListNode()
-    while head:
-        tmp = head.next  # 暂存
-        head.next = dummy.next
-        dummy.next = head
-        head = tmp  # 移动
-    return dummy.next
+# def multipliers():
+#     return [lambda x: i * x for i in range(4)]
+#
+#
+# print(multipliers())
+import time
+start = time.time()
+array = [item for item in range(20000)]
+print(list([ele for ele in range(len(array))][index:index+3] for index in range(0, len(array), 3)))
+end = time.time()
+print(end-start)
 
-
-def traverse_linked_list(node):
-    while node:
-        print(node.data, end='\t')
-        node = node.next
-
-
-if __name__ == '__main__':
-    head = create_node_by_tail([item for item in range(10)])
-    node = reverse_linked_list(head)
-    traverse_linked_list(node)
