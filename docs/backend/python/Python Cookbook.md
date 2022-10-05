@@ -8056,12 +8056,7 @@ Raymond Hettinger 对于这个问题设计出了更加难以理解的改进方�
 总体上讲，在配置的时候给闭包添加方法会有更多的实用功能，比如你需要重置内
 部状态、刷新缓冲区、清除缓存或其他的反馈机制的时候。
 ## 第八章：类与对象
-本章主要关注点的是和类定义有关的常见编程模型。包括让对象支持常见的 Python
-特性、特殊方法的使用、类封装技术、继承、内存管理以及有用的设计模式。
-8.1 改变对象的字符串显示
-问题
-你想改变对象实例的打印或显示输出，让它们更具可读性。
-解决方案
+### 8.1 改变对象的字符串显示
 要改变一个实例的字符串表示，可重新定义它的 __str__() 和 __repr__() 方法。
 例如：
 class Pair:
@@ -10865,69 +10860,64 @@ if __name__ == '__main__':
 ```
 讨论：这一小节的关键点在于访问函数 (如 set_message() 和 set_level() )，它们被作为属性赋给包装器。每个访问函数允许使用 nonlocal 来修改函数内部的变量。
 ### 9.6 带可选参数的装饰器
-问题
-你想写一个装饰器，既可以不传参数给它，比如 @decorator ，也可以传递可选参
-数给它，比如 @decorator(x,y,z) 。
-解决方案
-下面是 9.5 小节中日志装饰器的一个修改版本：
-from functools import wraps, partial
+- 问题：你想写一个装饰器，既可以不传参数给它，比如 @decorator ，也可以传递可选参数给它，比如 @decorator(x,y,z) 。
+```python
 import logging
+from functools import wraps, partial
+
 def logged(func=None, *, level=logging.DEBUG, name=None, message=None):
-if func is None:
-return partial(logged, level=level, name=name, message=message)
-logname = name if name else func.__module__
-log = logging.getLogger(logname)
-logmsg = message if message else func.__name__
-@wraps(func)
-def wrapper(*args, **kwargs):
-log.log(level, logmsg)
-return func(*args, **kwargs)
-return wrapper
-# Example use
-@logged
-def add(x, y):
-return x + y
-@logged(level=logging.CRITICAL, name='example')
-def spam():
-print('Spam!')
-可以看到，@logged 装饰器可以同时不带参数或带参数。
-讨论
-这里提到的这个问题就是通常所说的编程一致性问题。当我们使用装饰器的时候，
-大部分程序员习惯了要么不给它们传递任何参数，要么给它们传递确切参数。其实从技
-术上来讲，我们可以定义一个所有参数都是可选的装饰器，就像下面这样：
+    if func is None:
+        return partial(logged, level=level, name=name, message=message)
+    logname = name if name else func.__module__
+    log = logging.getLogger(logname)
+    logmsg = message if message else func.__name__
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+        log.log(level, logmsg)
+        return func(*args, **kwargs)
+    return wrapper
+	
 @logged()
 def add(x, y):
-return x+y
-但是，这种写法并不符合我们的习惯，有时候程序员忘记加上后面的括号会导致错
-误。这里我们向你展示了如何以一致的编程风格来同时满足没有括号和有括号两种情
-况。
-为了理解代码是如何工作的，你需要非常熟悉装饰器是如何作用到函数上以及它
-们的调用规则。对于一个像下面这样的简单装饰器：
-# Example use
+    return x + y
+
+@logged(level=logging.INFO, name='example')
+def example():
+    print('example')
+
+if __name__ == '__main__':
+    add(3, 5)
+    example()
+```
+讨论：这里提到的这个问题就是通常所说的编程一致性问题。当我们使用装饰器的时候，大部分程序员习惯了要么不给它们传递任何参数，要么给它们传递确切参数。其实从技术上来讲，我们可以定义一个所有参数都是可选的装饰器，就像下面这样：
+```python
+@logged()
+def add(x, y):
+	return x+y
+```
+- 但是，这种写法并不符合我们的习惯，有时候程序员忘记加上后面的括号会导致错误。这里我们向你展示了如何以一致的编程风格来同时满足没有括号和有括号两种情况。
+- 为了理解代码是如何工作的，你需要非常熟悉装饰器是如何作用到函数上以及它们的调用规则。对于一个像下面这样的简单装饰器：
+```python
 @logged
 def add(x, y):
-return x + y
+	return x + y
 这个调用序列跟下面等价：
 def add(x, y):
-return x + y
+	return x + y
 add = logged(add)
-这时候，被装饰函数会被当做第一个参数直接传递给 logged 装饰器。因此，
-logged() 中的第一个参数就是被包装函数本身。所有其他参数都必须有默认值。
-而对于一个下面这样有参数的装饰器：
+```
+这时候，被装饰函数会被当做第一个参数直接传递给 logged 装饰器。因此，logged() 中的第一个参数就是被包装函数本身。所有其他参数都必须有默认值。而对于一个下面这样有参数的装饰器：
+```python
 @logged(level=logging.CRITICAL, name='example')
 def spam():
-print('Spam!')
+	print('Spam!')
 调用序列跟下面等价：
 def spam():
-print('Spam!')
+	print('Spam!')
 spam = logged(level=logging.CRITICAL, name='example')(spam)
-初始调用 logged() 函数时，被包装函数并没有传递进来。因此在装饰器内，它必
-须是可选的。这个反过来会迫使其他参数必须使用关键字来指定。并且，但这些参数被
-传递进来后，装饰器要返回一个接受一个函数参数并包装它的函数 (参考 9.5 小节)。为
-了这样做，我们使用了一个技巧，就是利用 functools.partial 。它会返回一个未完
-全初始化的自身，除了被包装函数外其他参数都已经确定下来了。可以参考 7.8 小节获
-取更多 partial() 方法的知识。
-9.7 利用装饰器强制函数上的类型检查
+```
+初始调用 logged() 函数时，被包装函数并没有传递进来。因此在装饰器内，它必须是可选的。这个反过来会迫使其他参数必须使用关键字来指定。并且，但这些参数被传递进来后，装饰器要返回一个接受一个函数参数并包装它的函数 (参考 9.5 小节)。为了这样做，我们使用了一个技巧，就是利用 functools.partial 。它会返回一个未完全初始化的自身，除了被包装函数外其他参数都已经确定下来了。
+### 9.7 利用装饰器强制函数上的类型检查
 问题
 作为某种编程规约，你想在对函数参数进行强制类型检查。
 解决方案

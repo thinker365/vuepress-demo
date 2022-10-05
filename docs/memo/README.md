@@ -37,6 +37,7 @@
 	- [https://github.com/taizilongxu/interview_python](https://github.com/taizilongxu/interview_python)
 1. python3 cookbook
 	- [https://github.com/yidao620c/python3-cookbook](https://github.com/yidao620c/python3-cookbook)
+	- [https://python3-cookbook.readthedocs.io/zh_CN/latest/](https://python3-cookbook.readthedocs.io/zh_CN/latest/)
 1. pxplore-python
 	- [https://funhacks.gitbooks.io/explore-python/content/](https://funhacks.gitbooks.io/explore-python/content/)
 1. python进阶
