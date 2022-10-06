@@ -16,16 +16,17 @@ def get_bet_id(game_id):
     sts = re.findall(r'"60(.*?)STS', res)
     bet_at_home = re.findall(r'"173(.*?)Bet-at-home', res)
     nordicbet = re.findall(r'"4(.*?)Nordicbet', res)
-    # dafa = re.findall(r'"798(.*?)Dafabet', res)
-    if not all([sts, bet_at_home, nordicbet]):
-        print(f'该赛事无开赔公司')
+    smarkets = re.findall(r'"841(.*?)Smarkets', res)
+
+    if not all([sts, bet_at_home, nordicbet, smarkets]):
+        print(f'该赛事无开赔公司不完整')
         return []
     else:
         sts_id = sts[0].split(',')[-1].split('|')[1]
         bet_at_home_id = bet_at_home[0].split(',')[-1].split('|')[1]
         nordicbet_id = nordicbet[0].split(',')[-1].split('|')[1]
-        # dafa_id = dafa[0].split(',')[-1].split('|')[1]
-        return [(60, sts_id), (173, bet_at_home_id), (4, nordicbet_id)]
+        smarkets_id = smarkets[0].split(',')[-1].split('|')[1]
+        return [(60, sts_id), (173, bet_at_home_id), (4, nordicbet_id), (841, smarkets_id)]
 
 
 # 获取公司时间数据
@@ -49,19 +50,27 @@ def get_common_data(sts, company):
 
 
 if __name__ == '__main__':
-    tmp_id = '2277860'
+    tmp_id = '2242660'
     tmp = get_bet_id(tmp_id)
     tmp_list = []
     for item in tmp:
         tmp_list.append(get_bet_time_data(item[1], tmp_id, item[0]))
-    common_time2 = sorted(get_common_data(tmp_list[0], tmp_list[1]), reverse=True)
-    common_time3 = sorted(get_common_data(tmp_list[0], tmp_list[2]), reverse=True)
-    if common_time2:
-        print(f'betAtHome相同时间：{common_time2}')
-    else:
-        print(f'该赛事赔率无相同时间')
-    if common_time3:
-        print(f'NordicBet相同时间：{common_time3}')
-    else:
-        print(f'该赛事赔率无相同时间')
-    print(f'***三家公司相同时间:{sorted(list(set(common_time2) & set(common_time3)), reverse=True)}')
+    try:
+        common_time2 = sorted(get_common_data(tmp_list[0], tmp_list[1]), reverse=True)
+        common_time3 = sorted(get_common_data(tmp_list[0], tmp_list[2]), reverse=True)
+        common_time1 = sorted(get_common_data(tmp_list[0], tmp_list[3]), reverse=True)
+        if common_time2:
+            print(f'betAtHome相同时间：{common_time2}')
+        else:
+            print(f'该赛事betAtHome赔率无相同时间')
+        if common_time3:
+            print(f'NordicBet相同时间：{common_time3}')
+        else:
+            print(f'该赛事NordicBet赔率无相同时间')
+        if common_time1:
+            print(f' Smarkets相同时间：{common_time1}')
+        else:
+            print(f'该赛事Smarkets赔率无相同时间')
+        print(f'***三家公司相同时间:{sorted(list(set(common_time2) & set(common_time3)), reverse=True)}')
+    except:
+        pass

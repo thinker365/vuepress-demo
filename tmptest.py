@@ -661,10 +661,10 @@ from requests import head
 #
 #
 # print(multipliers())
-import time
-start = time.time()
-array = [item for item in range(20000)]
-print(list([ele for ele in range(len(array))][index:index+3] for index in range(0, len(array), 3)))
-end = time.time()
-print(end-start)
+# import time
+# start = time.time()
+# array = [item for item in range(20000)]
+# print(list([ele for ele in range(len(array))][index:index+3] for index in range(0, len(array), 3)))
+# end = time.time()
+# print(end-start)
 
