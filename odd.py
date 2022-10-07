@@ -50,7 +50,7 @@ def get_common_data(sts, company):
 
 
 if __name__ == '__main__':
-    tmp_id = '2242660'
+    tmp_id = '2278061'
     tmp = get_bet_id(tmp_id)
     tmp_list = []
     for item in tmp:
