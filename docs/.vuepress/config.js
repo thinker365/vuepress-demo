@@ -41,6 +41,7 @@ module.exports = {
                         ['Playwright', 'Playwright'],
                         ['Appium', 'Appium'],
                         ['Mock', 'Mock'],
+						['Pact', 'Pact契约测试'],
 						['框架命令行参数定制化', '框架命令行参数定制化'],
 						
                     ]
@@ -63,9 +64,9 @@ module.exports = {
             ],
 			'/qa/special/': [
 			    {
-			        title: '专项测试',
+			        title: '大数据测试',
 			        children: [
-						['大数据测试', '大数据测试'],
+						['大数据测试', '大数据测试基础'],
 			        ]
 			    },
 			],
@@ -421,8 +422,8 @@ module.exports = {
             {
                 text: '软件测试体系',
                 items: [
-                    {text: '测试基础知识', link: '/qa/basics/'},
-                    {text: '自动化测试', link: '/qa/automatic/'},
+                    {text: '测试基础', link: '/qa/basics/'},
+                    {text: '自动测试', link: '/qa/automatic/'},
                     {text: '性能测试', link: '/qa/performance/'},
                     {text: '专项测试', link: '/qa/special/'},
                     {text: '安全测试', link: '/qa/security/'},
