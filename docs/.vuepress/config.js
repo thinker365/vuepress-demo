@@ -13,7 +13,7 @@ module.exports = {
         sidebar: {
             '/qa/basics/': [
                 {
-                    title: '基础知识',
+                    title: '目录',
                     children: [
                         ['', '测试体系概览'], //左边文档，右边菜单名称
                         ['测试的生命周期', '测试的生命周期'],
@@ -25,7 +25,7 @@ module.exports = {
             ],
             '/qa/view/': [
                 {
-                    title: '测试思考',
+                    title: '目录',
                     children: [
                         ['', '不同视角看测试'],
                         ['敏捷测试', '敏捷测试'],
@@ -34,7 +34,7 @@ module.exports = {
             ],
             '/qa/automatic/': [
                 {
-                    title: '自动化测试',
+                    title: '目录',
                     children: [
                         ['', '基本概念'],
                         ['Selenium', 'Selenium'],
@@ -50,7 +50,7 @@ module.exports = {
             ],
             '/qa/performance/': [
                 {
-                    title: '性能测试',
+                    title: '目录',
                     children: [
                         ['', '构建性能测试体系'],
                         ['TPS、并发数、线程数', '关于TPS、并发数、线程数'],
@@ -65,7 +65,7 @@ module.exports = {
             ],
 			'/qa/special/': [
 			    {
-			        title: '大数据测试',
+			        title: '目录',
 			        children: [
 						['大数据测试', '大数据测试基础'],
 			        ]
@@ -123,7 +123,7 @@ module.exports = {
             ],
             '/qa/tool/': [
                 {
-                    title: '测试工具',
+                    title: '目录',
                     children: [
                         ['', 'Charles'],
                         ['BurpSuite', 'BurpSuite'],
@@ -137,7 +137,7 @@ module.exports = {
             ],
             '/qa/framework/': [
                 {
-                    title: '单测框架',
+                    title: '目录',
                     children: [
                         ['', 'Unittest'],
                         ['Pytest', 'Pytest'],
@@ -147,7 +147,7 @@ module.exports = {
 
             '/basic/network/': [
                 {
-                    title: '计算机网络',
+                    title: '目录',
                     children: [
                         ['', '计算机网络核心概念'],
                         ['HTTP、HTTPS协议', 'HTTP、HTTPS协议'],
@@ -160,7 +160,7 @@ module.exports = {
             ],
             '/basic/os/': [
                 {
-                    title: '操作系统',
+                    title: '目录',
                     children: [
                         ['进程间的通信', '进程间的通信方式']
                     ]
@@ -168,7 +168,7 @@ module.exports = {
             ],
             '/basic/linux/': [
                 {
-                    title: 'Linux',
+                    title: '目录',
                     children: [
                         ['', 'Linux快捷高效用法'],
                         ['Linux常用命令', 'Linux常用命令'],
@@ -182,7 +182,7 @@ module.exports = {
             ],
             '/basic/algorithms/': [
                 {
-                    title: '数据结构与算法',
+                    title: '目录',
                     children: [
                         ['', '二叉树'],
                     ]
@@ -191,7 +191,7 @@ module.exports = {
 
             '/frontend/vue/': [
                 {
-                    title: 'VUE',
+                    title: '目录',
                     children: [
                         ['', 'Vue基础知识点'],
                         ['Vue组件通信', 'Vue组件通信'],
@@ -202,7 +202,7 @@ module.exports = {
             ],
             '/frontend/css/': [
                 {
-                    title: 'CSS',
+                    title: '目录',
                     children: [
                         ['', 'CSS布局技巧'],
                         ['flex布局之美', 'FLEX布局之美'],
@@ -212,7 +212,7 @@ module.exports = {
 
             '/backend/python/': [
                 {
-                    title: 'Python需要了解的知识点',
+                    title: '目录',
                     collapsable: false,
                     children: [
                         ['', '90条Python编程建议'],
@@ -237,7 +237,7 @@ module.exports = {
             ],
             '/backend/java/': [
                 {
-                    title: 'Java',
+                    title: '目录',
                     children: [
                         ['', 'Java核心知识点'],
                     ]
@@ -245,7 +245,7 @@ module.exports = {
             ],
             '/backend/django/': [
                 {
-                    title: 'Django',
+                    title: '目录',
                     children: [
                         ['', 'Django基础知识'],
                     ]
@@ -253,7 +253,7 @@ module.exports = {
             ],
             '/backend/drf/': [
                 {
-                    title: 'Django REST framework',
+                    title: '目录',
                     children: [
                         ['', 'DRF必会知识点'],
                         ['Drf使用梳理', 'DRF使用梳理'],
@@ -262,7 +262,7 @@ module.exports = {
             ],
             '/backend/celery/': [
                 {
-                    title: 'Celery',
+                    title: '目录',
                     children: [
                         ['', 'Celery基础操作'],
                     ]
@@ -270,7 +270,7 @@ module.exports = {
             ],
             '/backend/mysql/': [
                 {
-                    title: 'MYSQL',
+                    title: '目录',
                     children: [
                         ['', 'Mysql'],
                         ['Mysql基本操作', 'Mysql基本操作'],
@@ -281,7 +281,7 @@ module.exports = {
             ],
             '/backend/redis/': [
                 {
-                    title: 'Redis',
+                    title: '目录',
                     children: [
                         ['', 'Redis基础知识'],
                         ['Redis架构演化之路', 'Redis架构演化之路'],
@@ -290,7 +290,7 @@ module.exports = {
             ],
             '/backend/elasticsearch/': [
                 {
-                    title: 'Elasticsearch',
+                    title: '目录',
                     children: [
                         ['', 'Elasticsearch基础知识'],
                         ['ES基本操作', 'ES基本操作'],
@@ -299,7 +299,7 @@ module.exports = {
             ],
             '/backend/mongodb/': [
                 {
-                    title: 'MongoDB',
+                    title: '目录',
                     children: [
 						['','todo'],
 						['MongoDB基本操作','MongoDB基本操作'],
@@ -308,7 +308,7 @@ module.exports = {
             ],
             '/backend/uwsgi/': [
                 {
-                    title: 'uwsgi',
+                    title: '目录',
                     children: [
                         ['', '说明'],
                     ]
@@ -316,7 +316,7 @@ module.exports = {
             ],
             '/backend/gunicorn/': [
                 {
-                    title: 'gunicorn',
+                    title: '目录',
                     children: [
                         ['', '说明'],
                     ]
@@ -325,7 +325,7 @@ module.exports = {
 
             '/devops/docker/': [
                 {
-                    title: 'Docker',
+                    title: '目录',
                     children: [
                         ['', 'Docker基础知识点'],
                         ['k8s基础', 'k8s基础'],
@@ -334,7 +334,7 @@ module.exports = {
             ],
             '/devops/git/': [
                 {
-                    title: 'Git版本控制',
+                    title: '目录',
                     children: [
                         ['', 'Git基础知识点'],
                     ]
@@ -342,7 +342,7 @@ module.exports = {
             ],
 			'/devops/jenkins/': [
 			    {
-			        title: 'Jenkins',
+			        title: '目录',
 			        children: [
 			            ['Jenkins专题', 'Jenkins专题'],
 			        ]
@@ -350,7 +350,7 @@ module.exports = {
 			],
             '/devops/notes/': [
                 {
-                    title: 'DevOps笔记',
+                    title: '目录',
                     children: [
                         ['', '代码预检查'],
                     ]
@@ -358,7 +358,7 @@ module.exports = {
             ],
             '/devops/efficiency/': [
                 {
-                    title: '软件研发效能',
+                    title: '目录',
                     children: [
                         ['', '研发效能负面清单'],
                     ]
@@ -368,7 +368,7 @@ module.exports = {
 
             '/softskills/mind/': [
                 {
-                    title: '思考模型',
+                    title: '目录',
                     children: [
                         ['', '阿里工程师的自我修养'],
                         ['可借鉴的方法论', '可借鉴的方法论'],
@@ -377,7 +377,7 @@ module.exports = {
             ],
             '/softskills/communication/': [
                 {
-                    title: '沟通能力',
+                    title: '目录',
                     children: [
                         ['', '沟通训练'],
                     ]
@@ -386,7 +386,7 @@ module.exports = {
 
             '/opensource/': [
                 {
-                    title: '开源前哨',
+                    title: '目录',
                     children: [
                         ['', '项目列表'],
                     ]
@@ -395,7 +395,7 @@ module.exports = {
 
             '/memo/': [
                 {
-                    title: '备忘录',
+                    title: '目录',
                     children: [
                         ['', '令人惊艳的链接'],
                         ['help', 'MarkDown文档使用示例'],
@@ -406,7 +406,7 @@ module.exports = {
             ],
             '/interview/': [
                 {
-                    title: '面试指南',
+                    title: '目录',
                     children: [
                         ['', '自我介绍'],
                         ['技术面试', '技术面试'],
