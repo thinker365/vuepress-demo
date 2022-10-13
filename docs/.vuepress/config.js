@@ -281,7 +281,7 @@ module.exports = {
             ],
             '/backend/redis/': [
                 {
-                    title: 'REDIS',
+                    title: 'Redis',
                     children: [
                         ['', 'Redis基础知识'],
                         ['Redis架构演化之路', 'Redis架构演化之路'],
@@ -300,7 +300,10 @@ module.exports = {
             '/backend/mongodb/': [
                 {
                     title: 'MongoDB',
-                    children: ['MongoDB基本操作','MongoDB基本操作']
+                    children: [
+						['','todo'],
+						['MongoDB基本操作','MongoDB基本操作'],
+					]
                 },
             ],
             '/backend/uwsgi/': [
@@ -471,10 +474,12 @@ module.exports = {
                         ]
                     },
                     {
-                        text: '数据库', items: [{text: 'Mysql', link: '/backend/mysql/'},
+                        text: '数据库', items: [
+							{text: 'Mysql', link: '/backend/mysql/'},
                             {text: 'Redis', link: '/backend/redis/'},
                             {text: 'Mongodb', link: '/backend/mongodb/'},
-                            {text: 'Elasticsearch', link: '/backend/elasticsearch/'},]
+                            {text: 'Elasticsearch', link: '/backend/elasticsearch/'},
+							]
                     },
                     {
                         text: '部署', items: [
