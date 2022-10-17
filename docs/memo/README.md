@@ -110,7 +110,9 @@
 3. 不愿透露姓名的大佬（DRF、Django）
 	- [http://drf.jiuyou.info/#/](http://drf.jiuyou.info/#/)
 ## 综合
-1. 阿秀圈子
+1. 程序员技能图谱
+	- [https://github.com/TeamStuQ/skill-map](https://github.com/TeamStuQ/skill-map)
+2. 阿秀圈子
 	- [https://interviewguide.cn/](https://interviewguide.cn/)
 2. API HUB
 	- [https://www.apifox.cn/apihub/](https://www.apifox.cn/apihub/)
