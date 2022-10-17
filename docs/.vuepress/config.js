@@ -67,8 +67,8 @@ module.exports = {
 			    {
 			        title: '目录',
 			        children: [
-						['大数据测试', '大数据测试基础'],
-						['移动端专项测试','移动端专项测试']
+						['', '大数据测试基础'],
+						['移动端专项测试','移动端专项测试'],
 			        ]
 			    },
 			],
@@ -129,7 +129,7 @@ module.exports = {
                         ['', 'Charles'],
                         ['BurpSuite', 'BurpSuite'],
                         ['Wireshark', 'Wireshark'],
-						//['SQLMAP实战','SQLMAP实战']
+						['SQLMAP实战','SQLMAP实战'],
                         ['XSStrike实战', 'XSStrike实战'],
                         ['Fapro', 'Fapro网络协议服务端模拟器'],
                         ['Vim编辑器', 'Vim编辑器'],
@@ -159,14 +159,14 @@ module.exports = {
                     ]
                 },
             ],
-            '/basic/os/': [
-                {
-                    title: '目录',
-                    children: [
-                        ['进程间的通信', '进程间的通信方式']
-                    ]
-                },
-            ],
+			'/basic/os/': [
+			    {
+			        title: '目录',
+			        children: [
+			            ['', '进程间的通信方式'],
+			        ]
+			    },
+			],
             '/basic/linux/': [
                 {
                     title: '目录',
@@ -214,7 +214,7 @@ module.exports = {
             '/backend/python/': [
                 {
                     title: '目录',
-                    collapsable: false,
+                    //collapsable: false,
                     children: [
                         ['', '90条Python编程建议'],
                         ['Python优化技巧', 'Python优化技巧'],
@@ -365,8 +365,6 @@ module.exports = {
                     ]
                 },
             ],
-
-
             '/softskills/mind/': [
                 {
                     title: '目录',
@@ -458,8 +456,6 @@ module.exports = {
                 text: '后端训练场',
                 smoothScroll: true,
                 items: [
-
-
                     {
                         text: '编程语言', items: [
                             {text: 'Python', link: '/backend/python/'},
