@@ -105,6 +105,8 @@
 ## 后端
 2. DRF中文文档
 	- [https://q1mi.github.io/Django-REST-framework-documentation/](https://q1mi.github.io/Django-REST-framework-documentation/)
+1. Django中文
+	- [https://www.django.cn/](https://www.django.cn/)
 2. yuan老师网站
 	- [http://www.yuan316.com/](http://www.yuan316.com/)
 3. 不愿透露姓名的大佬（DRF、Django）
