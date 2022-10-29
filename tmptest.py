@@ -668,3 +668,27 @@ from requests import head
 # end = time.time()
 # print(end-start)
 
+
+from socketserver import BaseRequestHandler, TCPServer
+
+#
+# class EchoHandler(BaseRequestHandler):
+#     def handle(self) -> None:
+#         print(f'get connection from {self.client_address}')
+#         while True:
+#             msg = self.request.recv(8129)
+#             print(msg)
+#             if not msg:
+#                 break
+#             self.request.send(msg)
+#
+#
+# if __name__ == '__main__':
+#     serv = TCPServer(('', 2000), EchoHandler)
+#     serv.serve_forever()
+
+import ipaddress
+
+net = ipaddress.ip_network('123.45.67.64/27')
+for a in net:
+    print(a)

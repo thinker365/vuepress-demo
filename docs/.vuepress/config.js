@@ -59,6 +59,9 @@ module.exports = {
                         ['说透性能测试', '说透性能测试'],
                         ['性能指标监控', '性能指标监控'],
                         ['NetData', 'NetData性能监控'],
+						['Android性能监控','Android性能监控'],
+						['Ios性能监控','IOS性能监控'],
+						['IO性能调优','IO性能调优'],
                         ['Prometheus入门到实战', 'Prometheus入门到实战'],
                     ]
                 },

@@ -12,6 +12,9 @@
 	- [https://www.cnblogs.com/yoyoketang/](https://www.cnblogs.com/yoyoketang/)
 1. gitee测试平台合集
 	- [https://gitee.com/explore/testing?lang=Python](https://gitee.com/explore/testing?lang=Python)
+2. 飞天小子性能
+	- [https://f7zii1dkyo.feishu.cn/wiki/wikcnYSALBEepc7LEno0ffe3H8g](https://f7zii1dkyo.feishu.cn/wiki/wikcnYSALBEepc7LEno0ffe3H8g)
+3. 
 ## 编程
 1. 算法珠玑
 	- [https://algorithm-essentials.soulmachine.me/](https://algorithm-essentials.soulmachine.me/)
@@ -141,7 +144,7 @@
 	- [http://www.cxy521.com/](http://www.cxy521.com/)
 1. Vim教程网
 	- [https://vimjc.com/](https://vimjc.com/)
-1. 杰哥的IT之旅
+1. GitHub面试题项目
 	- [https://juejin.cn/post/6955680987653079054#heading-0](https://juejin.cn/post/6955680987653079054#heading-0)
 ## 效率工具
 1. 插件超级丰富的utools
