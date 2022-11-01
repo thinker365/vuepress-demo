@@ -58,7 +58,10 @@
 1. 程序示例
 	- [https://www.programcreek.com/python/](https://www.programcreek.com/python/)
 ## 前端
-1. 国内Vue爱好者
+1. github开源cool-admin
+	- [https://admin.cool-js.com/admin/introduce.html#%E6%A1%86%E6%9E%B6%E7%94%B1%E6%9D%A5](https://admin.cool-js.com/admin/introduce.html#%E6%A1%86%E6%9E%B6%E7%94%B1%E6%9D%A5)
+	- [https://github.com/cool-team-official/cool-admin-vue](https://github.com/cool-team-official/cool-admin-vue)
+2. 国内Vue爱好者
 	- [https://vue3js.cn/](https://vue3js.cn/)
 1. 被删的前端游乐场
 	- [http://www.godbasin.com/](http://www.godbasin.com/)
