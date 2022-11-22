@@ -29,7 +29,7 @@
 1. 编程可视化
 	- [https://pythontutor.com/](https://pythontutor.com/)
 1. 免费的编程中文书籍索引
-	- [https://github.com/986515470/free-programming-books-zh_CN](https://github.com/986515470/free-programming-books-zh_CN)
+	- [https://github.com/justjavac/free-programming-books-zh_CN](https://github.com/justjavac/free-programming-books-zh_CN)
 1. codeTop
 	- [https://codetop.cc/home](https://codetop.cc/home)
 1. 可视化algorithm
