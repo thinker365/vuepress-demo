@@ -20,6 +20,8 @@
 	- [https://algorithm-essentials.soulmachine.me/](https://algorithm-essentials.soulmachine.me/)
 1.  leetcode 题解
 	- [https://algorithm.yuanbin.me/zh-hans/](https://algorithm.yuanbin.me/zh-hans/)
+1. 负雪明烛
+	- [https://fuxuemingzhu.cn/](https://fuxuemingzhu.cn/)
 2. 设计模式
 	- [https://refactoringguru.cn/design-patterns](https://refactoringguru.cn/design-patterns)
 1. Java全栈知识点
