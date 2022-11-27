@@ -59,3 +59,4 @@ docker run -itd --restart always -p 3306:3306 -e MYSQL_DATABASE="mydb" -e MYSQL_
 3. [https://docs.spring.io/spring-boot/docs/current/reference/html/documentation.html#documentation](https://docs.spring.io/spring-boot/docs/current/reference/html/documentation.html#documentation)
 4. [https://mvnrepository.com/](https://mvnrepository.com/)
 5. [mybatis-plus](https://baomidou.com/)
+6. [https://github.com/baomidou/awesome-mybatis-plus](https://github.com/baomidou/awesome-mybatis-plus)

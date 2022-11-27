@@ -247,6 +247,7 @@ module.exports = {
                     children: [
                         ['', 'Java核心知识点'],
                         ['SpringBoot', 'SpringBoot核心知识点'],
+                        ['Jacoco代码覆盖实践', 'Jacoco代码覆盖实践'],
                     ]
                 },
             ],
