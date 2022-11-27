@@ -235,7 +235,9 @@ module.exports = {
                         ['优雅的代码片段', '优雅的代码片段'],
                         ['Python实现设计模式', 'Python实现设计模式'],
                         ['异常', '异常'],
-						['Python字典高效使用','Python字典高效使用']
+						['Python字典高效使用','Python字典高效使用'],
+						['Python数据分析','Python数据分析'],
+						['机器学习','Python机器学习'],
                     ]
                 },
             ],
@@ -244,6 +246,7 @@ module.exports = {
                     title: '目录',
                     children: [
                         ['', 'Java核心知识点'],
+                        ['SpringBoot', 'SpringBoot核心知识点'],
                     ]
                 },
             ],

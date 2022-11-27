@@ -59,6 +59,8 @@
 	- [https://www.dongwm.com/](https://www.dongwm.com/)
 1. 程序示例
 	- [https://www.programcreek.com/python/](https://www.programcreek.com/python/)
+1. 狂神
+	- [https://gitee.com/kuangstudy/kuang_livenote?_from=gitee_search](https://gitee.com/kuangstudy/kuang_livenote?_from=gitee_search)
 ## 前端
 1. github开源cool-admin
 	- [https://admin.cool-js.com/admin/introduce.html#%E6%A1%86%E6%9E%B6%E7%94%B1%E6%9D%A5](https://admin.cool-js.com/admin/introduce.html#%E6%A1%86%E6%9E%B6%E7%94%B1%E6%9D%A5)
@@ -158,3 +160,6 @@
 	- [https://gitee.com/jishupang/Favorites](https://gitee.com/jishupang/Favorites)
 1. github加速
 	- [https://gitee.com/interesting-goods/dev-sidecar?_from=gitee_search](https://gitee.com/interesting-goods/dev-sidecar?_from=gitee_search)
+
+## IDEA激活码
+[https://www.kdocs.cn/l/cmgDDWNP9JBX](https://www.kdocs.cn/l/cmgDDWNP9JBX)
